@@ -1,0 +1,49 @@
+body {
+    background-color: #919191;
+
+    height: 800vh;
+}
+
+#main-camvas {
+    display: block;
+    position: fixed;
+
+    /* 设置居中 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: silver;
+
+    border-radius: 5vh;
+
+    z-index: -1;
+}
+
+.outer-section {
+    width: 95%;
+    height: 50vh;
+
+    background-color: skyblue;
+    
+    margin-top: 300vh;
+    margin-left: auto;
+    margin-right: auto;
+    
+    border-radius: 1vh;
+}
+
+.outer-section p {
+    font-size: 5vh;
+
+    margin: 1vh auto auto auto;
+    text-align: center;
+}
+
+.outer-section img {
+    margin-left: 50%;
+
+    transform: translate(-50%);
+
+    margin-top: 5vh;
+}
