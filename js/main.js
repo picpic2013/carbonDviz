@@ -31,14 +31,14 @@ import titleScene from "./scenes/titleScene.js"
 import mapAndLineScene from "./scenes/mapAndLine.js"
 
 import testScene from "./scenes/testScene.js"
-
-allScrollScenes.push(new SceneBase({
+var baseScene = new SceneBase({
     __subObjects__: [
         titleScene, 
         mapAndLineScene, 
         testScene
     ]
-}))
+})
+allScrollScenes.push(baseScene)
 
 // 更新函数
 var updateFunction = function () {
@@ -46,47 +46,7 @@ var updateFunction = function () {
     var scrolled = (document.documentElement.scrollTop || document.body.scrollTop) /
                  (document.documentElement.scrollHeight - pageHeight)
 
-    // 如果需要更新该场景，即调用相应的更新函数
-    for (var scene of allScrollScenes) {
-        if (scene.__start__ === undefined || scene.__end__ === undefined) {
-            console.error("scene invalid")
-            continue
-        }
-        
-        if (scene.__isActive__ === undefined) {
-            scene.__isActive__ = false;
-        }
-
-        // 如果不在范围内
-        if (scrolled < scene.__start__ || scrolled > scene.__end__) {
-            if (scene.__isActive__ === true) {
-                if (scene.__onInactive__) {
-                    scene.__onInactive__.call(scene, scrolled, gloalVars)
-                }
-                scene.__isActive__ = false
-            }
-            
-            if (scene.__onUpdateInactive__) {
-                scene.__onUpdateInactive__.call(scene, scrolled, gloalVars)
-            }
-            continue
-        }
-        
-        // 计算当前场景的进度
-        var percentage = (scrolled - scene.__start__) / (scene.__end__ - scene.__start__)
-        
-        // 调用场景的更新函数
-        if (scene.__isActive__ === false) {
-            if (scene.__onActivate__) {
-                scene.__onActivate__.call(scene, percentage, scrolled, gloalVars)
-            }
-            scene.__isActive__ = true
-        }
-
-        if (scene.__onUpdate__) {
-            scene.__onUpdate__.call(scene, percentage, scrolled, gloalVars)
-        }
-    }
+    baseScene.__onUpdate__(scrolled, scrolled, gloalVars)
 }
 
 // 滚动时进行更新
