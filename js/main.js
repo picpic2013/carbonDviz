@@ -25,12 +25,20 @@ var svg = d3.select("#main-camvas")
 // 所有的更新场景
 var allScrollScenes = []
 
+import SceneBase from "./utils/SceneBase.js"
+
 import titleScene from "./scenes/titleScene.js"
-allScrollScenes.push(titleScene)
-
 import mapAndLineScene from "./scenes/mapAndLine.js"
-allScrollScenes.push(mapAndLineScene)
 
+import testScene from "./scenes/testScene.js"
+
+allScrollScenes.push(new SceneBase({
+    __subObjects__: [
+        titleScene, 
+        mapAndLineScene, 
+        testScene
+    ]
+}))
 
 // 更新函数
 var updateFunction = function () {
@@ -74,7 +82,6 @@ var updateFunction = function () {
             }
             scene.__isActive__ = true
         }
-        
 
         if (scene.__onUpdate__) {
             scene.__onUpdate__.call(scene, percentage, scrolled, gloalVars)

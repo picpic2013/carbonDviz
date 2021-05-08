@@ -1,4 +1,4 @@
-function getRgb(r, g, b) {
+export function getRgb(r, g, b) {
     return "rgb(" + r + "," + g + "," + b + ")"
 }
 

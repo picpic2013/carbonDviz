@@ -19,9 +19,9 @@ export default {
    */
    __onActivate__: function (rate, scrolled, gloalVars) {
       var svg = d3.select("#main-camvas")
-      .append("g")
-      .attr("class", "scene1")
-      .attr("id", "scene1-g")
+                  .append("g")
+                  .attr("class", "scene1")
+                  .attr("id", "scene1-g")
 
       // 标题
       svg.append("text")
