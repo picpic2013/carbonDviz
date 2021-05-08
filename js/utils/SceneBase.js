@@ -12,27 +12,26 @@ export default class SceneBase {
         // 将类中的子动画全部转换为 SceneBase 类
         var tmpSubObjs = this.__subObjects__
         this.__subObjects__ = {}
-        for (var [ key, obj ] of Object.entries(tmpSubObjs)) {
-            this.addSubObject(obj, key)
+        for (var key of Object.keys(tmpSubObjs)) {
+            this.addSubObject(tmpSubObjs[key], key)
         }
 
         conf = (conf === undefined) ? {} : conf
 
-        if (conf.__start__) {
-            this.__start__ = conf.__start__
-        } else {
+        
+        for (var key of Object.keys(conf)) {
+            if (key !== "__onUpdate__" && key !== "__onInactive__" && key !== "__subObjects__") {
+                this[key] = conf[key]
+            }
+        }
+
+        if (this.__start__ === undefined) {
             this.__start__ = 0
         }
 
-        if (conf.__end__) {
-            this.__end__ = conf.__end__
-        } else {
+        if (this.__end__ === undefined) {
             this.__end__ = 1
-        }
-
-        if (conf.__onActivate__) {
-            this.__onActivate__ = conf.__onActivate__
-        }
+        } 
 
         if (conf.__onUpdate__) {
             this.__onUpdateFunction__ = conf.__onUpdate__
@@ -42,14 +41,8 @@ export default class SceneBase {
             this.__onInactiveFunction__ = conf.__onInactive__
         }
 
-        if (conf.__onUpdateInactive__) {
-            this.__onUpdateInactive__ = conf.__onUpdateInactive__
-        }
-
-        if (conf.__isActive__ === undefined) {
+        if (this.__isActive__ === undefined) {
             this.__isActive__ = false;
-        } else {
-            this.__isActive__ = conf.__isActive__;
         }
 
         if (conf.__subObjects__) {
@@ -140,7 +133,6 @@ export default class SceneBase {
         delete this.__subObjects__[id]
     }
 
-    // TODO: 开始结束时可能需要调用对应的开始 / 销毁函数
     start() {
         this.__isActive__ = true
     }

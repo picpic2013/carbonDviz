@@ -27,7 +27,7 @@ import SceneBase from "./utils/SceneBase.js"
 import titleScene from "./scenes/titleScene.js"
 import mapAndLineScene from "./scenes/mapAndLine.js"
 import testScene from "./scenes/testScene.js"
-import { SceneExtendedTemplate } from "./scenes/SceneExtendedTemplate.js"
+import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 
 var baseScene = new SceneBase([
         titleScene, 

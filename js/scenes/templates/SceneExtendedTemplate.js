@@ -26,9 +26,9 @@ export class SceneExtendedTemplate extends SceneBase {
 
     /**
      * 滚动更新时的更新函数
-     * @param {*} rate      当前场景的百分比
-     * @param {*} scrolled  滚动百分比绝对值
-     * @param {*} gloalVars 全局变量存放处
+     * @param {rate}       当前场景的百分比
+     * @param {scrolled}   滚动百分比绝对值
+     * @param {gloalVars}  全局变量存放处
      */
     __onUpdate__ (rate, scrolled, gloalVars) {
         super.__onUpdate__(rate, scrolled, gloalVars)
