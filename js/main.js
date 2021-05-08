@@ -22,15 +22,12 @@ var svg = d3.select("#main-camvas")
             .attr("width", pageWidth * widthScale)
             .attr("height", pageHeight * heightScale);
 
-// 所有的更新场景
-var allScrollScenes = []
-
 import SceneBase from "./utils/SceneBase.js"
 
 import titleScene from "./scenes/titleScene.js"
 import mapAndLineScene from "./scenes/mapAndLine.js"
-
 import testScene from "./scenes/testScene.js"
+
 var baseScene = new SceneBase({
     __subObjects__: [
         titleScene, 
@@ -38,7 +35,6 @@ var baseScene = new SceneBase({
         testScene
     ]
 })
-allScrollScenes.push(baseScene)
 
 // 更新函数
 var updateFunction = function () {
