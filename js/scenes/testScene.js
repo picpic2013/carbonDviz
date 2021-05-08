@@ -29,6 +29,8 @@ export default {
                          .attr("cy", gloalVars.svgHeight * 0.5)
                          .attr("r", 40)
                          .attr("fill", getRgb(0, 0, 0))
+                         .attr("stroke", getRgb(255, 255, 255))
+                         .attr("stroke-width", 5)
     }, 
 
     /**
@@ -53,19 +55,10 @@ export default {
     }, 
 
     /**
-     * 未激活时的滚动更新参数
-     * @param {scrolled}  滚动百分比绝对值
-     * @param {gloalVars} 全局变量存放处
-     */
-    __onUpdateInactive__: function (scrolled, gloalVars) {
-        
-    },
-
-    /**
      * 子场景配置文件
      * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
      */
-    __subObjects__: [
+    __subObjects__: [[[
         {
             __start__: 0, 
             __end__: 0.48, 
@@ -78,15 +71,22 @@ export default {
             __onUpdate__: function (rate, scrolled, gloalVars) {
                 this.__father__.circle.attr("cx", gloalVars.svgWidth * 0.5 * (2 - rate))
                                       .attr("cy", gloalVars.svgHeight * 0.5 * (1 - rate))
-            }
-        }, {
+            }, 
+            __subObjects__: [[
+                {
+                    __onUpdate__: function (rate, scrolled, gloalVars) {
+                        // console.log(this.__father__)
+                    }
+                }
+            ]]
+        }], {
             __start__: 0.2, 
             __end__: 0.7, 
             __onUpdate__: function (rate, scrolled, gloalVars) {
                 this.__father__.circle.attr("fill", getRgb(rate * 255, rate * 255, rate * 255))
             }
         }
-    ]
+    ]]
 
     /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }
