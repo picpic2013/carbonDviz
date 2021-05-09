@@ -29,26 +29,11 @@ import mapAndLineScene from "./scenes/mapAndLine.js"
 import testScene from "./scenes/testScene.js"
 import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 
-var baseScene = new SceneBase([
-        titleScene, 
-        mapAndLineScene, 
-        testScene, 
-        new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
+SceneBase.setGloalVars(gloalVars)
+
+SceneBase.init([
+    titleScene, 
+    mapAndLineScene, 
+    testScene, 
+    new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
 ])
-
-// 更新函数
-var updateFunction = function () {
-    // 滚动的百分比
-    var scrolled = (document.documentElement.scrollTop || document.body.scrollTop) /
-                 (document.documentElement.scrollHeight - pageHeight)
-
-    baseScene.__onUpdate__(scrolled, scrolled, gloalVars)
-}
-
-// 滚动时进行更新
-window.addEventListener("scroll", updateFunction)
-
-// 加载完先自动更新一波
-window.onload = function () {
-    updateFunction.call(this)
-}

@@ -1,11 +1,12 @@
 class SceneBase {
     constructor (conf, father) {
         this.__subObjects__ = {}
-        this.__father__ = (father === undefined) ? null : father
+        this.__father__ = (father === undefined) ? window : father
         this.__isActive__ = false
         this.__start__ = 0
         this.__end__ = 1
 
+        // 如果传入的参数是数组，就递归生成子元素
         if (Array.isArray(conf)) {
             for (var subObj of conf) {
                 this.addSubObject(subObj, undefined, father)
@@ -26,14 +27,17 @@ class SceneBase {
             }
         }
 
+        // 默认初始化 conf
         conf = (conf === undefined) ? {} : conf  
         
+        // 把 conf 里所有的属性都转移到对象中
         for (var key of Object.keys(conf)) {
             if (key !== "__onUpdate__" && key !== "__onInactive__" && key !== "__subObjects__") {
                 this[key] = conf[key]
             }
         }
 
+        // 单独处理三个变量
         if (conf.__onUpdate__) {
             this.__onUpdateFunction__ = conf.__onUpdate__
         }
@@ -157,6 +161,100 @@ class SceneBase {
 
 SceneBase.newInstance = function () {
     return new SceneBase(...arguments)
+}
+
+SceneBase.__animationUpdate__ = function (time) {
+    SceneBase.__animations__.__onUpdate__ (time, time, SceneBase.__setGloalVars__)
+
+    requestAnimationFrame(SceneBase.__animationUpdate__)
+}
+
+SceneBase.activateAnimation = function () {
+    if (SceneBase.__requestAnimationFrame__ === undefined) {
+        SceneBase.__requestAnimationFrame__ = requestAnimationFrame(SceneBase.__animationUpdate__)
+    }
+
+    if (SceneBase.__animations__ === undefined) {
+        SceneBase.__animations__ = SceneBase.newInstance({
+            __start__: 0, 
+            __end__: Infinity
+        })
+    }
+}
+
+SceneBase.stopAnimation = function () {
+    if (SceneBase.__requestAnimationFrame__) {
+        cancelAnimationFrame(SceneBase.__requestAnimationFrame__)
+        delete SceneBase.__requestAnimationFrame__
+    }
+
+    if (SceneBase.__animations__) {
+        delete SceneBase.__animations__
+    }
+}
+
+// 添加动画
+// SceneBase.addAnimation = function ()
+
+// 更新函数
+SceneBase.__scrollUpdateFunction__ = function () {
+    // 滚动的百分比
+    var scrolled = (document.documentElement.scrollTop || document.body.scrollTop) /
+                 (document.documentElement.scrollHeight - SceneBase.__pageHeight__)
+
+    SceneBase.__rootScene__.__onUpdate__(scrolled, scrolled, SceneBase.__setGloalVars__)
+}
+
+SceneBase.initWithoutAnimation = function () {
+    if (SceneBase.__rootScene__ === undefined) {
+        SceneBase.__rootScene__ = new SceneBase(...arguments)
+    }
+
+    if (SceneBase.__setGloalVars__ === undefined) {
+        SceneBase.__setGloalVars__ = {}
+    }
+
+    // 获取页面宽度
+    SceneBase.__pageWidth__ = window.innerWidth ||
+        document.documentElement.clientWidth ||
+        document.body.clientWidth;
+
+    // 获取页面高度
+    SceneBase.__pageHeight__ = window.innerHeight ||
+        document.documentElement.clientHeight ||
+        document.body.clientHeight;
+
+    // 滚动时进行更新
+    window.addEventListener("scroll", SceneBase.__scrollUpdateFunction__)
+
+    // 加载完先自动更新一波
+    var oldOnloadFunction = window.onload
+    window.onload = function () {
+        SceneBase.__scrollUpdateFunction__()
+        if (oldOnloadFunction) {
+            oldOnloadFunction.call(window)
+        }
+    }
+
+    return SceneBase.__rootScene__
+}
+
+SceneBase.init = function () {
+    SceneBase.initWithoutAnimation(...arguments)
+
+    SceneBase.activateAnimation()
+
+    return SceneBase.__rootScene__
+}
+
+SceneBase.setGloalVars = function (globalVars) {
+    if (SceneBase.__setGloalVars__ === undefined) {
+        SceneBase.__setGloalVars__ = {}
+    }
+
+    for (var key of Object.keys(globalVars)) {
+        SceneBase.__setGloalVars__[key] = globalVars[key]
+    }
 }
 
 export default SceneBase
