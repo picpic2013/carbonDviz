@@ -55,7 +55,7 @@ export class SceneExtendedTemplate extends SceneBase {
     }
 
     /**
-     * 子场景配置文件
+     * 子场景配置文件 可以是 [{conf}] 或 {id: {conf}} 
      * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
      */
     __subObjects__ = {}

@@ -4,7 +4,7 @@ export default class SceneBase {
         this.__father__ = (father === undefined) ? null : father
 
         if (Array.isArray(conf)) {
-            for (subObj of conf) {
+            for (var subObj of conf) {
                 this.addSubObject(subObj, undefined, father)
             }
         }
@@ -12,12 +12,17 @@ export default class SceneBase {
         // 将类中的子动画全部转换为 SceneBase 类
         var tmpSubObjs = this.__subObjects__
         this.__subObjects__ = {}
-        for (var key of Object.keys(tmpSubObjs)) {
-            this.addSubObject(tmpSubObjs[key], key)
+        if (Array.isArray(tmpSubObjs)) {
+            for (var value of tmpSubObjs) {
+                this.addSubObject(value)
+            }
+        } else if (tmpSubObjs instanceof Object) {
+            for (var key of Object.keys(tmpSubObjs)) {
+                this.addSubObject(tmpSubObjs[key], key)
+            }
         }
 
         conf = (conf === undefined) ? {} : conf
-
         
         for (var key of Object.keys(conf)) {
             if (key !== "__onUpdate__" && key !== "__onInactive__" && key !== "__subObjects__") {
@@ -46,8 +51,14 @@ export default class SceneBase {
         }
 
         if (conf.__subObjects__) {
-            for (var subObj of conf.__subObjects__) {
-                this.addSubObject(subObj)
+            if (Array.isArray(conf.__subObjects__)) {
+                for (var value of conf.__subObjects__) {
+                    this.addSubObject(value)
+                }
+            } else if (conf.__subObjects__ instanceof Object) {
+                for (var key of Object.keys(conf.__subObjects__)) {
+                    this.addSubObject(conf.__subObjects__[key], key)
+                }
             }
         }
 
