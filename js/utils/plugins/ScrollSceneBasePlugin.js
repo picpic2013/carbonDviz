@@ -3,11 +3,13 @@ class ScrollSceneBasePlugin {}
 ScrollSceneBasePlugin.install = function (SceneBase, conf) {
     // 更新函数
     ScrollSceneBasePlugin.__scrollUpdateFunction__ = function () {
+        // 真实的滚动值
+        var scrolled = (document.documentElement.scrollTop || document.body.scrollTop)
+        
         // 滚动的百分比
-        var scrolled = (document.documentElement.scrollTop || document.body.scrollTop) /
-                    (document.documentElement.scrollHeight - ScrollSceneBasePlugin.__pageHeight__)
+        var rate = scrolled / (document.documentElement.scrollHeight - ScrollSceneBasePlugin.__pageHeight__)
 
-        ScrollSceneBasePlugin.__rootScene__.__onUpdate__(scrolled, scrolled, SceneBase.__gloalVars__)
+        ScrollSceneBasePlugin.__rootScene__.__onUpdate__(rate, scrolled, SceneBase.__gloalVars__)
     }
 
     // 初始化函数

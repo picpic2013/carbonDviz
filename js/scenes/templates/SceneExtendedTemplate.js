@@ -40,8 +40,8 @@ export class SceneExtendedTemplate extends SceneBase {
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (scrolled, gloalVars) {
-        super.__onInactive__(scrolled, gloalVars)
+    __onInactive__ (rate, scrolled, gloalVars) {
+        super.__onInactive__(rate, scrolled, gloalVars)
         // 先 super 再自己的代码
     }
 
@@ -50,7 +50,7 @@ export class SceneExtendedTemplate extends SceneBase {
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(scrolled, gloalVars) {
+    __onUpdateInactive__(rate, scrolled, gloalVars) {
 
     }
 

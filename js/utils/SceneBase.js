@@ -63,6 +63,13 @@ class SceneBase {
         }
     }
 
+    __isInActiveRange__(rate, scrolled, gloalVars) {
+        if (rate < this.__start__ || rate > this.__end__) {
+            return false
+        }
+        return true
+    }
+
     __onUpdate__ (rate, scrolled, gloalVars) {
         // 先自己更新
         if (this.__onUpdateFunction__) {
@@ -71,23 +78,23 @@ class SceneBase {
 
         // 再更新自己的所有子元素
         for (var subObj of Object.values(this.__subObjects__)) {
+            // 计算子场景的进度
+            var percentage = (rate - subObj.__start__) / (subObj.__end__ - subObj.__start__)
+            
             // 如果不在范围内
-            if (rate < subObj.__start__ || rate > subObj.__end__) {
+            if (subObj.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
                 if (subObj.isActive() === true) {
                     if (subObj.__onInactive__) {
-                        subObj.__onInactive__.call(subObj, scrolled, gloalVars)
+                        subObj.__onInactive__.call(subObj, percentage, scrolled, gloalVars)
                     }
                     subObj.end()
                 }
                 
                 if (subObj.__onUpdateInactive__) {
-                    subObj.__onUpdateInactive__.call(subObj, scrolled, gloalVars)
+                    subObj.__onUpdateInactive__.call(subObj, percentage, scrolled, gloalVars)
                 }
                 continue
             }
-            
-            // 计算子场景的进度
-            var percentage = (rate - subObj.__start__) / (subObj.__end__ - subObj.__start__)
             
             // 调用子场景的更新函数
             if (subObj.isActive() === false) {
@@ -103,12 +110,14 @@ class SceneBase {
         }
     }
 
-    __onInactive__ (scrolled, gloalVars) {
+    __onInactive__ (rate, scrolled, gloalVars) {
         // 先销毁漏网之鱼
         for (var subObj of Object.values(this.__subObjects__)) {
             if (subObj.isActive() === true) {
                 if (subObj.__onInactive__) {
-                    subObj.__onInactive__.call(subObj, scrolled, gloalVars)
+                    // 计算子场景的进度
+                    var percentage = (rate - subObj.__start__) / (subObj.__end__ - subObj.__start__)
+                    subObj.__onInactive__.call(subObj, percentage, scrolled, gloalVars)
                 }
                 subObj.end()
             }
@@ -116,7 +125,7 @@ class SceneBase {
 
         // 再销毁自己
         if (this.__onInactiveFunction__) {
-            this.__onInactiveFunction__.call(this, scrolled, gloalVars)
+            this.__onInactiveFunction__.call(this, rate, scrolled, gloalVars)
         }
     }
 
@@ -139,9 +148,9 @@ class SceneBase {
         return id
     }
 
-    delSubObject (id, scrolled, gloalVars) {
+    delSubObject (id, rate, scrolled, gloalVars) {
         if (this.__subObjects__[id] instanceof SceneBase && this.__subObjects__[id].isActive() === true) {
-            this.__subObjects__[id].__onInactive__(scrolled, gloalVars)
+            this.__subObjects__[id].__onInactive__(rate, scrolled, gloalVars)
         }
         delete this.__subObjects__[id]
     }

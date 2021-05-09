@@ -48,6 +48,17 @@ export class SceneExtendedTemplate extends SceneBase {
                               .attr("r", 40 + (1 - rate) * 100)
                               .attr("opacity", rate)
                         }, 
+                        __onInactive__: function (rate, scrolled, gloalVars) {
+                            if (this.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
+                                d3.select("#test-scene-circle-" + this.index)
+                                  .attr("r", 40)
+                                  .attr("opacity", 1)
+                            } else {
+                                d3.select("#test-scene-circle-" + this.index)
+                                  .attr("r", 140)
+                                  .attr("opacity", 0)
+                            }
+                        }, 
                         index: i
                     }, {
                         __start__: 0.45 / 11 * (i + 1) + 0.5, 
@@ -56,6 +67,17 @@ export class SceneExtendedTemplate extends SceneBase {
                             d3.select("#test-scene-circle-" + this.index)
                               .attr("r", 40 + rate * 100)
                               .attr("opacity", (1 - rate))
+                        }, 
+                        __onInactive__: function (rate, scrolled, gloalVars) {
+                            if (this.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
+                                d3.select("#test-scene-circle-" + this.index)
+                                  .attr("r", 40)
+                                  .attr("opacity", 1)
+                            } else {
+                                d3.select("#test-scene-circle-" + this.index)
+                                  .attr("r", 140)
+                                  .attr("opacity", 0)
+                            }
                         }, 
                         index: i
                     }

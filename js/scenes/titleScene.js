@@ -103,7 +103,7 @@ export default {
       treeTime.text("" + Math.ceil(2021 + rate * 2000))
            
       tree.attr("fill", helpers.getRgb(rate * 218, (1 - rate) * (255 - 60), 0))
-      buildingTime.text("" + Math.ceil(2021 + scrolled * 300))
+      buildingTime.text("" + Math.ceil(2021 + rate * 300))
    }, 
 
    /**

@@ -34,7 +34,7 @@ export default {
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__: function (scrolled, gloalVars) {
+    __onInactive__: function (rate, scrolled, gloalVars) {
         
     }, 
 
@@ -43,7 +43,7 @@ export default {
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__: function (scrolled, gloalVars) {
+    __onUpdateInactive__: function (rate, scrolled, gloalVars) {
         
     },
 
