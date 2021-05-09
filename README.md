@@ -4,14 +4,14 @@
 ## 数据格式说明
 
 1. `data/1-title.json` 标题数据
-    ~~~json
+    ~~~javascript
     {
         "ratio": 300   // 城市的一年相当于森林的多少年
     }
     ~~~
 
 2. `data/2-map-line-info.json` 地图 + 折线图 + 汇聚成一个轴
-    ~~~json
+    ~~~javascript
     {
         "country-data": [                                           // 每个国家的数据
             {
@@ -62,7 +62,7 @@
     ~~~
 
 3. `data/3-policy-word-freq.json` 政策词频统计
-    ~~~json
+    ~~~javascript
     {
         "data": [                                        // 词频数据部分
             {
@@ -87,7 +87,7 @@
     ~~~
 
 4. `data/4-china-transaction-data.json` 碳排量交易数据
-    ~~~json
+    ~~~javascript
     {
         "data": [                                                   // 交易所数据
             {
@@ -108,7 +108,7 @@
     ~~~
 
 5. `data/5-gdp-carbon.json` 人均 GDP + 人均碳排量
-    ~~~json
+    ~~~javascript
     {
         "data": [                                                      // 数据部分
             {
