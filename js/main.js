@@ -23,15 +23,17 @@ var svg = d3.select("#main-camvas")
             .attr("height", pageHeight * heightScale);
 
 import SceneBase from "./utils/SceneBase.js"
+import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
+
+SceneBase.use(ScrollSceneBasePlugin)
+SceneBase.setGloalVars(gloalVars)
 
 import titleScene from "./scenes/titleScene.js"
 import mapAndLineScene from "./scenes/mapAndLine.js"
 import testScene from "./scenes/testScene.js"
 import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 
-SceneBase.setGloalVars(gloalVars)
-
-SceneBase.init([
+SceneBase.scroll.init([
     titleScene, 
     mapAndLineScene, 
     testScene, 

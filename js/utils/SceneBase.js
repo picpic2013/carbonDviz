@@ -163,107 +163,18 @@ SceneBase.newInstance = function () {
     return new SceneBase(...arguments)
 }
 
-SceneBase.__animationUpdate__ = function (time) {
-    SceneBase.__nowAnimationTime__ = time
-
-    SceneBase.__animations__.__onUpdate__ (time, time, SceneBase.__setGloalVars__)
-
-    requestAnimationFrame(SceneBase.__animationUpdate__)
-}
-
-SceneBase.activateAnimation = function () {
-    if (SceneBase.__requestAnimationFrame__ === undefined) {
-        SceneBase.__requestAnimationFrame__ = requestAnimationFrame(SceneBase.__animationUpdate__)
-    }
-
-    if (SceneBase.__animations__ === undefined) {
-        SceneBase.__animations__ = SceneBase.newInstance({
-            __start__: 0, 
-            __end__: Infinity
-        })
-    }
-}
-
-SceneBase.stopAnimation = function () {
-    if (SceneBase.__requestAnimationFrame__) {
-        cancelAnimationFrame(SceneBase.__requestAnimationFrame__)
-        delete SceneBase.__requestAnimationFrame__
-    }
-
-    if (SceneBase.__animations__) {
-        delete SceneBase.__animations__
-    }
-}
-
-// 添加动画
-SceneBase.addAnimation = function () {
-    return SceneBase.__animations__.addSubObject(...arguments)
-}
-
-// 删除动画
-SceneBase.delAnimation = function () {
-    return SceneBase.__animations__.delSubObject(...arguments)
-}
-
-// 更新函数
-SceneBase.__scrollUpdateFunction__ = function () {
-    // 滚动的百分比
-    var scrolled = (document.documentElement.scrollTop || document.body.scrollTop) /
-                 (document.documentElement.scrollHeight - SceneBase.__pageHeight__)
-
-    SceneBase.__rootScene__.__onUpdate__(scrolled, scrolled, SceneBase.__setGloalVars__)
-}
-
-SceneBase.initWithoutAnimation = function () {
-    if (SceneBase.__rootScene__ === undefined) {
-        SceneBase.__rootScene__ = new SceneBase(...arguments)
-    }
-
-    if (SceneBase.__setGloalVars__ === undefined) {
-        SceneBase.__setGloalVars__ = {}
-    }
-
-    // 获取页面宽度
-    SceneBase.__pageWidth__ = window.innerWidth ||
-        document.documentElement.clientWidth ||
-        document.body.clientWidth;
-
-    // 获取页面高度
-    SceneBase.__pageHeight__ = window.innerHeight ||
-        document.documentElement.clientHeight ||
-        document.body.clientHeight;
-
-    // 滚动时进行更新
-    window.addEventListener("scroll", SceneBase.__scrollUpdateFunction__)
-
-    // 加载完先自动更新一波
-    var oldOnloadFunction = window.onload
-    window.onload = function () {
-        SceneBase.__scrollUpdateFunction__()
-        if (oldOnloadFunction) {
-            oldOnloadFunction.call(window)
-        }
-    }
-
-    return SceneBase.__rootScene__
-}
-
-SceneBase.init = function () {
-    SceneBase.initWithoutAnimation(...arguments)
-
-    SceneBase.activateAnimation()
-
-    return SceneBase.__rootScene__
-}
-
 SceneBase.setGloalVars = function (globalVars) {
-    if (SceneBase.__setGloalVars__ === undefined) {
-        SceneBase.__setGloalVars__ = {}
-    }
-
     for (var key of Object.keys(globalVars)) {
-        SceneBase.__setGloalVars__[key] = globalVars[key]
+        SceneBase.__gloalVars__[key] = globalVars[key]
     }
 }
+
+SceneBase.use = function (plugin, conf) {
+    if (plugin.install !== undefined) {
+        plugin.install(SceneBase, conf)
+    }
+}
+
+SceneBase.__gloalVars__ = {}
 
 export default SceneBase
