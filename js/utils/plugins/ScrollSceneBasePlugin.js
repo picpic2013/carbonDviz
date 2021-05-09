@@ -8,6 +8,11 @@ ScrollSceneBasePlugin.install = function (SceneBase, conf) {
         
         // 滚动的百分比
         var rate = scrolled / (document.documentElement.scrollHeight - ScrollSceneBasePlugin.__pageHeight__)
+        
+        ScrollSceneBasePlugin.lastScrolled = ScrollSceneBasePlugin.nowScrolled
+        ScrollSceneBasePlugin.lastRate = ScrollSceneBasePlugin.nowRate
+        ScrollSceneBasePlugin.nowScrolled = scrolled
+        ScrollSceneBasePlugin.nowRate = rate
 
         ScrollSceneBasePlugin.__rootScene__.__onUpdate__(rate, scrolled, SceneBase.__gloalVars__)
     }

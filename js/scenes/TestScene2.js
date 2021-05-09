@@ -111,20 +111,22 @@ export class SceneExtendedTemplate extends SceneBase {
 
     /**
      * 场景被销毁时执行的函数，一般用于删除对象
+     * @param {rate}      当前场景的百分比
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (scrolled, gloalVars) {
+    __onInactive__ (rate, scrolled, gloalVars) {
         super.__onInactive__(scrolled, gloalVars)
         
     }
 
     /**
      * 未激活时的滚动更新参数
+     * @param {rate}      当前场景的百分比
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(scrolled, gloalVars) {
+    __onUpdateInactive__(rate, scrolled, gloalVars) {
 
     }
 

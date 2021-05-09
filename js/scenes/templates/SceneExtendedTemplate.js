@@ -17,40 +17,42 @@ export class SceneExtendedTemplate extends SceneBase {
     /**
      * 场景被激活时执行的函数，一般用户创建对象 
      * @param {rate}      当前场景运行的百分比
-     * @param {scrolled}  滚动百分比绝对值
+     * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-    __onActivate__(rate, scrolled, gloalVars) {
+    __onActivate__(rate, abso, gloalVars) {
 
     }
 
     /**
      * 滚动更新时的更新函数
      * @param {rate}       当前场景的百分比
-     * @param {scrolled}   滚动百分比绝对值
+     * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__ (rate, scrolled, gloalVars) {
+    __onUpdate__ (rate, abso, gloalVars) {
         // 先自己代码再 super
-        super.__onUpdate__(rate, scrolled, gloalVars)
+        super.__onUpdate__(rate, abso, gloalVars)
     }
 
     /**
      * 场景被销毁时执行的函数，一般用于删除对象
-     * @param {scrolled}  滚动百分比绝对值
+     * @param {rate}      当前场景的百分比
+     * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (rate, scrolled, gloalVars) {
-        super.__onInactive__(rate, scrolled, gloalVars)
+    __onInactive__ (rate, abso, gloalVars) {
+        super.__onInactive__(rate, abso, gloalVars)
         // 先 super 再自己的代码
     }
 
     /**
      * 未激活时的滚动更新参数
-     * @param {scrolled}  滚动百分比绝对值
+     * @param {rate}      当前场景的百分比
+     * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(rate, scrolled, gloalVars) {
+    __onUpdateInactive__(rate, abso, gloalVars) {
 
     }
 

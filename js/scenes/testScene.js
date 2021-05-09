@@ -1,4 +1,5 @@
 import { getRgb } from "../utils/helpers.js"
+import SceneBase from "../utils/SceneBase.js"
 
 export default {
     /**
@@ -28,9 +29,14 @@ export default {
                          .attr("cx", 0)
                          .attr("cy", gloalVars.svgHeight * 0.5)
                          .attr("r", 40)
-                         .attr("fill", getRgb(0, 0, 0))
                          .attr("stroke", getRgb(255, 255, 255))
                          .attr("stroke-width", 5)
+
+        if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+            this.circle.attr("fill", getRgb(0, 0, 0))
+        } else {
+            this.circle.attr("fill", getRgb(255, 255, 255))
+        }
     }, 
 
     /**
@@ -48,7 +54,7 @@ export default {
      * @param {scrolled}  滚动百分比绝对值
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__: function (scrolled, gloalVars) {
+    __onInactive__: function (rate, scrolled, gloalVars) {
         d3.select("#main-camvas")
           .selectAll(".test-scene")
           .remove();
