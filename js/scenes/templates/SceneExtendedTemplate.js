@@ -31,8 +31,8 @@ export class SceneExtendedTemplate extends SceneBase {
      * @param {gloalVars}  全局变量存放处
      */
     __onUpdate__ (rate, scrolled, gloalVars) {
+        // 先自己代码再 super
         super.__onUpdate__(rate, scrolled, gloalVars)
-        
     }
 
     /**
@@ -42,7 +42,7 @@ export class SceneExtendedTemplate extends SceneBase {
      */
     __onInactive__ (scrolled, gloalVars) {
         super.__onInactive__(scrolled, gloalVars)
-        
+        // 先 super 再自己的代码
     }
 
     /**
