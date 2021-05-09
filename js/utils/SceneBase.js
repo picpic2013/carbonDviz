@@ -125,7 +125,12 @@ export default class SceneBase {
     }
 
     addSubObject (obj, id, father) {
-        if (id === undefined) id = "__untitled" + Object.keys(this.__subObjects__).length + "__"
+        if (id === undefined) {
+            if (SceneBase.__maxSubObjId__ === undefined) {
+                SceneBase.__maxSubObjId__ = 0
+            }
+            id = "__untitled" + (SceneBase.__maxSubObjId__++) + "__"
+        }
         father = father ? father : this
         if (obj instanceof SceneBase) {
             if (obj.__father__ === undefined) {
@@ -135,6 +140,7 @@ export default class SceneBase {
             obj = new SceneBase(obj, father)
         }
         this.__subObjects__[id] = obj
+        return id
     }
 
     delSubObject (id, scrolled, gloalVars) {
