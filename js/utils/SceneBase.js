@@ -164,6 +164,8 @@ SceneBase.newInstance = function () {
 }
 
 SceneBase.__animationUpdate__ = function (time) {
+    SceneBase.__nowAnimationTime__ = time
+
     SceneBase.__animations__.__onUpdate__ (time, time, SceneBase.__setGloalVars__)
 
     requestAnimationFrame(SceneBase.__animationUpdate__)
@@ -194,7 +196,14 @@ SceneBase.stopAnimation = function () {
 }
 
 // 添加动画
-// SceneBase.addAnimation = function ()
+SceneBase.addAnimation = function () {
+    return SceneBase.__animations__.addSubObject(...arguments)
+}
+
+// 删除动画
+SceneBase.delAnimation = function () {
+    return SceneBase.__animations__.delSubObject(...arguments)
+}
 
 // 更新函数
 SceneBase.__scrollUpdateFunction__ = function () {
