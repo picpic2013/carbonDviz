@@ -1,0 +1,17 @@
+{
+    "data": [
+        {
+            "name": "北京环保交易所", 
+            "data": [
+                { "year": 2013, "month": 1, "value": 20000 }, 
+                { "year": 2013, "month": 2, "value": 20030 }
+            ]
+        }, {
+            "name": "深圳交易所", 
+            "data": [
+                { "year": 2013, "month": 1, "value": 20000 }, 
+                { "year": 2013, "month": 2, "value": 20030 }
+            ]
+        }
+    ]
+}

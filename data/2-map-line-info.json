@@ -1,0 +1,47 @@
+{
+    "country-data": [
+        {
+            "country-name": "中国", 
+            "ddl-time": 2035, 
+            "policy": "政策的文字", 
+            "carbon": [
+                { "year": 1960, "value": 300 }, 
+                { "year": 1960, "value": 300 }
+            ], 
+            "map-events": [
+                { "year": 1975, "detail": "事件的细节描述" }, 
+                { "year": 1987, "detail": "事件的细节描述" }
+            ], 
+            "line-events": [
+                { "year": 1975, "detail": "事件的细节描述" }, 
+                { "year": 1987, "detail": "事件的细节描述" }
+            ]
+        }, {
+            "country-name": "美国", 
+            "ddl-time": 2040, 
+            "policy": "政策的文字", 
+            "carbon": [
+                { "year": 1960, "value": 300 }, 
+                { "year": 1960, "value": 300 }
+            ], 
+            "map-events": [
+                { "year": 1975, "detail": "事件的细节描述" }, 
+                { "year": 1987, "detail": "事件的细节描述" }
+            ], 
+            "line-events": [
+                { "year": 1975, "detail": "事件的细节描述" }, 
+                { "year": 1987, "detail": "事件的细节描述" }
+            ]
+        }
+    ], 
+    "global-data": {
+        "map-events": [
+            { "year": 1975, "detail": "事件的细节描述" }, 
+            { "year": 1987, "detail": "事件的细节描述" }
+        ], 
+        "line-events": [
+            { "year": 1975, "detail": "事件的细节描述" }, 
+            { "year": 1987, "detail": "事件的细节描述" }
+        ]
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "data": [
+        {
+            "year": 2019,
+            "words": [
+                { "name": "争议", "value": 123 }, 
+                { "name": "平等", "value": 123 },
+                { "name": "法制", "value": 123 },
+                { "name": "争议", "value": 123 }
+            ]
+        }, {
+            "year": 2020,
+            "words": [
+                { "name": "争议", "value": 123 }, 
+                { "name": "平等", "value": 123 },
+                { "name": "法制", "value": 123 },
+                { "name": "争议", "value": 123 }
+            ]
+        }
+    ]
+}
