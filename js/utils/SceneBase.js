@@ -1,12 +1,16 @@
-export default class SceneBase {
+class SceneBase {
     constructor (conf, father) {
         this.__subObjects__ = {}
         this.__father__ = (father === undefined) ? null : father
+        this.__isActive__ = false
+        this.__start__ = 0
+        this.__end__ = 1
 
         if (Array.isArray(conf)) {
             for (var subObj of conf) {
                 this.addSubObject(subObj, undefined, father)
             }
+            return
         }
 
         // 将类中的子动画全部转换为 SceneBase 类
@@ -22,7 +26,7 @@ export default class SceneBase {
             }
         }
 
-        conf = (conf === undefined) ? {} : conf
+        conf = (conf === undefined) ? {} : conf  
         
         for (var key of Object.keys(conf)) {
             if (key !== "__onUpdate__" && key !== "__onInactive__" && key !== "__subObjects__") {
@@ -30,24 +34,12 @@ export default class SceneBase {
             }
         }
 
-        if (this.__start__ === undefined) {
-            this.__start__ = 0
-        }
-
-        if (this.__end__ === undefined) {
-            this.__end__ = 1
-        } 
-
         if (conf.__onUpdate__) {
             this.__onUpdateFunction__ = conf.__onUpdate__
         }
 
         if (conf.__onInactive__) {
             this.__onInactiveFunction__ = conf.__onInactive__
-        }
-
-        if (this.__isActive__ === undefined) {
-            this.__isActive__ = false;
         }
 
         if (conf.__subObjects__) {
@@ -162,3 +154,9 @@ export default class SceneBase {
         return this.__isActive__
     }
 }
+
+SceneBase.newInstance = function () {
+    return new SceneBase(...arguments)
+}
+
+export default SceneBase
