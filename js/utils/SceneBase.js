@@ -1,6 +1,6 @@
 class SceneBase {
     constructor (conf, father) {
-        this.__subObjects__ = {}
+        this.__subObjects__ = this.__subObjects__ ? this.__subObjects__ : {}
         this.__father__ = (father === undefined) ? window : father
         this.__isActive__ = false
         this.__start__ = 0
@@ -21,7 +21,9 @@ class SceneBase {
             for (var value of tmpSubObjs) {
                 this.addSubObject(value)
             }
-        } else if (tmpSubObjs instanceof Object) {
+        } else if (tmpSubObjs instanceof SceneBase) {
+            this.addSubObject(tmpSubObjs)
+        } else {
             for (var key of Object.keys(tmpSubObjs)) {
                 this.addSubObject(tmpSubObjs[key], key)
             }
@@ -37,12 +39,20 @@ class SceneBase {
             }
         }
 
+        for (var i = 2; i < arguments.length; ++i) {
+            this.addSubObject(arguments[i])
+        }
+
         // 单独处理三个变量
-        if (conf.__onUpdate__) {
+        if (conf instanceof SceneBase) {
+            this.__onUpdate__ = conf.__onUpdate__
+        } else if (conf.__onUpdate__) {
             this.__onUpdateFunction__ = conf.__onUpdate__
         }
 
-        if (conf.__onInactive__) {
+        if (conf instanceof SceneBase) {
+            this.__onInactive__ = conf.__onInactive__
+        } else if (conf.__onInactive__) {
             this.__onInactiveFunction__ = conf.__onInactive__
         }
 
@@ -51,15 +61,13 @@ class SceneBase {
                 for (var value of conf.__subObjects__) {
                     this.addSubObject(value)
                 }
-            } else if (conf.__subObjects__ instanceof Object) {
+            } else if (conf.__subObjects__ instanceof SceneBase) {
+                this.addSubObject(conf)
+            } else {
                 for (var key of Object.keys(conf.__subObjects__)) {
                     this.addSubObject(conf.__subObjects__[key], key)
                 }
             }
-        }
-
-        for (var i = 2; i < arguments.length; ++i) {
-            this.addSubObject(arguments[i])
         }
     }
 
@@ -137,14 +145,12 @@ class SceneBase {
             id = "__untitled" + (SceneBase.__maxSubObjId__++) + "__"
         }
         father = father ? father : this
-        if (obj instanceof SceneBase) {
-            if (obj.__father__ === undefined) {
-                obj.__father__ = father
-            }
-        } else {
-            obj = new SceneBase(obj, father)
+
+        if (obj.__father__ === undefined) {
+            obj.__father__ = father
         }
-        this.__subObjects__[id] = obj
+        
+        this.__subObjects__[id] = new SceneBase(obj, father)
         return id
     }
 

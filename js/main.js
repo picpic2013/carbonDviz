@@ -32,10 +32,14 @@ import titleScene from "./scenes/titleScene.js"
 import mapAndLineScene from "./scenes/mapAndLine.js"
 import testScene from "./scenes/testScene.js"
 import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
+import PolicyWord from "./scenes/3-policy-word.js"
+
+import DebugScene from "./scenes/DebugScene.js"
 
 SceneBase.scroll.init([
     titleScene, 
     mapAndLineScene, 
     testScene, 
-    new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
+    new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65}), 
+    new PolicyWord()
 ])

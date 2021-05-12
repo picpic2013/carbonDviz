@@ -3,7 +3,7 @@ import SceneBase from "../utils/SceneBase.js"
 /**
  * 2.0 版场景定义
  */
-export class SceneExtendedTemplate extends SceneBase {
+export default class SceneExtendedTemplate extends SceneBase {
     /**
      * 构造函数，只执行一次，用于定义变量等
      * @param {conf}   兼容 1.0 的配置文件，或子元素 Array 
