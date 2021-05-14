@@ -49,15 +49,9 @@ export class SceneExtendedTemplate extends SceneBase {
                               .attr("opacity", rate)
                         }, 
                         __onInactive__: function (rate, scrolled, gloalVars) {
-                            if (this.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
-                                d3.select("#test-scene-circle-" + this.index)
-                                  .attr("r", 40)
-                                  .attr("opacity", 1)
-                            } else {
-                                d3.select("#test-scene-circle-" + this.index)
-                                  .attr("r", 140)
-                                  .attr("opacity", 0)
-                            }
+                            d3.select("#test-scene-circle-" + this.index)
+                              .attr("r", 40)
+                              .attr("opacity", 1)
                         }, 
                         index: i
                     }, {
@@ -69,16 +63,10 @@ export class SceneExtendedTemplate extends SceneBase {
                               .attr("opacity", (1 - rate))
                         }, 
                         __onInactive__: function (rate, scrolled, gloalVars) {
-                            if (this.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
-                                d3.select("#test-scene-circle-" + this.index)
-                                  .attr("r", 40)
-                                  .attr("opacity", 1)
-                            } else {
-                                d3.select("#test-scene-circle-" + this.index)
-                                  .attr("r", 140)
-                                  .attr("opacity", 0)
-                            }
-                        }, 
+                            d3.select("#test-scene-circle-" + this.index)
+                              .attr("r", 40)
+                              .attr("opacity", 1)
+                        },
                         index: i
                     }
                 ], 

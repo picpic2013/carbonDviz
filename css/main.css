@@ -16,8 +16,6 @@ body {
     background-color: silver;
 
     border-radius: 5vh;
-
-    z-index: -1;
 }
 
 .outer-section {
