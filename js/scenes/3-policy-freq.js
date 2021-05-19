@@ -23,8 +23,10 @@ export default class SceneExtendedTemplate extends SceneBase {
      */
     constructor (conf, father) {
         super(conf, father)
+        
 
         d3.json("../../data/3-policy-word-freq.json").then((data) => {
+            
             // { year: {word: cnt} }
             var washedData = {}
             var minYear = Infinity
@@ -74,6 +76,7 @@ export default class SceneExtendedTemplate extends SceneBase {
 
                 for (var wordData of yearData.words) {
                     var wordCount = wordData.value 
+                    var wordName = wordData.name
                     maxCnt = Math.max(maxCnt, wordCount)
                     minCnt = Math.min(minCnt, wordCount)
                 }
@@ -107,7 +110,7 @@ export default class SceneExtendedTemplate extends SceneBase {
                 // 遍历每个词
                 for (var rank = 0; rank < yearData.words.length; ++rank) {
                     var wordData = yearData.words[rank]
-                    
+
                     var wordName = wordData.name
                     var wordCount = wordData.value 
 
@@ -151,11 +154,27 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   .attr("y", this.lastYearPosition)
                                   .attr("width", this.lastYearLength)
                                   .attr("opacity", this.lastYearOpacity)
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                                    .attr("y", this.lastYearPosition)
+                                    .attr("opacity", this.lastYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width",globalVars.svgWidth*0.82)
+                                    .attr("x",0)
                             } else {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("width", this.thisYearLength)
                                   .attr("opacity", this.thisYearOpacity)
+
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                  .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                                  .attr("y", this.thisYearPosition)
+                                  .attr("opacity", this.thisYearOpacity)
+
+                                d3.select("#masking")
+                                  .attr("width",0)
+                                  .attr("x",globalVars.svgWidth*0.82)
                             }
                         }, 
 
@@ -169,6 +188,14 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   getValueByRate(this.lastYearMax, this.thisYearMax, rate), 
                                   globalVars.svgWidth
                               ))
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                                .attr("y",getValueByRate(this.lastYearPosition, this.thisYearPosition, rate))
+                                .attr("opacity",getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
+
+                            d3.select("#masking")
+                                .attr("width", globalVars.svgWidth*0.82 * (1-rate))
+                                .attr("x",globalVars.svgWidth*0.82 * rate)
+                            
                         }, 
                         __onInactive__: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
@@ -176,11 +203,23 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
                                   .attr("width", getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.thisYearPosition)
+                                    .attr("opacity",this.thisYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width", 0)
+                                    .attr("x",globalVars.svgWidth*0.82)
                             } else {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.lastYearPosition)
                                   .attr("opacity", this.lastYearOpacity)
                                   .attr("width", getWidthByCnt(this.lastYearLength, 0, this.lastYearMax, globalVars.svgWidth))
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.lastYearPosition)
+                                    .attr("opacity",this.lastYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width", globalVars.svgWidth*0.82)
+                                    .attr("x",0)
                             }
                         }, 
                         thisYearPosition: thisYearPosition, 
@@ -191,11 +230,12 @@ export default class SceneExtendedTemplate extends SceneBase {
                         nextYearOpacity: nextYearOpacity, 
 
                         yearName: yearName, 
+                        wordName: wordName, 
                         rank: rank, 
 
                         thisYearLength: thisYearLength, 
                         lastYearLength: lastYearLength, 
-                        nextYearLength: nextYearLength, 
+                        nextYearLength: nextYearLength,
 
                         thisYearMax: thisYearMax, 
                         thisYearMin: thisYearMin, 
@@ -216,16 +256,27 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   .attr("y", this.thisYearPosition)
                                   .attr("width", this.thisYearLength)
                                   .attr("opacity", this.thisYearOpacity)
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.thisYearPosition)
+                                    .attr("opacity", this.thisYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width",0)
+                                    .attr("x",globalVars.svgWidth*0.82)
                             } else {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.nextYearPosition)
                                   .attr("width", this.nextYearLength)
                                   .attr("opacity", this.nextYearOpacity)
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.nextYearPosition)
+                                    .attr("opacity", this.nextYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width",globalVars.svgWidth*0.82)
+                                    .attr("x",0)
                             }
                         }, 
 
                         __onUpdate__: function (rate, absolute, globalVars) {
-                            // console.log(this)
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .attr("y", getValueByRate(this.thisYearPosition, this.nextYearPosition, rate))
                               .attr("opacity", getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
@@ -235,6 +286,13 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   getValueByRate(this.thisYearMax, this.nextYearMax, rate), 
                                   globalVars.svgWidth
                             ))
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                                .attr("y", getValueByRate(this.thisYearPosition, this.nextYearPosition, rate))
+                                .attr("opacity", getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
+
+                            d3.select("#masking")
+                                .attr("width",globalVars.svgWidth*0.82 * rate)
+                                .attr("x",globalVars.svgWidth*0.82 * (1-rate))
                         }, 
                         __onInactive__: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
@@ -242,11 +300,23 @@ export default class SceneExtendedTemplate extends SceneBase {
                                   .attr("y", this.nextYearPosition)
                                   .attr("opacity", this.nextYearOpacity)
                                   .attr("width", getWidthByCnt(this.nextYearLength, 0, this.nextYearMax, globalVars.svgWidth))
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.nextYearPosition)
+                                    .attr("opacity", this.nextYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width",globalVars.svgWidth*0.82)
+                                    .attr("x",0)
                             } else {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
                                   .attr("width", getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                    .attr("y", this.thisYearPosition)
+                                    .attr("opacity", this.thisYearOpacity)
+                                d3.select("#masking")
+                                    .attr("width",0)
+                                    .attr("x",globalVars.svgWidth*0.82)
                             }
                         }, 
                         
@@ -257,7 +327,8 @@ export default class SceneExtendedTemplate extends SceneBase {
                         nextYearPosition: nextYearPosition, 
                         nextYearOpacity: nextYearOpacity, 
 
-                        yearName: yearName, 
+                        yearName: yearName,
+                        wordName: wordName,  
                         rank: rank, 
 
                         thisYearLength: thisYearLength, 
@@ -272,6 +343,16 @@ export default class SceneExtendedTemplate extends SceneBase {
                         nextYearMin: nextYearMin
                     }
 
+                    var a = (new Date("2019/1/1 00:00:00")).getTime();
+                    var b = (new Date("2024/12/31 23:59:00")).getTime();
+                    
+                    var result = Math.abs(a - b);
+
+                    // var minute = result/1000/60;
+                    // var year = Math.floor(minute/60/24/30/12);
+                    // var month = Math.floor(minute/60/24/30 - Math.floor(minute/60/24/30/12 * 12));
+                    // var day = Math.floor(minute/60/24 - Math.floor(minute/60/24/30 * 30));
+
                     var tempSubId = this.addSubObject({
                         __start__: (yearName - minYear) / (maxYear - minYear + 1), 
                         __end__: (yearName - minYear + 1) / (maxYear - minYear + 1), 
@@ -279,7 +360,20 @@ export default class SceneExtendedTemplate extends SceneBase {
                             // console.log(this.yearName + " " + this.wordName + " 开始")
                             // console.log((this.wordCnt - this.minCnt + 5) / (this.maxCnt - this.minCnt + 6))
                             // console.log(this.wordCnt, this.maxCnt, this.minCnt)
-                            var tmpEle = d3.select("#word-freq-bar-g")
+                            d3.select("#word-freq-bar-g")
+                                .append("g")
+                                .attr("class", "one-word-g")
+                            d3.select("#word-freq-bar-g")
+                                .append("g")
+                                .attr("class", "axis")
+                            d3.select("#word-freq-bar-g")
+                                .append("g")
+                                .attr("class", "mask")
+                            d3.select("#main-camvas")
+                                .append("g")
+                                .attr("class", "time")
+                
+                            var tmpEle = d3.select(".one-word-g")
                                             .append("rect")
                                             .attr("id", "rect-" + this.yearName + "-" + this.rank)
                                             .attr("x", globalVars.svgWidth * 0.1)
@@ -287,13 +381,62 @@ export default class SceneExtendedTemplate extends SceneBase {
                                             .attr("fill", "gray")
                                             .attr("stroke-width", 2)
                                             .attr("stroke", "black")
+                            var tmpText = d3.select(".one-word-g")
+                                            .append("text")
+                                            .attr("id","text-"+ this.yearName + "-" + this.rank)
+                                            .attr("x", globalVars.svgWidth * 0.05)
+                                            .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                                            .attr("dy", "55px")
+                                            .attr("font-size", 40)
+                                            .text(this.wordName)
 
-                            
+                            var xScale = d3.scaleLinear()
+                                            .domain([0, this.maxCnt])
+                                            .range([0, globalVars.svgWidth * 0.8]);
+                            var xAxis = d3.axisBottom(xScale)
+                            var tmpXaxis = d3.select(".axis")
+                                             .attr("class", "X axis")
+                                             .attr("transform","translate("+(globalVars.svgWidth * 0.1)+",0)")
+                                             .call(xAxis)
+                            var masking = d3.select(".mask")
+                                            .append("rect")
+                                            .attr("id","masking")
+                                            .attr("height","20px")
+                                            .attr("transform","translate("+(globalVars.svgWidth * 0.09)+",0)")
+                                            .attr("fill", "white")
+                            var time_year = d3.select(".time") 
+                                            .append("text")
+                                            .attr("id", "time-year")
+                                            .attr("x", globalVars.svgWidth * 0.85)
+                                            .attr("y", globalVars.svgHeight * 0.95)
+                                            .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                                            .attr("font-size", 40)
+                                            .attr("opacity", 0)
                         }, 
+                        __onUpdate__: function (rate, absolute, globalVars) {
+                            var d = (new Date(a + result * rate)).toString()
+                            var dd = (new Date(a + result * rate))
+                            // console.log(d.getMonth())
+                            var month = d.slice(4,7)
+                            var day = d.slice(8,10)
+                            var year = d.slice(11,15)
+                            var t = year+" "+month+" "+day+" "+dd.getMonth()
+                            var t = dd.getFullYear()+"-"+(dd.getMonth()+1)+"-"+dd.getDate()
+                            d3.select("#time-year")
+                                    .text(t)
+                                    .attr("opacity", 1)
+
+                        },
                         __onInactive__: function (rate, absolute, globalVars) {
                             // console.log(this.yearName + " " + this.wordName + " 结束")
 
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
+                              .remove()
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                              .remove()
+                            d3.select(".X axis")
+                              .remove()
+                            d3.select("#time-year")
                               .remove()
                         }, 
 
@@ -312,7 +455,7 @@ export default class SceneExtendedTemplate extends SceneBase {
                         thisYearLength: thisYearLength, 
                         lastYearLength: lastYearLength, 
                         nextYearLength: nextYearLength, 
-
+                        
                         yearName: yearName, 
                         maxYear: maxYear, 
                         minYear: minYear, 
@@ -321,7 +464,10 @@ export default class SceneExtendedTemplate extends SceneBase {
                         dataLength: yearData.words.length, 
                         wordCnt: wordCount, 
                         maxCnt: maxCnt, 
-                        minCnt: minCnt
+                        minCnt: minCnt,
+
+                        result:result,
+
                     })
                 }
             }
@@ -351,6 +497,7 @@ export default class SceneExtendedTemplate extends SceneBase {
           .append("g")
           .attr("class", "word-freq-bar")
           .attr("id", "word-freq-bar-g")
+
     }
 
     /**
@@ -362,6 +509,7 @@ export default class SceneExtendedTemplate extends SceneBase {
     __onUpdate__ (rate, abso, gloalVars) {
         // 先自己代码再 super
         super.__onUpdate__(rate, abso, gloalVars)
+
     }
 
     /**
