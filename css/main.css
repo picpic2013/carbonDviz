@@ -1,7 +1,8 @@
 body {
-    background-color: #050713;
+    /* background-color: #050713; */
+    background-color: gray;
 
-    height: 20000vh;
+    height: 2000vh;
 }
 
 #main-camvas {
@@ -13,7 +14,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 
-    background-color: #151725;
+    /* background-color: #151725; */
+    background-color: silver;
 
     border-radius: 5vh;
 }

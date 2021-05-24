@@ -1,4 +1,4 @@
-import SceneBase from "../utils/SceneBase.js"
+import SceneBase from "../SceneBase.js"
 
 /**
  * 2.0 版场景定义
@@ -37,7 +37,6 @@ export default class ScrollBarChart extends SceneBase {
 
         // d3.json("/data/3-policy-word-freq.json").then((data) => {
         d3.json(this.__dataUrl__).then((data) => {
-
             data = this.__onload__(data)
 
             var washedData = {}
@@ -183,6 +182,7 @@ export default class ScrollBarChart extends SceneBase {
                         __end__: 0.5, 
 
                         __onUpdate__: function (rate, absolute, globalVars) {
+                            // 更新矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .attr("y", ScrollBarChart.getValueByRate(this.lastYearPosition, this.thisYearPosition, rate))
                               .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
@@ -193,20 +193,113 @@ export default class ScrollBarChart extends SceneBase {
                                   globalVars.svgWidth
                               ))
                               .attr("height", ScrollBarChart.getValueByRate(this.lastYearHeight, this.thisYearHeight, rate))
+
+                            // 更新标签
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                              .attr("y", ScrollBarChart.getValueByRate(
+                                  this.lastYearPosition + this.lastYearHeight * 0.5, 
+                                  this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                  rate
+                                ))
+                              .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
+
+                            // 更新数量标记
+                            d3.select("#value-"+ this.yearName + "-" + this.rank)
+                              .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  ScrollBarChart.getValueByRate(
+                                      this.lastYearLength, 
+                                      this.thisYearLength, 
+                                      rate
+                                  ), 
+                                  0, 
+                                  ScrollBarChart.getValueByRate(
+                                      this.lastYearMax, 
+                                      this.thisYearMax, 
+                                      rate
+                                  ), 
+                                  globalVars.svgWidth
+                              ))
+                              .attr("y", ScrollBarChart.getValueByRate(
+                                  this.lastYearPosition + this.lastYearHeight * 0.5, 
+                                  this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                  rate
+                                ))
+                              .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
+                              .text(Math.ceil(ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, rate)))
                         }, 
                         __onInactive__: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
                                   .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
                                   .attr("height", this.thisYearHeight, globalVars.svgHeight)
+
+                                // 更新标签
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                  .attr("y", this.thisYearPosition + this.thisYearHeight * 0.5)
+                                  .attr("opacity", this.thisYearOpacity)
+
+                                // 更新数量标记
+                                d3.select("#value-"+ this.yearName + "-" + this.rank)
+                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                      ScrollBarChart.getValueByRate(
+                                          this.lastYearLength, 
+                                          this.thisYearLength, 
+                                          1
+                                      ), 
+                                      0, 
+                                      ScrollBarChart.getValueByRate(
+                                          this.lastYearMax, 
+                                          this.thisYearMax, 
+                                          1
+                                      ), 
+                                      globalVars.svgWidth
+                                  ))
+                                  .attr("y", ScrollBarChart.getValueByRate(
+                                      this.lastYearPosition + this.lastYearHeight * 0.5, 
+                                      this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                      1
+                                  ))
+                                .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, 1))
+                                .text(Math.ceil(ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 1)))
                             } else {
+                                // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.lastYearPosition)
                                   .attr("opacity", this.lastYearOpacity)
                                   .attr("width", ScrollBarChart.getWidthByCnt(this.lastYearLength, 0, this.lastYearMax, globalVars.svgWidth))
                                   .attr("height", this.lastYearHeight)
+
+                                // 更新标签
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                  .attr("y", this.lastYearPosition + this.lastYearHeight * 0.5)
+                                  .attr("opacity", this.lastYearOpacity)
+
+                                // 更新数量标记
+                                d3.select("#value-"+ this.yearName + "-" + this.rank)
+                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                      ScrollBarChart.getValueByRate(
+                                          this.lastYearLength, 
+                                          this.thisYearLength, 
+                                          0
+                                      ), 
+                                      0, 
+                                      ScrollBarChart.getValueByRate(
+                                          this.lastYearMax, 
+                                          this.thisYearMax, 
+                                          0
+                                      ), 
+                                      globalVars.svgWidth
+                                  ))
+                                  .attr("y", ScrollBarChart.getValueByRate(
+                                      this.lastYearPosition + this.lastYearHeight * 0.5, 
+                                      this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                      0
+                                  ))
+                                .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, 0))
+                                .text(Math.ceil(ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 0)))
                             }
                         }, 
                         thisYearPosition: thisYearPosition, 
@@ -220,7 +313,7 @@ export default class ScrollBarChart extends SceneBase {
                         nextYearHeight: nextYearHeight, 
 
                         yearName: yearName, 
-                        rank: rank, 
+                        rank: rank,
 
                         thisYearLength: thisYearLength, 
                         lastYearLength: lastYearLength, 
@@ -240,7 +333,7 @@ export default class ScrollBarChart extends SceneBase {
                         __end__: 1, 
 
                         __onUpdate__: function (rate, absolute, globalVars) {
-                            // console.log(this)
+                            // 更新矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .attr("y", ScrollBarChart.getValueByRate(this.thisYearPosition, this.nextYearPosition, rate))
                               .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
@@ -251,20 +344,113 @@ export default class ScrollBarChart extends SceneBase {
                                   globalVars.svgWidth
                             ))
                             .attr("height", ScrollBarChart.getValueByRate(this.thisYearHeight, this.nextYearHeight, rate))
+
+                            // 更新标签
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                              .attr("y", ScrollBarChart.getValueByRate(
+                                  this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                  this.nextYearPosition + this.nextYearHeight * 0.5, 
+                                  rate
+                                ))
+                              .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
+
+                            // 更新数量标记
+                            d3.select("#value-"+ this.yearName + "-" + this.rank)
+                              .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  ScrollBarChart.getValueByRate(
+                                      this.thisYearLength, 
+                                      this.nextYearLength, 
+                                      rate
+                                  ), 
+                                  0, 
+                                  ScrollBarChart.getValueByRate(
+                                      this.thisYearMax, 
+                                      this.nextYearMax, 
+                                      rate
+                                  ), 
+                                  globalVars.svgWidth
+                              ))
+                              .attr("y", ScrollBarChart.getValueByRate(
+                                  this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                  this.nextYearPosition + this.nextYearHeight * 0.5, 
+                                  rate
+                                ))
+                              .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
+                              .text(Math.ceil(ScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, rate)))
                         }, 
                         __onInactive__: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.nextYearPosition)
                                   .attr("opacity", this.nextYearOpacity)
                                   .attr("width", ScrollBarChart.getWidthByCnt(this.nextYearLength, 0, this.nextYearMax, globalVars.svgWidth))
                                   .attr("height", this.nextYearHeight)
+
+                                // 更新标签
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                  .attr("y", this.nextYearPosition + this.nextYearHeight * 0.5)
+                                  .attr("opacity", this.nextYearOpacity)
+
+                                // 更新数量标记
+                                d3.select("#value-"+ this.yearName + "-" + this.rank)
+                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                      ScrollBarChart.getValueByRate(
+                                          this.thisYearLength, 
+                                          this.nextYearLength, 
+                                          1
+                                      ), 
+                                      0, 
+                                      ScrollBarChart.getValueByRate(
+                                          this.thisYearMax, 
+                                          this.nextYearMax, 
+                                          1
+                                      ), 
+                                      globalVars.svgWidth
+                                  ))
+                                  .attr("y", ScrollBarChart.getValueByRate(
+                                      this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                      this.nextYearPosition + this.nextYearHeight * 0.5, 
+                                      1
+                                  ))
+                                .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, 1))
+                                .text(Math.ceil(ScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 1)))
                             } else {
+                                // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
                                   .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
                                   .attr("height", this.thisYearHeight)
+
+                                // 更新标签
+                                d3.select("#text-" + this.yearName + "-" + this.rank)
+                                  .attr("y", this.thisYearPosition + this.thisYearHeight * 0.5)
+                                  .attr("opacity", this.thisYearOpacity)
+
+                                // 更新数量标记
+                                d3.select("#value-"+ this.yearName + "-" + this.rank)
+                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                      ScrollBarChart.getValueByRate(
+                                          this.thisYearLength, 
+                                          this.nextYearLength, 
+                                          0
+                                      ), 
+                                      0, 
+                                      ScrollBarChart.getValueByRate(
+                                          this.thisYearMax, 
+                                          this.nextYearMax, 
+                                          0
+                                      ), 
+                                      globalVars.svgWidth
+                                  ))
+                                  .attr("y", ScrollBarChart.getValueByRate(
+                                      this.thisYearPosition + this.thisYearHeight * 0.5, 
+                                      this.nextYearPosition + this.nextYearHeight * 0.5, 
+                                      0
+                                  ))
+                                .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, 0))
+                                .text(Math.ceil(ScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 0)))
                             }
                         }, 
                         
@@ -292,11 +478,14 @@ export default class ScrollBarChart extends SceneBase {
                         nextYearMax: nextYearMax, 
                         nextYearMin: nextYearMin
                     }
+
+                    // 添加每个矩形元素
                     this.addSubObject({
                         __start__: washedData[yearName].__index__ / totalYears, 
                         __end__: (washedData[yearName].__index__ + 1) / totalYears, 
 
                         __onActivate__: function (rate, absolute, globalVars) {
+                            // 添加矩形
                             d3.select("#word-freq-bar-g")
                               .append("rect")
                               .attr("id", "rect-" + this.yearName + "-" + this.rank)
@@ -307,9 +496,68 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("stroke", "silver")
                               .attr("rx", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.05)
                               .attr("ry", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.05)
+
+                            // 添加标签
+                            d3.select("#word-freq-bar-g")
+                              .append("text")
+                              .attr("id","text-"+ this.yearName + "-" + this.rank)
+                              .attr("x", globalVars.svgWidth * 0.09)
+                              .attr("style", "text-anchor:end;dominant-baseline:middle;")
+                              .attr("font-size", 30)
+                              .text(this.wordName)
+                            
+                            // 添加数量标记
+                            d3.select("#word-freq-bar-g")
+                              .append("text")
+                              .attr("id","value-"+ this.yearName + "-" + this.rank)
+                              .attr("style", "text-anchor:start;dominant-baseline:middle;")
+                              .attr("dx", "10px")
+                              .attr("font-size", 30)
+                              .text(this.wordCnt)
+
+                            // 添加时间显示
+                            d3.select("#word-freq-bar-g") 
+                              .append("text")
+                              .attr("id", "time-year-" + this.yearName)
+                              .attr("x", globalVars.svgWidth * 0.85)
+                              .attr("y", globalVars.svgHeight * 0.95)
+                              .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                              .attr("font-size", 40)
+                              .attr("opacity", 0)
                         }, 
+
+                        __onUpdate__: function (rate, absolute, globalVars) {
+                            // 更新时间显示
+                            var a = (new Date((this.yearName).toString()+"/1/1 00:00:00")).getTime();
+                            var b = (new Date((this.yearName+1).toString()+"/12/31 23:59:00")).getTime();
+                            var result = Math.abs(a - b);
+
+                            // console.log((this.yearName).toString()+"/1/1 00:00:00")
+
+                            var dd = (new Date(a + result * rate))
+                            var month = ScrollBarChart.PrefixInteger(dd.getMonth()+1, 2)    
+                            var day = ScrollBarChart.PrefixInteger(dd.getDate(), 2)
+                            var t = dd.getFullYear()+"-"+month+"-"+day
+                            d3.select("#time-year-" + this.yearName)
+                              .text(t)
+                              .attr("opacity", 1)
+                        },
+
                         __onInactive__: function (rate, absolute, globalVars) {
+                            // 移除矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
+                              .remove()
+                            
+                            // 移除标签
+                            d3.select("#text-" + this.yearName + "-" + this.rank)
+                              .remove()
+
+                            // 移除数量标记
+                            d3.select("#value-" + this.yearName + "-" + this.rank)
+                              .remove()
+
+                            // 移除时间显示
+                            d3.select("#time-year-" + this.yearName)
                               .remove()
                         }, 
 
@@ -340,7 +588,9 @@ export default class ScrollBarChart extends SceneBase {
                         minCnt: minCnt, 
 
                         color: this.colors[wordName.hashCode() % this.colors.length], 
-                        eleCnt: eleCnt
+                        eleCnt: eleCnt, 
+
+                        wordName: wordName
                     })
 
                     ++eleCnt
@@ -379,6 +629,7 @@ export default class ScrollBarChart extends SceneBase {
      */
     __onUpdate__ (rate, abso, gloalVars) {
         // 先自己代码再 super
+
         super.__onUpdate__(rate, abso, gloalVars)
     }
 
@@ -429,6 +680,10 @@ ScrollBarChart.getValueByRate = function (start, end, rate) {
 
 ScrollBarChart.getHeightByDataLength = function (leng, svgHeight) {
     return 1 / (leng + 1) * svgHeight * 0.9 * 0.9
+}
+
+ScrollBarChart.PrefixInteger = function (num, n) {
+    return (Array(n).join(0) + num).slice(-n);
 }
 
 String.prototype.hashCode = function() {
