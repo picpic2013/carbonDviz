@@ -33,35 +33,40 @@ SceneBase.setGloalVars(gloalVars)
 // import testScene from "./scenes/testScene.js"
 // import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 // import barCovid from "./scenes/bar-covid.js"
-import ScrollBarChart from "./utils/components/scroll-bar.js"
+// import ScrollBarChart from "./utils/components/scroll-bar.js"
+import LineChart from "./scenes/line-chart.js"
 
 SceneBase.scroll.init([
     // titleScene, 
     // mapAndLineScene, 
     // testScene, 
     // new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
-    new ScrollBarChart({
-        svgHeight: pageHeight * heightScale, 
-        __dataUrl__: "/data/3-policy-word-freq-real.json", 
-        __onload__: function (data) {
-            var tmpList = data.data
-            var tmpRes = []
-            for (var i of tmpList) {
-                tmpRes.push({
-                    time: i.year, 
-                    details: i.words
-                })
-            }
-            tmpRes = tmpRes.sort(function (a, b) {
-                if (a.time < b.time) {
-                    return -1
-                }
-                if (a.time > b.time) {
-                    return 1
-                }
-                return 0
-            })
-            return {data: tmpRes}
-        }
-    })
+    
+    // new ScrollBarChart({
+    //     svgHeight: pageHeight * heightScale, 
+    //     __dataUrl__: "/data/3-policy-word-freq-real.json", 
+    //     __onload__: function (data) {
+    //         var tmpList = data.data
+    //         var tmpRes = []
+    //         for (var i of tmpList) {
+    //             tmpRes.push({
+    //                 time: i.year, 
+    //                 details: i.words
+    //             })
+    //         }
+    //         tmpRes = tmpRes.sort(function (a, b) {
+    //             if (a.time < b.time) {
+    //                 return -1
+    //             }
+    //             if (a.time > b.time) {
+    //                 return 1
+    //             }
+    //             return 0
+    //         })
+    //         return {data: tmpRes}
+    //     }
+    // }),
+    new LineChart({
+        svgHeight: pageHeight * heightScale
+    }) 
 ])

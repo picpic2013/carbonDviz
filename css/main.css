@@ -5,6 +5,40 @@ body {
     height: 2000vh;
 }
 
+.tooltip{
+    position: absolute;
+    margin:0 auto;
+    background: darkcyan;
+    width:auto;
+    height:60px;
+    border:1px solid darkslategray;
+    border-radius:6px;
+    text-align: center;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.tooltip .title{
+    position: relative;
+    border-bottom: 1px solid #000;
+    text-align: center;
+    font-size: 14px;
+    z-index: 3;
+}
+.tooltip .desText{
+    position: relative;
+    display: inline;
+    z-index: 3;
+}
+
+.line_ {
+    animation: dash 10s;
+    /*-webkit-animation: dash 10s;*/
+
+}
+
 #main-camvas {
     display: block;
     position: fixed;
