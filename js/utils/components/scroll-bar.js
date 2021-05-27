@@ -19,15 +19,21 @@ export default class ScrollBarChart extends SceneBase {
             }, 
             "__dataUrl__": "/data/COVID.json", 
             "__colors__": [
-                "#2364B9", 
-                "#014AA9", 
-                "#297EEC", 
-                // "#488FEC", 
-                // "#639FEC", 
-                // "#6382AA", 
-                // "#80C8FA", 
-                // "#CCE0FA", 
-                // "#6BA5F0", 
+                // '#2d2d2d',
+                // '#393939',
+                // '#515151',
+                // '#6699cc',
+                '#66cccc',
+                '#747369',
+                '#99cc99',
+                '#a09f93',
+                '#cc99cc',
+                '#d27b53',
+                '#d3d0c8',
+                '#f2777a',
+                '#f2f0ec',
+                '#f99157',
+                '#ffcc66'
             ]
         }, conf)
 
@@ -131,6 +137,7 @@ export default class ScrollBarChart extends SceneBase {
                     nextYearMax = (nextYearMax + thisYearMax) * 0.5
                     nextYearMin = (nextYearMin + thisYearMax) * 0.5
                 } 
+                
 
 
                 // 遍历每个词
@@ -494,8 +501,8 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("fill", this.color)
                               .attr("stroke-width", 2)
                               .attr("stroke", "silver")
-                              .attr("rx", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.05)
-                              .attr("ry", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.05)
+                              .attr("rx", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.02)
+                              .attr("ry", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.02)
 
                             // 添加标签
                             d3.select("#word-freq-bar-g")
