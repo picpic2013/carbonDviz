@@ -33,8 +33,10 @@ SceneBase.setGloalVars(gloalVars)
 // import testScene from "./scenes/testScene.js"
 // import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 // import barCovid from "./scenes/bar-covid.js"
-// import ScrollBarChart from "./utils/components/scroll-bar.js"
-import LineChart from "./scenes/line-chart.js"
+import ScrollBarChart from "./utils/components/scroll-bar.js"
+// import LineChart from "./scenes/line-chart.js"
+
+import WorldMapLeft from "./scenes/2-world-map.js"
 
 SceneBase.scroll.init([
     // titleScene, 
@@ -68,7 +70,14 @@ SceneBase.scroll.init([
     //     }
     // }), 
 
-    new LineChart({
-        svgHeight: pageHeight * heightScale
+    // 右侧的折线图
+    // new LineChart({
+    //     svgHeight: pageHeight * heightScale
+    // }), 
+
+    // 左侧的世界地图
+    new WorldMapLeft({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale
     })
 ])
