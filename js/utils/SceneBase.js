@@ -139,7 +139,7 @@ SceneBase.prototype.__onInactive__ = function (rate, scrolled, gloalVars) {
         if (subObj.isActive() === true) {
             if (subObj.__onInactive__) {
                 // 计算子场景的进度
-                var percentage = (rate - subObj.__start__) / (subObj.__end__ - subObj.__start__)
+                var percentage = this.__calculatePercentage__(subObj, rate, scrolled, gloalVars)
                 subObj.__onInactive__.call(subObj, percentage, scrolled, gloalVars)
             }
             subObj.end()
