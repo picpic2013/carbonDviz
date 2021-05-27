@@ -41,7 +41,8 @@ SceneBase.scroll.init([
     // mapAndLineScene, 
     // testScene, 
     // new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
-    
+
+    // 政策词频统计图
     // new ScrollBarChart({
     //     svgHeight: pageHeight * heightScale, 
     //     __dataUrl__: "/data/3-policy-word-freq-real.json", 
@@ -65,8 +66,9 @@ SceneBase.scroll.init([
     //         })
     //         return {data: tmpRes}
     //     }
-    // }),
+    // }), 
+
     new LineChart({
         svgHeight: pageHeight * heightScale
-    }) 
+    })
 ])
