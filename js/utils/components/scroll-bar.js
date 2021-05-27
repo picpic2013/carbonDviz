@@ -536,7 +536,7 @@ export default class ScrollBarChart extends SceneBase {
                         __onUpdate__: function (rate, absolute, globalVars) {
                             // 更新时间显示
                             var a = (new Date((this.yearName).toString()+"/1/1 00:00:00")).getTime();
-                            var b = (new Date((this.yearName+1).toString()+"/12/31 23:59:00")).getTime();
+                            var b = (new Date((this.yearName).toString()+"/12/31 23:59:00")).getTime();
                             var result = Math.abs(a - b);
 
                             // console.log((this.yearName).toString()+"/1/1 00:00:00")
