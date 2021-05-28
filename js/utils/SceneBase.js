@@ -103,6 +103,7 @@ SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
     for (var subObj of Object.values(this.__subObjects__)) {
         // 计算子场景的进度
         var percentage = this.__calculatePercentage__(subObj, rate, scrolled, gloalVars)
+        // rate = __calculatePercentage__(rate, scrolled, gloalVars)
         
         // 如果不在范围内
         if (subObj.__isInActiveRange__(rate, scrolled, gloalVars) === false) {

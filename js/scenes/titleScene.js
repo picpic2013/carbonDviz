@@ -1,23 +1,40 @@
+import SceneBase from "../utils/SceneBase.js"
 import helpers from "../utils/helpers.js"
 
-export default {
-   /**
-    * 场景开始的滚动百分比
-   */
-   __start__: 0, 
+/**
+ * 2.0 版场景定义
+ */
+export default class TitleScene extends SceneBase {
+    /**
+     * 构造函数，只执行一次，用于定义变量等
+     * @param {conf}   兼容 1.0 的配置文件，或子元素 Array 
+     * @param {father} 父元素，一般留空，自动配置
+     */
+    constructor (conf, father) {
+        super(conf, father)
+      
+        this.addSubObject({
+            __start__: 0.9, 
+            __end__: 1, 
+            __onUpdate__: function (rate, abso, gloalVars) {
+               // console.log(rate)
+               d3.select("#scene1-g")
+                 .attr("opacity", SceneBase.sc.linearMap(rate, 0, 1, 1, 0))
+            }, 
+            __onInactive__: function (rate) {
+               d3.select("#scene1-g")
+                 .attr("opacity", SceneBase.sc.linearMap(rate, 0, 1, 1, 0))
+            }
+         })
+    }
 
-   /** 
-    * 场景结束的滚动百分比
-   */
-   __end__: 0.13, 
-
-   /**
-    * 场景被激活时执行的函数，一般用户创建对象 
-    * @param {rate}      当前场景运行的百分比
-    * @param {scrolled}  滚动百分比绝对值
-    * @param {gloalVars} 全局变量存放处
-   */
-   __onActivate__: function (rate, scrolled, gloalVars) {
+    /**
+     * 场景被激活时执行的函数，一般用户创建对象 
+     * @param {rate}      当前场景运行的百分比
+     * @param {abso}      全局绝对量
+     * @param {gloalVars} 全局变量存放处
+    */
+    __onActivate__(rate, abso, gloalVars) {
       var svg = d3.select("#main-camvas")
                   .append("g")
                   .attr("class", "scene1")
@@ -85,15 +102,20 @@ export default {
          .attr("style", "text-anchor:middle;dominant-baseline:middle;")
          .attr("font-size", 80)
          .text("2021");
-   }, 
+    }
 
-   /**
-    * 滚动更新时的更新函数
-    * @param {*} rate      当前场景的百分比
-    * @param {*} scrolled  滚动百分比绝对值
-    * @param {*} gloalVars 全局变量存放处
-    */
-   __onUpdate__: function (rate, scrolled, gloalVars) {
+    /**
+     * 滚动更新时的更新函数
+     * @param {rate}       当前场景的百分比
+     * @param {abso}       全局绝对量
+     * @param {gloalVars}  全局变量存放处
+     */
+    __onUpdate__ (rate, abso, gloalVars) {
+      // 先自己代码再 super
+      var rawRate = rate
+      // rate = SceneBase.sc.linearMap(abso, 0, 10 * gloalVars.svgHeight, 0, 1)
+      // console.log(abso, rate)
+
       // 更新树、楼的时间和颜色
       var svg = d3.select("#scene1-g")
       var treeTime = svg.select("#tree-time")
@@ -104,30 +126,35 @@ export default {
            
       tree.attr("fill", helpers.getRgb(rate * 218, (1 - rate) * (255 - 60), 0))
       buildingTime.text("" + Math.ceil(2021 + rate * 300))
-   }, 
 
-   /**
-    * 场景被销毁时执行的函数，一般用于删除对象
-    * @param {rate}      当前场景的百分比
-    * @param {scrolled}  滚动百分比绝对值
-    * @param {gloalVars} 全局变量存放处
-    */
-   __onInactive__: function (rate, scrolled, gloalVars) {
+      super.__onUpdate__(rate, abso, gloalVars)
+    }
+
+    /**
+     * 场景被销毁时执行的函数，一般用于删除对象
+     * @param {rate}      当前场景的百分比
+     * @param {abso}      全局绝对量
+     * @param {gloalVars} 全局变量存放处
+     */
+    __onInactive__ (rate, abso, gloalVars) {
+      super.__onInactive__(rate, abso, gloalVars)
+      // 先 super 再自己的代码
+
       var svg = d3.select("#main-camvas")
 
       svg.selectAll(".scene1")
          .remove();
-   }, 
+    }
 
-   /**
-    * 未激活时的滚动更新参数
-    * @param {rate}      当前场景的百分比
-    * @param {scrolled}  滚动百分比绝对值
-    * @param {gloalVars} 全局变量存放处
-    */
-   __onUpdateInactive__: function (rate, scrolled, gloalVars) {
+    /**
+     * 未激活时的滚动更新参数
+     * @param {rate}      当前场景的百分比
+     * @param {abso}      全局绝对量
+     * @param {gloalVars} 全局变量存放处
+     */
+    __onUpdateInactive__(rate, abso, gloalVars) {
 
-   },
+    }
 
-   /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
+    /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }

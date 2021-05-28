@@ -24,60 +24,91 @@ var svg = d3.select("#main-camvas")
 
 import SceneBase from "./utils/SceneBase.js"
 import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
+import SimpleCurvePlugin from "./utils/plugins/SimpleCurvePlugin.js"
 
 SceneBase.use(ScrollSceneBasePlugin)
+SceneBase.use(SimpleCurvePlugin)
+
 SceneBase.setGloalVars(gloalVars)
 
-// import titleScene from "./scenes/titleScene.js"
+import TitleScene from "./scenes/titleScene.js"
 // import mapAndLineScene from "./scenes/mapAndLine.js"
 // import testScene from "./scenes/testScene.js"
 // import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
 // import barCovid from "./scenes/bar-covid.js"
 import ScrollBarChart from "./utils/components/scroll-bar.js"
-// import LineChart from "./scenes/line-chart.js"
+import LineChart from "./scenes/line-chart.js"
 
 import WorldMapLeft from "./scenes/2-world-map.js"
+import LineChart2 from "./scenes/4-area-chart.js"
 
 SceneBase.scroll.init([
-    // titleScene, 
-    // mapAndLineScene, 
-    // testScene, 
-    // new SceneExtendedTemplate({__start__: 0.52, __end__: 0.65})
+    new TitleScene({
+        // __isInActiveRange__: function (rate, scrolled, gloalVars) {
+        //     // console.log(scrolled)
+        //     if (scrolled >= 0 && scrolled < 10 * gloalVars.svgHeight) {
+        //         return true
+        //     }
+        //     return false
+        // }, 
 
-    // 政策词频统计图
-    // new ScrollBarChart({
-    //     svgHeight: pageHeight * heightScale, 
-    //     __dataUrl__: "/data/3-policy-word-freq-real.json", 
-    //     __onload__: function (data) {
-    //         var tmpList = data.data
-    //         var tmpRes = []
-    //         for (var i of tmpList) {
-    //             tmpRes.push({
-    //                 time: i.year, 
-    //                 details: i.words
-    //             })
-    //         }
-    //         tmpRes = tmpRes.sort(function (a, b) {
-    //             if (a.time < b.time) {
-    //                 return -1
-    //             }
-    //             if (a.time > b.time) {
-    //                 return 1
-    //             }
-    //             return 0
-    //         })
-    //         return {data: tmpRes}
-    //     }
-    // }), 
+        // __calculatePercentage__: function (obj, rate, scrolled, gloalVars) {
+        //     let tmp = SceneBase.sc.linearMap(scrolled, 0, 10 * gloalVars.svgHeight, 0, 1)
+        //     console.log(tmp, obj.__start__, obj.__end__)
+        //     return SceneBase.sc.linearMap(tmp, obj.__start__, obj.__end__, 0, 1)
+        // }, 
 
-    // 右侧的折线图
-    // new LineChart({
-    //     svgHeight: pageHeight * heightScale
-    // }), 
+        __end__: 0.1
+    }), 
 
     // 左侧的世界地图
-    new WorldMapLeft({
+    // 右侧的折线图
+    new SceneBase({
+            __start__: 0.1, 
+            __end__: 0.3
+        }, window, 
+        new WorldMapLeft({
+            svgHeight: pageHeight * heightScale, 
+            svgWidth: pageWidth * widthScale, 
+        }), 
+        new LineChart({
+            svgHeight: pageHeight * heightScale
+        }), 
+    ), 
+
+    // 政策词频统计图
+    new ScrollBarChart({
         svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale
+        __dataUrl__: "/data/3-policy-word-freq-real.json", 
+        __onload__: function (data) {
+            var tmpList = data.data
+            var tmpRes = []
+            for (var i of tmpList) {
+                tmpRes.push({
+                    time: i.year, 
+                    details: i.words
+                })
+            }
+            tmpRes = tmpRes.sort(function (a, b) {
+                if (a.time < b.time) {
+                    return -1
+                }
+                if (a.time > b.time) {
+                    return 1
+                }
+                return 0
+            })
+            return {data: tmpRes}
+        }, 
+
+        __start__: 0.3, 
+        __end__: 0.8
+    }), 
+
+    new LineChart2({
+        __start__: 0.8, 
+        __end__: 1
     })
+    
 ])
+console.log(SceneBase.scroll.__rootScene__)
