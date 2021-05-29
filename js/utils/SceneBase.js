@@ -75,12 +75,21 @@ function SceneBase(conf, father, ...subObjs) {
     }
 }
 
-SceneBase.prototype.isInActiveRange = function (rate, scrolled, gloalVars) {
+SceneBase.prototype.isInActiveRangeRelative = function (rate, scrolled, gloalVars) {
     if (rate < this.__start__ || rate > this.__end__) {
         return false
     }
     return true
 }
+
+SceneBase.prototype.isInActiveRangeAbsolute = function (rate, scrolled, gloalVars) {
+    if (scrolled < this.__start__ || scrolled > this.__end__) {
+        return false
+    }
+    return true
+}
+
+SceneBase.prototype.isInActiveRange = SceneBase.prototype.isInActiveRangeRelative
 
 SceneBase.prototype.calculatePercentageRelative = function (rate, scrolled, gloalVars) {
     return (rate - this.__start__) / (this.__end__ - this.__start__)
@@ -221,10 +230,12 @@ SceneBase.prototype.end = function (t) {
 SceneBase.prototype.setRateMode = function (m) {
     if (m === 'absolute') {
         this.calculatePercentage = SceneBase.prototype.calculatePercentageAbsolute
+        this.isInActiveRange = SceneBase.prototype.isInActiveRangeAbsolute
     }
 
     else if (m === 'relative') {
         this.calculatePercentage = SceneBase.prototype.calculatePercentageRelative
+        this.isInActiveRange = SceneBase.prototype.isInActiveRangeRelative
     }
     return this
 }
