@@ -188,7 +188,7 @@ export default class ScrollBarChart extends SceneBase {
                         __start__: 0, 
                         __end__: 0.5, 
 
-                        __onUpdate__: function (rate, absolute, globalVars) {
+                        onUpdate: function (rate, absolute, globalVars) {
                             // 更新矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .attr("y", ScrollBarChart.getValueByRate(this.lastYearPosition, this.thisYearPosition, rate))
@@ -234,7 +234,7 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("opacity", ScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
                               .text(Math.ceil(ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, rate)))
                         }, 
-                        __onInactive__: function (rate, absolute, globalVars) {
+                        onInactive: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
                                 // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
@@ -339,7 +339,7 @@ export default class ScrollBarChart extends SceneBase {
                         __start__: 0.5, 
                         __end__: 1, 
 
-                        __onUpdate__: function (rate, absolute, globalVars) {
+                        onUpdate: function (rate, absolute, globalVars) {
                             // 更新矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .attr("y", ScrollBarChart.getValueByRate(this.thisYearPosition, this.nextYearPosition, rate))
@@ -385,7 +385,7 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("opacity", ScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
                               .text(Math.ceil(ScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, rate)))
                         }, 
-                        __onInactive__: function (rate, absolute, globalVars) {
+                        onInactive: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
                                 // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
@@ -491,7 +491,7 @@ export default class ScrollBarChart extends SceneBase {
                         __start__: washedData[yearName].__index__ / totalYears, 
                         __end__: (washedData[yearName].__index__ + 1) / totalYears, 
 
-                        __onActivate__: function (rate, absolute, globalVars) {
+                        onActivate: function (rate, absolute, globalVars) {
                             // 添加矩形
                             d3.select("#word-freq-bar-g")
                               .append("rect")
@@ -533,7 +533,7 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("opacity", 0)
                         }, 
 
-                        __onUpdate__: function (rate, absolute, globalVars) {
+                        onUpdate: function (rate, absolute, globalVars) {
                             // 更新时间显示
                             var a = (new Date((this.yearName).toString()+"/1/1 00:00:00")).getTime();
                             var b = (new Date((this.yearName).toString()+"/12/31 23:59:00")).getTime();
@@ -550,7 +550,7 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("opacity", 1)
                         },
 
-                        __onInactive__: function (rate, absolute, globalVars) {
+                        onInactive: function (rate, absolute, globalVars) {
                             // 移除矩形
                             d3.select("#rect-" + this.yearName + "-" + this.rank)
                               .remove()
@@ -621,7 +621,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-    __onActivate__(rate, abso, gloalVars) {
+    onActivate (rate, abso, gloalVars) {
         d3.select("#main-camvas")
           .append("g")
           .attr("class", "word-freq-bar")
@@ -634,10 +634,8 @@ export default class ScrollBarChart extends SceneBase {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__ (rate, abso, gloalVars) {
-        // 先自己代码再 super
-
-        super.__onUpdate__(rate, abso, gloalVars)
+    onUpdate (rate, abso, gloalVars) {
+        
     }
 
     /**
@@ -647,8 +645,6 @@ export default class ScrollBarChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
      */
     __onInactive__ (rate, abso, gloalVars) {
-        super.__onInactive__(rate, abso, gloalVars)
-        // 先 super 再自己的代码
         d3.select("#main-camvas")
           .selectAll(".word-freq-bar")
           .remove();
@@ -663,12 +659,6 @@ export default class ScrollBarChart extends SceneBase {
     __onUpdateInactive__(rate, abso, gloalVars) {
 
     }
-
-    /**
-     * 子场景配置文件 可以是 [{conf}] 或 {id: {conf}} 
-     * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
-     */
-    __subObjects__ = {}
 
     /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }

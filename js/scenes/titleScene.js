@@ -34,7 +34,7 @@ export default class TitleScene extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-    __onActivate__(rate, abso, gloalVars) {
+    onActivate (rate, abso, gloalVars) {
       var svg = d3.select("#main-camvas")
                   .append("g")
                   .attr("class", "scene1")
@@ -110,7 +110,7 @@ export default class TitleScene extends SceneBase {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__ (rate, abso, gloalVars) {
+    onUpdate (rate, abso, gloalVars) {
       // 先自己代码再 super
       var rawRate = rate
       // rate = SceneBase.sc.linearMap(abso, 0, 10 * gloalVars.svgHeight, 0, 1)
@@ -126,8 +126,6 @@ export default class TitleScene extends SceneBase {
            
       tree.attr("fill", helpers.getRgb(rate * 218, (1 - rate) * (255 - 60), 0))
       buildingTime.text("" + Math.ceil(2021 + rate * 300))
-
-      super.__onUpdate__(rate, abso, gloalVars)
     }
 
     /**
@@ -136,10 +134,7 @@ export default class TitleScene extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (rate, abso, gloalVars) {
-      super.__onInactive__(rate, abso, gloalVars)
-      // 先 super 再自己的代码
-
+    onInactive (rate, abso, gloalVars) {
       var svg = d3.select("#main-camvas")
 
       svg.selectAll(".scene1")
@@ -152,7 +147,7 @@ export default class TitleScene extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(rate, abso, gloalVars) {
+    onUpdateInactive (rate, abso, gloalVars) {
 
     }
 

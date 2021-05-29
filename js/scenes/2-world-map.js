@@ -76,7 +76,7 @@ export default class WorldMapLeft extends SceneBase {
                 this.addSubObject({
                     __start__: (startYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
                     __end__: (endYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
-                    __onActivate__: function (rate, abso, gloalVars) {
+                    onActivate: function (rate, abso, gloalVars) {
                         let pos = WorldMapLeft.getPosition(this.position[0], this.position[1], conf.svgWidth, conf.svgHeight)
                         
                         let self = this
@@ -94,12 +94,12 @@ export default class WorldMapLeft extends SceneBase {
                           })
                     }, 
 
-                    __onInactive__: function (rate, abso, gloalVars) {
+                    onInactive: function (rate, abso, gloalVars) {
                         d3.select("#country-cir-" + this.index)
                           .remove()
                     }, 
 
-                    __onUpdate__: function (rate, abso, gloalVars) {
+                    onUpdate: function (rate, abso, gloalVars) {
                         // 根据年份找到下标，然后计算出对应的颜色
 
                         let nowIndex = Math.floor(rate * this.carbonData.length)
@@ -117,16 +117,12 @@ export default class WorldMapLeft extends SceneBase {
                             this.maxEmit
                           ))
 
-                        if (nowIndex == 0) {
-                            tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
-                        }
+                        tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
 
                         // if (nowIndex == this.carbonData.length - 1) {
                         //     tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, nowIndex / this.carbonData.length, 1, 1, 0))
                         // }
                     },
-
-                    __subObjects__: [], 
                     
                     countryName: countryName, 
                     position: position, 
@@ -155,7 +151,7 @@ export default class WorldMapLeft extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-    __onActivate__(rate, abso, gloalVars) {
+    onActivate (rate, abso, gloalVars) {
         d3.select("#main-camvas")
           .append("g")
           .attr("class", "world-map")
@@ -168,9 +164,8 @@ export default class WorldMapLeft extends SceneBase {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__ (rate, abso, gloalVars) {
-        // 先自己代码再 super
-        super.__onUpdate__(rate, abso, gloalVars)
+    onUpdate (rate, abso, gloalVars) {
+        
     }
 
     /**
@@ -179,9 +174,8 @@ export default class WorldMapLeft extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (rate, abso, gloalVars) {
-        super.__onInactive__(rate, abso, gloalVars)
-        // 先 super 再自己的代码
+    onInactive (rate, abso, gloalVars) {
+        
     }
 
     /**
@@ -190,17 +184,10 @@ export default class WorldMapLeft extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(rate, abso, gloalVars) {
+    onUpdateInactive (rate, abso, gloalVars) {
 
     }
 
-    /**
-     * 子场景配置文件 可以是 [{conf}] 或 {id: {conf}} 
-     * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
-     */
-    __subObjects__ = {}
-
-    /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }
 
 WorldMapLeft.getPosition = function (lon, lat, svgWidth, svgHeight) {

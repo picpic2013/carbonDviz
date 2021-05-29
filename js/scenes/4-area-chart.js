@@ -65,7 +65,7 @@ export default class LineChart extends SceneBase {
                         __start__: 0, 
                         __end__: 1, 
     
-                        __onActivate__: function (rate, absolute, globalVars) {
+                        onActivate: function (rate, absolute, globalVars) {
                             var x_w = (globalVars.svgWidth - padding.left - padding.right - 2 * padding.x_interval) / 3
                             var x_index = 1
                             if( this.cityData.index < 6) {
@@ -144,7 +144,7 @@ export default class LineChart extends SceneBase {
 
                         },
     
-                        __onUpdate__: function (rate, absolute, globalVars) {
+                        onUpdate: function (rate, absolute, globalVars) {
                             // console.log(this.cityData.index)
                             var x_index = 1
                             if( this.cityData.index < 6) {
@@ -164,18 +164,12 @@ export default class LineChart extends SceneBase {
                             
                         },
     
-                        __onInactive__: function (rate, absolute, globalVars) {
+                        onInactive: function (rate, absolute, globalVars) {
                             console.log(this.cityname)
                             d3.select("#rect-" + this.cityname).remove()
                             d3.select("#text-" + this.cityname).remove()
                             d3.select("#area-" + this.cityname).remove()
-                        },
-    
-                        __subObjects__: [
-                                            // enterAnimation, 
-                                            // quitAnimation
-                                        ],
-
+                        }, 
                         
                         cityData: cityData,
                         cityname: cityname,
@@ -190,13 +184,6 @@ export default class LineChart extends SceneBase {
                     
                 }
 
-
-
-
-                
-
-
-
             }
 
             )
@@ -209,7 +196,7 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-     __onActivate__(rate, abso, gloalVars) {
+     onActivate (rate, abso, gloalVars) {
         d3.select("#main-camvas")
           .append("g")
           .attr("class", "area-chart")
@@ -222,10 +209,8 @@ export default class LineChart extends SceneBase {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__ (rate, abso, gloalVars) {
-        // 先自己代码再 super
-
-        super.__onUpdate__(rate, abso, gloalVars)
+    onUpdate (rate, abso, gloalVars) {
+        
     }
 
     /**
@@ -234,9 +219,7 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (rate, abso, gloalVars) {
-        super.__onInactive__(rate, abso, gloalVars)
-        // 先 super 再自己的代码
+    onInactive (rate, abso, gloalVars) {
         d3.select("#main-camvas")
           .selectAll(".area-chart")
           .remove();
@@ -248,15 +231,9 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(rate, abso, gloalVars) {
+    onUpdateInactive (rate, abso, gloalVars) {
 
     }
-
-    /**
-     * 子场景配置文件 可以是 [{conf}] 或 {id: {conf}} 
-     * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
-     */
-    __subObjects__ = {}
 
     /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 

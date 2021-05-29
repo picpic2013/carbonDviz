@@ -15,7 +15,7 @@ export default {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-    __onActivate__: function (rate, abso, gloalVars) {
+    onActivate: function (rate, abso, gloalVars) {
         
     }, 
 
@@ -25,7 +25,7 @@ export default {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    __onUpdate__: function (rate, abso, gloalVars) {
+    onUpdate: function (rate, abso, gloalVars) {
         
     }, 
 
@@ -35,7 +35,7 @@ export default {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__: function (rate, abso, gloalVars) {
+    onInactive: function (rate, abso, gloalVars) {
         
     }, 
 
@@ -45,7 +45,7 @@ export default {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__: function (rate, abso, gloalVars) {
+    onUpdateInactive: function (rate, abso, gloalVars) {
         
     },
 

@@ -38,6 +38,7 @@ function SceneBase(conf, father, ...subObjs) {
         "__subObjects__": this.__subObjects__
     })
     
+    // 把构造函数中的剩余参数都当成子元素加入
     for (var sub of subObjs) {
         this.addSubObject(sub)
     }
@@ -76,61 +77,62 @@ function SceneBase(conf, father, ...subObjs) {
     }
 }
 
-SceneBase.prototype.__isInActiveRange__ = function (rate, scrolled, gloalVars) {
+SceneBase.prototype.isInActiveRange = function (rate, scrolled, gloalVars) {
     if (rate < this.__start__ || rate > this.__end__) {
         return false
     }
     return true
 }
 
-SceneBase.prototype.__calculatePercentage__ = function (obj, rate, scrolled, gloalVars) {
-    return (rate - obj.__start__) / (obj.__end__ - obj.__start__)
+SceneBase.prototype.calculatePercentage = function (rate, scrolled, gloalVars) {
+    return (rate - this.__start__) / (this.__end__ - this.__start__)
 }
 
 SceneBase.prototype.__onActivate__ = function (rate, abso, gloalVars) {
-    if (this.__onActivateFunction__) {
-        this.__onActivateFunction__.call(this, rate, abso, gloalVars)
+    // 计算当前场景的进度
+    rate = this.calculatePercentage.call(this, rate, abso, gloalVars)
+
+    if (typeof this.onActivate === 'function') {
+        this.onActivate.call(this, rate, abso, gloalVars)
     }
 }
 
+/**
+ * 场景自动更新函数，自动生成，用户无需更改
+ * @param {父场景中当前的进度值} rate 
+ * @param {场景已经滚动的绝对值} scrolled 
+ * @param {全局变量} gloalVars 
+ */
 SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
+    // 计算当前场景的进度
+    rate = this.calculatePercentage.call(this, rate, scrolled, gloalVars)
+
     // 先自己更新
-    if (this.__onUpdateFunction__) {
-        this.__onUpdateFunction__.call(this, rate, scrolled, gloalVars)
+    if (typeof this.onUpdate === 'function') {
+        this.onUpdate.call(this, rate, scrolled, gloalVars)
     }
 
     // 再更新自己的所有子元素
-    for (var subObj of Object.values(this.__subObjects__)) {
-        // 计算子场景的进度
-        var percentage = this.__calculatePercentage__(subObj, rate, scrolled, gloalVars)
-        // rate = __calculatePercentage__(rate, scrolled, gloalVars)
-        
-        // 如果不在范围内
-        if (subObj.__isInActiveRange__(rate, scrolled, gloalVars) === false) {
+    for (var subObj of Object.values(this.__subObjects__)) { 
+        // 子场景自己判断，如果不在范围内
+        if (subObj.isInActiveRange.call(subObj, rate, scrolled, gloalVars) === false) {
             if (subObj.isActive() === true) {
-                if (subObj.__onInactive__) {
-                    subObj.__onInactive__.call(subObj, percentage, scrolled, gloalVars)
-                }
+                subObj.__onInactive__.call(subObj, rate, scrolled, gloalVars)
                 subObj.end()
             }
             
-            if (subObj.__onUpdateInactive__) {
-                subObj.__onUpdateInactive__.call(subObj, percentage, scrolled, gloalVars)
-            }
+            subObj.__onUpdateInactive__.call(subObj, rate, scrolled, gloalVars)
             continue
         }
         
+        // 子场景在范围内，需要更新
         // 调用子场景的更新函数
         if (subObj.isActive() === false) {
-            if (subObj.__onActivate__) {
-                subObj.__onActivate__.call(subObj, percentage, scrolled, gloalVars)
-            }
+            subObj.__onActivate__.call(subObj, rate, scrolled, gloalVars)
             subObj.start()
         }
 
-        if (subObj.__onUpdate__) {
-            subObj.__onUpdate__.call(subObj, percentage, scrolled, gloalVars)
-        }
+        subObj.__onUpdate__.call(subObj, rate, scrolled, gloalVars)
     }
 }
 
@@ -138,24 +140,26 @@ SceneBase.prototype.__onInactive__ = function (rate, scrolled, gloalVars) {
     // 先销毁漏网之鱼
     for (var subObj of Object.values(this.__subObjects__)) {
         if (subObj.isActive() === true) {
-            if (subObj.__onInactive__) {
-                // 计算子场景的进度
-                var percentage = this.__calculatePercentage__(subObj, rate, scrolled, gloalVars)
-                subObj.__onInactive__.call(subObj, percentage, scrolled, gloalVars)
-            }
+            subObj.__onInactive__.call(subObj, rate, scrolled, gloalVars)
             subObj.end()
         }
     }
 
     // 再销毁自己
-    if (this.__onInactiveFunction__) {
-        this.__onInactiveFunction__.call(this, rate, scrolled, gloalVars)
+    if (typeof this.onInactive === 'function') {
+        // 计算当前场景的进度
+        rate = this.calculatePercentage.call(this, rate, scrolled, gloalVars)
+
+        this.onInactive.call(this, rate, scrolled, gloalVars)
     }
 }
 
 SceneBase.prototype.__onUpdateInactive__ = function (rate, abso, gloalVars) {
-    if (this.__onUpdateInactiveFunction__) {
-        this.__onUpdateInactiveFunction__.call(this, rate, abso, gloalVars)
+    if (typeof this.onUpdateInactive === 'function') {
+        // 计算当前场景的进度
+        rate = this.calculatePercentage.call(this, rate, abso, gloalVars)
+        
+        this.onUpdateInactive.call(this, rate, abso, gloalVars)
     }
 }
 
@@ -221,6 +225,13 @@ SceneBase.use = function (plugin, conf) {
     if (plugin.install !== undefined) {
         plugin.install(SceneBase, conf)
     }
+}
+
+SceneBase.linearMap = function (now, startNum, endNum, startOutput, endOutput) {
+    let tmpValue = (now - startNum) / (endNum - startNum) * (endOutput - startOutput) + startOutput
+    tmpValue = Math.max(tmpValue, Math.min(startOutput, endOutput))
+    tmpValue = Math.min(tmpValue, Math.max(startOutput, endOutput))
+    return tmpValue
 }
 
 SceneBase.__gloalVars__ = {}
