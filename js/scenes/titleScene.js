@@ -14,8 +14,8 @@ export default class TitleScene extends SceneBase {
         super(conf, father)
       
         this.addSubObject({
-            __start__: 0.9, 
-            __end__: 1, 
+            __start__: 0.3, 
+            __end__: 0.7, 
             onUpdate: function (rate, abso, gloalVars) {
                // console.log(rate)
                d3.select("#scene1-g")

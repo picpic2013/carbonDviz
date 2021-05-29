@@ -32,32 +32,48 @@ SceneBase.use(SimpleCurvePlugin)
 SceneBase.setGloalVars(gloalVars)
 
 import TitleScene from "./scenes/titleScene.js"
-// import mapAndLineScene from "./scenes/mapAndLine.js"
-// import testScene from "./scenes/testScene.js"
-// import { SceneExtendedTemplate } from "./scenes/TestScene2.js"
-// import barCovid from "./scenes/bar-covid.js"
 import ScrollBarChart from "./utils/components/scroll-bar.js"
 import LineChart from "./scenes/line-chart.js"
 
 import WorldMapLeft from "./scenes/2-world-map.js"
 import LineChart2 from "./scenes/4-area-chart.js"
 
+import LinearOpacity from "./utils/components/LinearOpacity.js"
+
 SceneBase.scroll.init([
-    // new TitleScene().start(0).end(10 * gloalVars.svgHeight).setRateMode('absolute'), 
+    new TitleScene().start(0).end(3 * gloalVars.svgHeight).setRateMode('absolute'), 
 
     // 左侧的世界地图
     // 右侧的折线图
     new SceneBase()
-    // .start(10 * gloalVars.svgHeight)
-    // .end(20 * gloalVars.svgHeight)
-    // .setRateMode('absolute')
-    // .subObject(new WorldMapLeft({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale, 
-    // }))
+    .start(3 * gloalVars.svgHeight)
+    .end(20 * gloalVars.svgHeight)
+    .setRateMode('absolute')
+    .subObject(new WorldMapLeft({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale, 
+    }).subObject(new LinearOpacity({
+        mountOn: '#world-map-g', 
+        startOpacity: 1, 
+        endOpacity: 0
+        })
+        .start(0.8)))
     .subObject(new LineChart({
         svgHeight: pageHeight * heightScale
-    })), 
+    }).subObject([new LinearOpacity({
+        mountOn: '#line-chart-g', 
+        startOpacity: 1, 
+        endOpacity: 0
+        })
+        .start(0.8), 
+
+        new LinearOpacity({
+            mountOn: '#line-chart-g', 
+            startOpacity: 0, 
+            endOpacity: 1
+            })
+            .end(0.1),
+    ])), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -84,16 +100,31 @@ SceneBase.scroll.init([
             return {data: tmpRes}
         }
     })
-    .start(10 * gloalVars.svgHeight)
-    .end(20 * gloalVars.svgHeight)
+    .start(20 * gloalVars.svgHeight)
+    .end(50 * gloalVars.svgHeight)
     .setRateMode('absolute'), 
 
-    // new LineChart2({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale
-    //     // __start__: 0.8, 
-    //     // __end__: 1
-    // })
+    new LineChart2({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale
+    })
+    .start(50 * gloalVars.svgHeight)
+    .end(60 * gloalVars.svgHeight)
+    .setRateMode('absolute')
+    .subObject([new LinearOpacity({
+        mountOn: '#area-chart-g', 
+        startOpacity: 1, 
+        endOpacity: 0
+        })
+        .start(0.8), 
+
+        new LinearOpacity({
+            mountOn: '#area-chart-g', 
+            startOpacity: 0, 
+            endOpacity: 1
+            })
+            .end(0.1),
+    ])
     
 ])
 console.log(SceneBase.scroll.__rootScene__)

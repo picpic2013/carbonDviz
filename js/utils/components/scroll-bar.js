@@ -24,16 +24,16 @@ export default class ScrollBarChart extends SceneBase {
                 // '#515151',
                 // '#6699cc',
                 '#66cccc',
-                '#747369',
-                '#99cc99',
-                '#a09f93',
-                '#cc99cc',
-                '#d27b53',
-                '#d3d0c8',
-                '#f2777a',
-                '#f2f0ec',
-                '#f99157',
-                '#ffcc66'
+                // '#747369',
+                // '#99cc99',
+                // '#a09f93',
+                // '#cc99cc',
+                // '#d27b53',
+                // '#d3d0c8',
+                // '#f2777a',
+                // '#f2f0ec',
+                // '#f99157',
+                // '#ffcc66'
             ]
         }, conf)
 
@@ -526,6 +526,7 @@ export default class ScrollBarChart extends SceneBase {
                             d3.select("#word-freq-bar-g") 
                               .append("text")
                               .attr("id", "time-year-" + this.yearName)
+                              .attr("class", "scroll-bar-time-showing")
                               .attr("x", globalVars.svgWidth * 0.85)
                               .attr("y", globalVars.svgHeight * 0.95)
                               .attr("style", "text-anchor:middle;dominant-baseline:middle;")

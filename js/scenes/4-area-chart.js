@@ -57,7 +57,7 @@ export default class LineChart extends SceneBase {
                         maxValue = Math.max(maxValue, d.value)
                         minValue = Math.min(minValue, d.value)
                     }
-                    console.log(cityname, minValue, maxValue)
+                    // console.log(cityname, minValue, maxValue)
 
                     var padding = {top: 50, right: 50, bottom: 50, left: 50, x_interval: 50, y_interval: 40}
 
@@ -74,7 +74,7 @@ export default class LineChart extends SceneBase {
 
                             var y_w = (conf.svgHeight - padding.top - padding.bottom - 2 * padding.y_interval) / 3
                             var y_index = parseInt(this.cityData.index / 3)
-                            console.log(conf.svgHeight)
+                            // console.log(conf.svgHeight)
 
 
                             var minD = (new Date((this.minDate).toString()+" 00:00:00")).getTime();
@@ -126,7 +126,7 @@ export default class LineChart extends SceneBase {
                                 .attr("height", y_w * 1.1)
                                 .attr("x", x_index * (x_w + padding.x_interval) + padding.left )
                                 .attr("y", y_index * (y_w + padding.y_interval) + padding.top - y_w*0.05)
-                                .attr("fill","white")
+                                .attr("fill","silver")
                                 .attr("opacity", 1)
                                 .style("z-index",2)
 
@@ -166,7 +166,7 @@ export default class LineChart extends SceneBase {
                         },
     
                         onInactive: function (rate, absolute, globalVars) {
-                            console.log(this.cityname)
+                            // console.log(this.cityname)
                             d3.select("#rect-" + this.cityname).remove()
                             d3.select("#text-" + this.cityname).remove()
                             d3.select("#area-" + this.cityname).remove()
