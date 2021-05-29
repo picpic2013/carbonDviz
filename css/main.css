@@ -1,8 +1,13 @@
+:root {
+    --content-width: 800px;
+    --body-background: white;
+}
+
 body {
     /* background-color: #050713; */
-    background-color: gray;
+    background-color: var(--body-background);
 
-    height: 6000vh;
+    /* height: 6000vh; */
 }
 
 .tooltip{
@@ -45,69 +50,79 @@ body {
     to{stroke-dashoffset: 0;}
 }
 
-#main-camvas { 
-    display: block;
-    position: fixed;
-
-    /* 设置居中 */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* background-color: #151725; */
-    background-color: silver;
-
-    border-radius: 5vh;
-    z-index: 1;
-}
-
-.outer-section {
-    width: 95%;
-    height: 80vh;
-
-    background-color: skyblue;
-    
-    /* margin-top: 300vh; */
-    margin-left: auto;
-    margin-right: auto;
-    
-    border-radius: 1vh;
+#cover-img {
     position: relative;
-    z-index: 2;
+    width: 400px;
 }
 
-.outer-section p {
-    font-size: 5vh;
+.top-illo {
+    max-width: 400px;
+    z-index: -1;
+    margin: auto;
+}
 
-    margin: 1vh auto auto auto;
+.outer-box {
+    max-width: 1500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.passage-title {
+    width: var(--content-width);
+    
+}
+
+.passage-title h1 {
+    text-align: left;
+    font-size: 60px;
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
+.passage-title h2 {
+    margin-bottom: 0;
+}
+
+.scroll-hint {
+    position: relative;
+    top: 150px;
     text-align: center;
 }
 
-.outer-section img {
-    margin-left: 50%;
+.scroll-hint img {
+    width: 30px;
+    height: 30px;
+}
 
-    transform: translate(-50%);
+.content-section {
+    text-align: left;
+    width: var(--content-width);
+}
 
+.content-section p {
+    text-indent: 2em;
+    font-size: 20px;
+}
+
+.canvas-container {
+    width: 100%;
+    position: relative;
+    margin: auto;
+    text-align: center;
+}
+
+.canvas-container svg {
     margin-top: 5vh;
+    display: inline;
 }
 
-#cover-section {
-    position: absolute;
-    top: 220vh;
-    left: auto;
-}
-
-#map-line-section {
-    position: absolute;
-    top: 1800vh;
-}
-
-#policy-section {
-    position: absolute;
-    top: 4500vh;
-}
-
-#transaction-section {
-    position: absolute;
-    top: 5400vh;
+.canvas {
+    position: sticky;
+    /* display: block; */
+    top: 5vh;
+    /* left: 50%;
+    transform: translate(-50%, 0); */
 }

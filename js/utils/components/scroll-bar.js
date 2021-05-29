@@ -34,12 +34,14 @@ export default class ScrollBarChart extends SceneBase {
                 // '#f2f0ec',
                 // '#f99157',
                 // '#ffcc66'
-            ]
+            ], 
+            __canvasId__: "policy-freq-svg"
         }, conf)
 
         this.__onload__ = conf.__onload__
         this.__dataUrl__ = conf.__dataUrl__
         this.colors = conf.__colors__
+        this.__canvasId__ = conf.__canvasId__
 
         // d3.json("/data/3-policy-word-freq.json").then((data) => {
         d3.json(this.__dataUrl__).then((data) => {
@@ -485,7 +487,6 @@ export default class ScrollBarChart extends SceneBase {
                         nextYearMax: nextYearMax, 
                         nextYearMin: nextYearMin
                     }
-
                     // 添加每个矩形元素
                     this.addSubObject({
                         __start__: washedData[yearName].__index__ / totalYears, 
@@ -623,10 +624,10 @@ export default class ScrollBarChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
     */
     onActivate (rate, abso, gloalVars) {
-        d3.select("#main-camvas")
-          .append("g")
-          .attr("class", "word-freq-bar")
-          .attr("id", "word-freq-bar-g")
+      d3.select("#" + this.__canvasId__)
+        .append("g")
+        .attr("class", "word-freq-bar")
+        .attr("id", "word-freq-bar-g")
     }
 
     /**
@@ -646,7 +647,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
      */
     __onInactive__ (rate, abso, gloalVars) {
-        d3.select("#main-camvas")
+        d3.select("#" + this.__canvasId__)
           .selectAll(".word-freq-bar")
           .remove();
     }

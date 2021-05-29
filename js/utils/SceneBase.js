@@ -218,11 +218,19 @@ SceneBase.prototype.delSubObject = function (id, rate, scrolled, gloalVars) {
 }
 
 SceneBase.prototype.start = function (t) {
+    if (typeof t === 'string') {
+        this.__start__ = SceneBase.getOffsetTop(document.getElementById(t))
+        return this
+    }
     this.__start__ = t
     return this
 }
 
 SceneBase.prototype.end = function (t) {
+    if (typeof t === 'string') {
+        this.__end__ = SceneBase.getOffsetTop(document.getElementById(t))
+        return this
+    }
     this.__end__ = t
     return this
 }
@@ -265,6 +273,12 @@ SceneBase.linearMap = function (now, startNum, endNum, startOutput, endOutput) {
     tmpValue = Math.max(tmpValue, Math.min(startOutput, endOutput))
     tmpValue = Math.min(tmpValue, Math.max(startOutput, endOutput))
     return tmpValue
+}
+
+SceneBase.getOffsetTop = function (el) {
+    return el.offsetParent
+        ? el.offsetTop + SceneBase.getOffsetTop(el.offsetParent)
+        : el.offsetTop
 }
 
 SceneBase.__gloalVars__ = {}

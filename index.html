@@ -7,39 +7,128 @@
     <script src="./js/lib/d3.v6.min.js"></script>
 </head>
 <body>
-    <svg id="main-camvas"></svg>
+    <div>
+        <div class="outer-box">
+            <div class="top-illo">
+                <img id="cover-img" src="https://datatopics.worldbank.org/sdgatlas/goal-13-climate-action/static/media/sdg13.7b780c3b.png" alt="封面图片">
+            </div>
+        
+            <div class="passage-title">
+                <h2 class="sub-title">这里随便写点作者之类的</span>
+                <h1>碳中和，我们要行动</p>
+            </div>
+    
+            <div class="content-section" id="map-line-section">
+                <p>一呼一吸，氧气和二氧化碳的转换，维持着人类生命最基本的运作。</p>
+                <p>地球上所有的已知生物都是以碳元素为有机物质基础的碳基生物，这意味着所有的呼吸都伴随着大量的二氧化碳生产。</p>
+                <p>不仅如此，由于燃料大多是含碳的化合物，充分燃烧后都会产生大量二氧化碳，温室气体的排放量从1850年的每年不到30亿吨上升到现在的每年超过500亿吨，如今碳排放已经是人类当前面临的重大问题。</p>
+                
+                <div class="scroll-hint">
+                    <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                    <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                    <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                    <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                    <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                </div>
+            </div>
+        </div>
+    
+        <div class="canvas-container">
+            <div id="world-map-start-observer"></div>
+            <svg class="canvas" id="world-map-svg"></svg>
+            <div style="height: 3000vh;position: relative;"></div>
+            <div id="world-map-end-observer"></div>
+        </div>
 
-    <!-- 封面部分 -->
-    <div class="main-section outer-section" id="cover-section">
-        <p>这是封面的说明文字</p>
-        <img alt="示例图片" src="https://img1.baidu.com/it/u=2795533101,3571180652&fm=224&fmt=auto&gp=0.jpg">
+        <div class="outer-box">
+            <div class="content-section" id="map-line-section">
+                <p>在20世纪60年代，美国和俄罗斯是碳排放主要的贡献国家。</p>
+                <p>随着中国的快速发展，1985年全球的碳排放上升明显也伴随着较高的碳排放。</p>
+                <p>进入20世纪90年代，北美污染加重，北亚和西欧有所缓解。</p>
+                <p>2020年新冠疫情席卷全球，生产活动受到影响，碳排放也有所下降。</p>
+                <p>从人类历史来看，战争、工业革命、经济发展深刻影响着碳排放。工业革命和经济的发展对碳排放有重大的影响，但这种经济越发展碳排放越高的情况在进入21世纪10年代后有了显著的变化，技术带来的进步除了推动经济的发展，也开始让经济更为健康的发展。</p>
+                <p>从各国碳排放情况来看，在经济发展初期各国都不得不面对牺牲环境满足经济发展的问题，随着经济发展和产业转型，高污染企业从本国转移到欠发达国家和地区，本国碳排放也会有所下降。</p>
+                <p>当然，除了转移高污染产业，各国也意识到了污染问题的严重性，纷纷制定目标、采取措施进行应对。</p>
+            </div>
+
+            <div class="scroll-hint">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+            </div>
+            <!-- <p>在20世纪60年代，美国和俄罗斯是碳排放主要的贡献国家。</p>
+            <p>随着中国的快速发展，1985年全球的碳排放上升明显也伴随着较高的碳排放。</p>
+            <p>进入20世纪90年代，北美污染加重，北亚和西欧有所缓解。</p>
+            <p>2020年新冠疫情席卷全球，生产活动受到影响，碳排放也有所下降。</p>
+            <p>从人类历史来看，战争、工业革命、经济发展深刻影响着碳排放。工业革命和经济的发展对碳排放有重大的影响，但这种经济越发展碳排放越高的情况在进入21世纪10年代后有了显著的变化，技术带来的进步除了推动经济的发展，也开始让经济更为健康的发展。</p>
+            <p>从各国碳排放情况来看，在经济发展初期各国都不得不面对牺牲环境满足经济发展的问题，随着经济发展和产业转型，高污染企业从本国转移到欠发达国家和地区，本国碳排放也会有所下降。</p>
+            <p>当然，除了转移高污染产业，各国也意识到了污染问题的严重性，纷纷制定目标、采取措施进行应对。</p>
+            <p>自1992年的《联合国气候变化框架公约》至1997年的《京都协定书》；从2009年的《哥本哈根协议》到2015年的《巴黎协定》，国际社会就全球气候变化议题不断探索，努力推动多边合作进程。</p>
+            <p>国际气候大会的召开和相关文件的生效，表明通过以气候行动打造低碳绿色未来已经成为全人类共同的选择。</p>
+            <p>中国自始至终采取积极和建设性的态度，自2007年起，我国具体就温室气体、碳减排、碳交易体系等方面出台包括规范性文件、通知、公告和意见等类型的指导政策，充分体现了我国在碳减排和碳达峰的重视程度。</p>
+            <p>在我国，由中华人民共和国国家发展和改革委员会（简称“国家发展改革委”）和中华人民共和国生态环境部（简称“生态环境部”）主要负责政策的制定和发布。</p>
+            <p>通过分析近十余年发布的政策内容发现，“节能”、“减排”、“排放”、“能源”、“温室气体”、“企业”词汇出现频次最高。</p>
+            <p>在2013-2015年间，国内政策的十大高频词出现的绝对次数明显高于其他年份的高频词数。其中在2015年颁布的政策文件中，“排放”出现次数多达1252次，“企业”则被提及855次，“温室气体”排列高频词第三位，提及次数共计655次。(数据来源：2013—2021年国家发改委、环境生态部发布碳减排相关政策）</p>
+            <p>不论是十余年间的纵向归纳、还是单年内的横向分析，可以看到关于碳减排的国家政策具备明确的指导意见和主体指向性。在碳减排的行动中，企业作为行为和利益主体承担了重要角色；而从生产资源和经济活动角度出发，节能和减排是实现碳达峰目标的根本举措。</p>
+            <p>而这一指导倾向在2021年的政策当中也得到了体现。在今年相关政策内容的前十高频词中， “产业”、“经济”、“企业”、“体系”与行为主体相关；“绿色”、“排放”、“能源”、“产品”、“目标”、“碳循环”与生产活动相关。</p>
+            <p>低碳技术是一类能够有效降低碳能源消耗、减少二氧化碳等温室气体排放，减缓气候变化的环境友好技术，主要包括与发电、输电或配电有关的 技术，与废水处理或废物管理有关的技术，捕获、储存、 封存或处置温室气体的技术，与运输有关的技术，与建筑物有关的技术，生产或加工货物的技术等</p>
+            <p>基于经合组织（OECD）专利数据库，从“累计低碳技术专利量、占比、低碳技术创新密度”三方面对技术专利申请量前15名国家的低碳技术创新水平进行国际比较。根据 2010—2018 年各国累计低碳技术专利量（申请量）统计，美国、韩国、日本、德国、中国 5 国的累计低碳技术专利量排在前五名（图 1），9年累计低碳技术专利量分别达到世界累计低碳技术专利量的 22.2%、20.5%、17.1%、10.9% 和5.8%，5国累计低碳技术专利量占世界累计低碳技术专利量的 76.5%，中国累计低碳技术专利量排世界第五位。</p>
+            <p>另一分析各国低碳技术创新水平的重要指标为低碳技术创新密度，即单位 GDP 的低碳技术专利数，衡量一个国家的低碳技术创新程度。2018年中国低碳技术密度仅为0.36，远低于排名靠前的英国（3.9）、韩国（3.83）、德国（1.62）等国家。</p>
+            <p>根据低碳技术创新的国际比较，近十多年来中国在低碳技术创新上发展迅速，2010-2018年中国累计低碳技术专利量在世界上的占比靠前，但低碳技术创新密度远低于前沿国家。中国在促进低碳技术创新的过程中，低碳技术的创新密度仍需大幅提升，更多的资金应投入到低碳技术的研发。</p>
+            
+            
+            
+            <p>截至今日，我国正式备案试点的有9家碳交易所：北京绿色交易所、深圳排放权交易所、天津排放权交易所、上海环境能源交易所、广州碳排放权交易中心、重庆联合产权交易所、湖北碳排放权交易中心、四川联合环境交易所和海峡股权交易中心。交易系统由600570恒生电子提供技术支持。</p>
+            <p>尽管目前我国碳交易所的规模很小，但出现高速增长的势头已显露苗头，据中国碳交易网数据，2019年全国9个试点体系总交易量9285万吨（同比+27.7%），累计成交金额近21亿元（同比+40.3%）。</p>
+            <p>今年2021年，随着全国性统一交易所即将于6月底推出，市场对于今年碳交易量预期颇高，预期今年市场成交量将达到2.5亿吨，是2020年总量的3倍，巨大的市场规模，当然一个类似股票交易所一样的机构，进行统一集中交易管理。</p>
+            <p>那么我国在建设碳交易所等方面做出的经济措施需要到什么程度才能有所成效，清华大学牵头的《中国长期低碳发展战略与转型路径研究》如是说，如果要实现1.5℃目标导向转型路径，2020-2050年能源系统需新增投资138万亿元，折合每年新增投资超过3万亿元。今年更多行业被纳入市场后，碳市场的交易量和交易活跃度也将大幅提升。</p>
+            <p>同时该报告指出，我国2060年实现碳中和，减排将远超发达国家2050年碳中和。因为欧、美从碳达峰到碳中和，有50~70年过渡期，而中国只有30年。</p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p> -->
+        </div>
+
+        <div class="canvas-container">
+            <div id="policy-freq-start-observer"></div>
+            <svg class="canvas" id="policy-freq-svg"></svg>
+            <div style="height: 3000vh;position: relative;"></div>
+            <div id="policy-freq-end-observer"></div>
+        </div>
+
+        <div class="outer-box">
+            <div class="content-section" id="map-line-section">
+                <p>截至今日，我国正式备案试点的有9家碳交易所：北京绿色交易所、深圳排放权交易所、天津排放权交易所、上海环境能源交易所、广州碳排放权交易中心、重庆联合产权交易所、湖北碳排放权交易中心、四川联合环境交易所和海峡股权交易中心。交易系统由600570恒生电子提供技术支持。</p>
+                <p>尽管目前我国碳交易所的规模很小，但出现高速增长的势头已显露苗头，据中国碳交易网数据，2019年全国9个试点体系总交易量9285万吨（同比+27.7%），累计成交金额近21亿元（同比+40.3%）。</p>
+                <p>今年2021年，随着全国性统一交易所即将于6月底推出，市场对于今年碳交易量预期颇高，预期今年市场成交量将达到2.5亿吨，是2020年总量的3倍，巨大的市场规模，当然一个类似股票交易所一样的机构，进行统一集中交易管理。</p>
+                <p>那么我国在建设碳交易所等方面做出的经济措施需要到什么程度才能有所成效，清华大学牵头的《中国长期低碳发展战略与转型路径研究》如是说，如果要实现1.5℃目标导向转型路径，2020-2050年能源系统需新增投资138万亿元，折合每年新增投资超过3万亿元。今年更多行业被纳入市场后，碳市场的交易量和交易活跃度也将大幅提升。</p>
+                <p>同时该报告指出，我国2060年实现碳中和，减排将远超发达国家2050年碳中和。因为欧、美从碳达峰到碳中和，有50~70年过渡期，而中国只有30年。</p>
+            </div>
+
+            <div class="scroll-hint">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+                <img src="https://server.xmyeditor.com/sucai-gif/20200622/ff10da4590eca9e2c718ee0ee89fc3dc.gif" alt="提示用户向下滚动">
+            </div>
+            
+            
+        </div>
+
+        <div class="canvas-container">
+            <div id="policy-river-start-observer"></div>
+            <svg class="canvas" id="policy-river-svg"></svg>
+            <div style="height: 3000vh;position: relative;"></div>
+            <div id="policy-river-end-observer"></div>
+        </div>
     </div>
-
-    <!-- 世界地图+折线图部分 -->
-    <div class="main-section outer-section" id="map-line-section">
-        <p>这是世界地图+折线图的说明文字</p>
-    </div>
-
-    <!-- 政策汇总部分 -->
-    <div class="main-section outer-section" id="policy-section">
-        <p>这是政策汇总的说明文字</p>
-    </div>
-
-    <!-- 交易配额部分 -->
-    <div class="main-section outer-section" id="transaction-section">
-        <p>这是交易配额的说明文字</p>
-    </div>
-
-    <!-- 技术占比部分 -->
-    <!-- <div class="main-section outer-section" id="tech-section">
-        <p>这是技术占比的说明文字</p>
-    </div> -->
-
-    <!-- 人均GDP+人均碳排放量结尾 -->
-    <!-- <div class="main-section outer-section" id="gdp-section">
-        <p>这是人均GDP+人均碳排放量的说明文字</p>
-    </div> -->
-
-    <script type="module" src="js/main.js"></script>
 </body>
+
+<script type="module" src="js/main.js"></script>
+
 </html>

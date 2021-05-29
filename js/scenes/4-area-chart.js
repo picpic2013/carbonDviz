@@ -126,7 +126,8 @@ export default class LineChart extends SceneBase {
                                 .attr("height", y_w * 1.1)
                                 .attr("x", x_index * (x_w + padding.x_interval) + padding.left )
                                 .attr("y", y_index * (y_w + padding.y_interval) + padding.top - y_w*0.05)
-                                .attr("fill","silver")
+                                .attr("fill",getComputedStyle(document.documentElement)
+                                .getPropertyValue('--body-background'))
                                 .attr("opacity", 1)
                                 .style("z-index",2)
 
@@ -198,7 +199,7 @@ export default class LineChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
     */
      onActivate (rate, abso, gloalVars) {
-        d3.select("#main-camvas")
+        d3.select("#policy-river-svg")
           .append("g")
           .attr("class", "area-chart")
           .attr("id", "area-chart-g")
@@ -221,7 +222,7 @@ export default class LineChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
      */
     onInactive (rate, abso, gloalVars) {
-        d3.select("#main-camvas")
+        d3.select("#policy-river-svg")
           .selectAll(".area-chart")
           .remove();
     }

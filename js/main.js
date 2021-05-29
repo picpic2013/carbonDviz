@@ -18,9 +18,17 @@ var gloalVars = {
 }
 
 // 设置 中央 SVG 的宽高
-var svg = d3.select("#main-camvas")
+var svg = d3.select("#world-map-svg")
             .attr("width", pageWidth * widthScale)
             .attr("height", pageHeight * heightScale);
+
+d3.select("#policy-freq-svg")
+  .attr("width", pageWidth * widthScale)
+  .attr("height", pageHeight * heightScale);
+
+d3.select("#policy-river-svg")
+  .attr("width", pageWidth * widthScale)
+  .attr("height", pageHeight * heightScale);
 
 import SceneBase from "./utils/SceneBase.js"
 import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
@@ -41,39 +49,21 @@ import LineChart2 from "./scenes/4-area-chart.js"
 import LinearOpacity from "./utils/components/LinearOpacity.js"
 
 SceneBase.scroll.init([
-    new TitleScene().start(0).end(3 * gloalVars.svgHeight).setRateMode('absolute'), 
+    // new TitleScene().start(0).end(3 * gloalVars.svgHeight).setRateMode('absolute'), 
 
     // 左侧的世界地图
     // 右侧的折线图
     new SceneBase()
-    .start(3 * gloalVars.svgHeight)
-    .end(20 * gloalVars.svgHeight)
+    .start("world-map-start-observer")
+    .end("world-map-end-observer")
     .setRateMode('absolute')
     .subObject(new WorldMapLeft({
         svgHeight: pageHeight * heightScale, 
         svgWidth: pageWidth * widthScale, 
-    }).subObject(new LinearOpacity({
-        mountOn: '#world-map-g', 
-        startOpacity: 1, 
-        endOpacity: 0
-        })
-        .start(0.8)))
+    }))
     .subObject(new LineChart({
         svgHeight: pageHeight * heightScale
-    }).subObject([new LinearOpacity({
-        mountOn: '#line-chart-g', 
-        startOpacity: 1, 
-        endOpacity: 0
-        })
-        .start(0.8), 
-
-        new LinearOpacity({
-            mountOn: '#line-chart-g', 
-            startOpacity: 0, 
-            endOpacity: 1
-            })
-            .end(0.1),
-    ])), 
+    })), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -98,33 +88,29 @@ SceneBase.scroll.init([
                 return 0
             })
             return {data: tmpRes}
-        }
+        }, 
+        __canvasId__: "policy-freq-svg"
     })
-    .start(20 * gloalVars.svgHeight)
-    .end(50 * gloalVars.svgHeight)
+    .start("policy-freq-start-observer")
+    .end("policy-freq-end-observer")
     .setRateMode('absolute'), 
 
+    // 碳排放交易河流图
     new LineChart2({
         svgHeight: pageHeight * heightScale, 
         svgWidth: pageWidth * widthScale
     })
-    .start(50 * gloalVars.svgHeight)
-    .end(60 * gloalVars.svgHeight)
+    .start("policy-river-start-observer")
+    .end("policy-river-end-observer")
     .setRateMode('absolute')
-    .subObject([new LinearOpacity({
-        mountOn: '#area-chart-g', 
-        startOpacity: 1, 
-        endOpacity: 0
-        })
-        .start(0.8), 
-
+    .subObject(
         new LinearOpacity({
             mountOn: '#area-chart-g', 
             startOpacity: 0, 
             endOpacity: 1
             })
             .end(0.1),
-    ])
+    )
     
 ])
 console.log(SceneBase.scroll.__rootScene__)

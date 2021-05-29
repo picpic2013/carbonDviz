@@ -152,7 +152,7 @@ export default class WorldMapLeft extends SceneBase {
      * @param {gloalVars} 全局变量存放处
     */
     onActivate (rate, abso, gloalVars) {
-        d3.select("#main-camvas")
+        d3.select("#world-map-svg")
           .append("g")
           .attr("class", "world-map")
           .attr("id", "world-map-g")
@@ -175,7 +175,7 @@ export default class WorldMapLeft extends SceneBase {
      * @param {gloalVars} 全局变量存放处
      */
     onInactive (rate, abso, gloalVars) {
-        
+        d3.selectAll(".world-map").remove()
     }
 
     /**
