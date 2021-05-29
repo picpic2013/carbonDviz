@@ -74,6 +74,7 @@ export default class LineChart extends SceneBase {
 
                             var y_w = (conf.svgHeight - padding.top - padding.bottom - 2 * padding.y_interval) / 3
                             var y_index = parseInt(this.cityData.index / 3)
+                            console.log(conf.svgHeight)
 
 
                             var minD = (new Date((this.minDate).toString()+" 00:00:00")).getTime();

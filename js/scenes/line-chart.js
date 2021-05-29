@@ -62,7 +62,7 @@ export default class LineChart extends SceneBase {
                 __start__: 0, 
                 __end__: 1, 
 
-                onActivate: function (rate, absolute, globalVars) {
+                __onActivate__: function (rate, absolute, globalVars) {
                     
                     //添加坐标轴
                     var xScale = d3.scaleLinear()
@@ -179,7 +179,7 @@ export default class LineChart extends SceneBase {
                     
                 }, 
 
-                onUpdate: function (rate, absolute, globalVars) {
+                __onUpdate__: function (rate, absolute, globalVars) {
 
                     var xScale = d3.scaleLinear()
                                     .domain([ minYear, maxYear ])
@@ -354,7 +354,7 @@ export default class LineChart extends SceneBase {
 
                 },
 
-                onInactive: function (rate, absolute, globalVars) {
+                __onInactive__: function (rate, absolute, globalVars) {
                     d3.select(".axis").remove()
                     d3.select("#mypath").remove()
                     d3.select(".overlay").remove()
@@ -362,6 +362,11 @@ export default class LineChart extends SceneBase {
                     d3.select(".mouse_interaction").remove()
 
                 }, 
+
+                __subObjects__: [
+                    // enterAnimation, 
+                    // quitAnimation
+                ], 
 
                 data:data,
                 maxYear: maxYear, 
@@ -386,7 +391,7 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
     */
-     onActivate (rate, abso, gloalVars) {
+     __onActivate__(rate, abso, gloalVars) {
         d3.select("#main-camvas")
           .append("g")
           .attr("class", "line-chart")
@@ -399,8 +404,10 @@ export default class LineChart extends SceneBase {
      * @param {abso}       全局绝对量
      * @param {gloalVars}  全局变量存放处
      */
-    onUpdate (rate, abso, gloalVars) {
-        
+    __onUpdate__ (rate, abso, gloalVars) {
+        // 先自己代码再 super
+
+        super.__onUpdate__(rate, abso, gloalVars)
     }
 
     /**
@@ -409,7 +416,9 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    onInactive (rate, abso, gloalVars) {
+    __onInactive__ (rate, abso, gloalVars) {
+        super.__onInactive__(rate, abso, gloalVars)
+        // 先 super 再自己的代码
         d3.select("#main-camvas")
           .selectAll(".line-chart")
           .remove();
@@ -421,9 +430,15 @@ export default class LineChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    onUpdateInactive (rate, abso, gloalVars) {
+    __onUpdateInactive__(rate, abso, gloalVars) {
 
     }
+
+    /**
+     * 子场景配置文件 可以是 [{conf}] 或 {id: {conf}} 
+     * 子场景中可以使用 { this.__father__ } 获取父场景中的元素
+     */
+    __subObjects__ = {}
 
     /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }

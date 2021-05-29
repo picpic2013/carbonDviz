@@ -16,12 +16,12 @@ export default class TitleScene extends SceneBase {
         this.addSubObject({
             __start__: 0.9, 
             __end__: 1, 
-            __onUpdate__: function (rate, abso, gloalVars) {
+            onUpdate: function (rate, abso, gloalVars) {
                // console.log(rate)
                d3.select("#scene1-g")
                  .attr("opacity", SceneBase.sc.linearMap(rate, 0, 1, 1, 0))
             }, 
-            __onInactive__: function (rate) {
+            onInactive: function (rate) {
                d3.select("#scene1-g")
                  .attr("opacity", SceneBase.sc.linearMap(rate, 0, 1, 1, 0))
             }

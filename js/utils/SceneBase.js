@@ -33,8 +33,6 @@ function SceneBase(conf, father, ...subObjs) {
 
     // 把 conf 里所有的属性都转移到对象中
     Object.assign(this, conf, {
-        "__onUpdate__": this.__onUpdate__, 
-        "__onInactive__": this.__onInactive__, 
         "__subObjects__": this.__subObjects__
     })
     
@@ -84,9 +82,15 @@ SceneBase.prototype.isInActiveRange = function (rate, scrolled, gloalVars) {
     return true
 }
 
-SceneBase.prototype.calculatePercentage = function (rate, scrolled, gloalVars) {
+SceneBase.prototype.calculatePercentageRelative = function (rate, scrolled, gloalVars) {
     return (rate - this.__start__) / (this.__end__ - this.__start__)
 }
+
+SceneBase.prototype.calculatePercentageAbsolute = function (rate, scrolled, gloalVars) {
+    return (scrolled - this.__start__) / (this.__end__ - this.__start__)
+}
+
+SceneBase.prototype.calculatePercentage = SceneBase.prototype.calculatePercentageRelative
 
 SceneBase.prototype.__onActivate__ = function (rate, abso, gloalVars) {
     // 计算当前场景的进度
@@ -118,7 +122,7 @@ SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
         if (subObj.isInActiveRange.call(subObj, rate, scrolled, gloalVars) === false) {
             if (subObj.isActive() === true) {
                 subObj.__onInactive__.call(subObj, rate, scrolled, gloalVars)
-                subObj.end()
+                subObj.__isActive__ = false
             }
             
             subObj.__onUpdateInactive__.call(subObj, rate, scrolled, gloalVars)
@@ -129,7 +133,7 @@ SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
         // 调用子场景的更新函数
         if (subObj.isActive() === false) {
             subObj.__onActivate__.call(subObj, rate, scrolled, gloalVars)
-            subObj.start()
+            subObj.__isActive__ = true
         }
 
         subObj.__onUpdate__.call(subObj, rate, scrolled, gloalVars)
@@ -141,7 +145,7 @@ SceneBase.prototype.__onInactive__ = function (rate, scrolled, gloalVars) {
     for (var subObj of Object.values(this.__subObjects__)) {
         if (subObj.isActive() === true) {
             subObj.__onInactive__.call(subObj, rate, scrolled, gloalVars)
-            subObj.end()
+            subObj.__isActive__ = false
         }
     }
 
@@ -192,6 +196,11 @@ SceneBase.prototype.addSubObject = function (obj, id, father) {
     return id
 }
 
+SceneBase.prototype.subObject = function (obj, father) {
+    this.addSubObject(obj, father)
+    return this
+}
+
 SceneBase.prototype.delSubObject = function (id, rate, scrolled, gloalVars) {
     if (this.__subObjects__[id] instanceof SceneBase && this.__subObjects__[id].isActive() === true) {
         this.__subObjects__[id].__onInactive__(rate, scrolled, gloalVars)
@@ -199,12 +208,25 @@ SceneBase.prototype.delSubObject = function (id, rate, scrolled, gloalVars) {
     delete this.__subObjects__[id]
 }
 
-SceneBase.prototype.start = function () {
-    this.__isActive__ = true
+SceneBase.prototype.start = function (t) {
+    this.__start__ = t
+    return this
 }
 
-SceneBase.prototype.end = function () {
-    this.__isActive__ = false
+SceneBase.prototype.end = function (t) {
+    this.__end__ = t
+    return this
+}
+
+SceneBase.prototype.setRateMode = function (m) {
+    if (m === 'absolute') {
+        this.calculatePercentage = SceneBase.prototype.calculatePercentageAbsolute
+    }
+
+    else if (m === 'relative') {
+        this.calculatePercentage = SceneBase.prototype.calculatePercentageRelative
+    }
+    return this
 }
 
 SceneBase.prototype.isActive = function () {

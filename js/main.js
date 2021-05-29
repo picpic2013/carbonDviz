@@ -43,38 +43,21 @@ import WorldMapLeft from "./scenes/2-world-map.js"
 import LineChart2 from "./scenes/4-area-chart.js"
 
 SceneBase.scroll.init([
-    new TitleScene({
-        // __isInActiveRange__: function (rate, scrolled, gloalVars) {
-        //     // console.log(scrolled)
-        //     if (scrolled >= 0 && scrolled < 10 * gloalVars.svgHeight) {
-        //         return true
-        //     }
-        //     return false
-        // }, 
-
-        // __calculatePercentage__: function (obj, rate, scrolled, gloalVars) {
-        //     let tmp = SceneBase.sc.linearMap(scrolled, 0, 10 * gloalVars.svgHeight, 0, 1)
-        //     console.log(tmp, obj.__start__, obj.__end__)
-        //     return SceneBase.sc.linearMap(tmp, obj.__start__, obj.__end__, 0, 1)
-        // }, 
-
-        __end__: 0.1
-    }), 
+    // new TitleScene().start(0).end(10 * gloalVars.svgHeight).setRateMode('absolute'), 
 
     // 左侧的世界地图
     // 右侧的折线图
-    new SceneBase({
-            __start__: 0.1, 
-            __end__: 0.3
-        }, window, 
-        new WorldMapLeft({
-            svgHeight: pageHeight * heightScale, 
-            svgWidth: pageWidth * widthScale, 
-        }), 
-        new LineChart({
-            svgHeight: pageHeight * heightScale
-        }), 
-    ), 
+    new SceneBase()
+    // .start(10 * gloalVars.svgHeight)
+    // .end(20 * gloalVars.svgHeight)
+    // .setRateMode('absolute')
+    // .subObject(new WorldMapLeft({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale, 
+    // }))
+    .subObject(new LineChart({
+        svgHeight: pageHeight * heightScale
+    })), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -99,16 +82,18 @@ SceneBase.scroll.init([
                 return 0
             })
             return {data: tmpRes}
-        }, 
-
-        __start__: 0.3, 
-        __end__: 0.8
-    }), 
-
-    new LineChart2({
-        __start__: 0.8, 
-        __end__: 1
+        }
     })
+    .start(10 * gloalVars.svgHeight)
+    .end(20 * gloalVars.svgHeight)
+    .setRateMode('absolute'), 
+
+    // new LineChart2({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale
+    //     // __start__: 0.8, 
+    //     // __end__: 1
+    // })
     
 ])
 console.log(SceneBase.scroll.__rootScene__)

@@ -6,7 +6,7 @@ body {
 }
 
 .tooltip{
-    position: absolute;
+    position: fixed;
     margin:0 auto;
     background: darkcyan;
     width:auto;
@@ -33,10 +33,16 @@ body {
     z-index: 3;
 }
 
-.line_ {
+#mypath {
+    stroke-dasharray: 2200;
+    stroke-dashoffset: 0;
     animation: dash 10s;
     /*-webkit-animation: dash 10s;*/
 
+}
+@keyframes dash{
+    from{stroke-dashoffset: 100%;}
+    to{stroke-dashoffset: 0;}
 }
 
 #main-camvas {
