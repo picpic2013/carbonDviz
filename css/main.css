@@ -45,7 +45,7 @@ body {
     to{stroke-dashoffset: 0;}
 }
 
-#main-camvas {
+#main-camvas { 
     display: block;
     position: fixed;
 
@@ -58,19 +58,22 @@ body {
     background-color: silver;
 
     border-radius: 5vh;
+    z-index: 1;
 }
 
 .outer-section {
     width: 95%;
-    height: 50vh;
+    height: 80vh;
 
     background-color: skyblue;
     
-    margin-top: 300vh;
+    /* margin-top: 300vh; */
     margin-left: auto;
     margin-right: auto;
     
     border-radius: 1vh;
+    position: relative;
+    z-index: 2;
 }
 
 .outer-section p {
@@ -86,4 +89,25 @@ body {
     transform: translate(-50%);
 
     margin-top: 5vh;
+}
+
+#cover-section {
+    position: absolute;
+    top: 220vh;
+    left: auto;
+}
+
+#map-line-section {
+    position: absolute;
+    top: 1800vh;
+}
+
+#policy-section {
+    position: absolute;
+    top: 4500vh;
+}
+
+#transaction-section {
+    position: absolute;
+    top: 5400vh;
 }
