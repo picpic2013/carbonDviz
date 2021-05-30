@@ -129,7 +129,11 @@ SceneBase.scroll.init([
     //         .end(0.1),
     // ), 
 
-    new WorldMapBackground()
+    new WorldMapBackground({
+        pageWidth, pageHeight, widthScale, heightScale, 
+        svgWidth: pageWidth * widthScale, 
+        svgHeight: pageHeight * heightScale
+    })
     .start("world-back-start-observer")
     .end("world-back-end-observer")
     .setRateMode('absolute'), 

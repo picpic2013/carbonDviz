@@ -127,6 +127,7 @@ body {
     position: sticky;
     /* display: block; */
     top: 5vh;
+    z-index: 99;
     /* left: 50%;
     transform: translate(-50%, 0); */
 }

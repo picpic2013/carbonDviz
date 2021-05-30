@@ -88,7 +88,20 @@ export default class LineChart extends SceneBase {
                         .attr("id", "Y_axis")
                         .attr("transform","translate("+ padding.left +","+ padding.top +")")
                         .attr("opacity",1)
-                        .call(yAxis)   
+                        .call(yAxis) 
+
+                    d3.select("#line-chart-g")
+                        .append("text")
+                        .attr("id", "Y_axis_unit")
+                        .attr("x",padding.left)
+                        .attr("y",padding.top)
+                        .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                        .style("fill", "black")
+                        .attr("dx","-35px")
+                        .attr("dy","0px")
+                        .attr("font-size","14px")
+                        .text("Gt/year")
+
 
                     //添加线段生成器
                     const linePath = d3.line()
@@ -104,6 +117,7 @@ export default class LineChart extends SceneBase {
                         .attr("stroke-width", 3)
                         .attr("stroke", d3.rgb(0,255,0))
                         .attr("d",  linePath(data.data))
+                        
 
                         
 
@@ -360,6 +374,7 @@ export default class LineChart extends SceneBase {
                     d3.select(".overlay").remove()
                     d3.select(".critical").remove()
                     d3.select(".mouse_interaction").remove()
+                    d3.select("#Y_axis_unit").remove()
 
                 }, 
 

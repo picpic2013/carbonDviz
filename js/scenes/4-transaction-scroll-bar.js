@@ -89,16 +89,16 @@ export default class TransactionScrollBarChart extends SceneBase {
                 var tmpYearWordData = {}
                 
                 // 排序词
-                // yearData.details.sort(function (a, b) {
-                //     if (+a.value > +b.value) {
-                //         return -1
-                //     } else if (+a.value < +b.value) {
-                //         return 1
-                //     } else {
-                //         return 0
-                //     }
-                //     return 0
-                // })
+                yearData.details.sort(function (a, b) {
+                    if (+a.value > +b.value) {
+                        return -1
+                    } else if (+a.value < +b.value) {
+                        return 1
+                    } else {
+                        return 0
+                    }
+                    return 0
+                })
 
                 let maxxValue = {name: "", value: -Infinity}
                 let minnValue = {name: "", value: Infinity}
@@ -802,7 +802,10 @@ String.prototype.hashCode = function() {
 };
 
 TransactionScrollBarChart.getLargeNumStr = function (n) {
-    
+    if (n > 1000000000000) {
+        n = n / 1000000000000
+        return n.toFixed(2) + '万亿'
+    }
     if (n > 100000000) {
         n = n / 100000000
         return n.toFixed(2) + '亿'
