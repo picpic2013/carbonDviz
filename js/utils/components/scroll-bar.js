@@ -1,4 +1,5 @@
 import SceneBase from "../SceneBase.js"
+import { getRgb } from "../../utils/helpers.js"
 
 /**
  * 2.0 版场景定义
@@ -23,7 +24,10 @@ export default class ScrollBarChart extends SceneBase {
                 // '#393939',
                 // '#515151',
                 // '#6699cc',
-                '#66cccc',
+                // getRgb(140, 225, 176), 
+                getRgb(155, 249, 208), 
+                "#A7FBD0", 
+                "#B3FCD6"
                 // '#747369',
                 // '#99cc99',
                 // '#a09f93',
@@ -650,14 +654,17 @@ export default class ScrollBarChart extends SceneBase {
                         wordName: wordName
                     })
 
-                    if (yearName != 2007) {
-                        this.__subObjects__[tmpEleId].addSubObject(enterAnimation)
+                    if (yearName == 2007) {
+                        this.__subObjects__[tmpEleId].addSubObject(
+                            new SceneBase(quitAnimation).start(0)
+                        )
+                    } else if (yearName == 2021) {
+                        this.__subObjects__[tmpEleId].addSubObject(
+                            new SceneBase(enterAnimation).end(1)
+                        )
+                    } else {
+                        this.__subObjects__[tmpEleId].addSubObject([enterAnimation, quitAnimation])
                     }
-
-                    if (yearName != 2021) {
-                        this.__subObjects__[tmpEleId].addSubObject(quitAnimation)
-                    }
-                    
 
                     ++eleCnt
                 }

@@ -1,4 +1,5 @@
 import SceneBase from "../utils/SceneBase.js"
+import { getRgb } from "../utils/helpers.js"
 
 /**
  * 2.0 版场景定义
@@ -43,7 +44,10 @@ export default class TransactionScrollBarChart extends SceneBase {
                 // '#393939',
                 // '#515151',
                 // '#6699cc',
-                '#66cccc',
+                // '#66cccc',
+                getRgb(155, 249, 208), 
+                // "#A7FBD0", 
+                // "#B3FCD6"
                 // '#747369',
                 // '#99cc99',
                 // '#a09f93',
@@ -271,7 +275,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                   rate
                                 ))
                               .attr("opacity", TransactionScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, rate))
-                              .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, rate)))
+                              .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, rate)))
                         }, 
                         onInactive: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
@@ -309,7 +313,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                       1
                                   ))
                                 .attr("opacity", TransactionScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, 1))
-                                .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 1)))
+                                .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 1)))
                             } else {
                                 // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
@@ -345,7 +349,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                       0
                                   ))
                                 .attr("opacity", TransactionScrollBarChart.getValueByRate(this.lastYearOpacity, this.thisYearOpacity, 0))
-                                .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 0)))
+                                .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 0)))
                             }
                         }, 
                         thisYearPosition: thisYearPosition, 
@@ -422,7 +426,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                   rate
                                 ))
                               .attr("opacity", TransactionScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, rate))
-                              .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, rate)))
+                              .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, rate)))
                         }, 
                         onInactive: function (rate, absolute, globalVars) {
                             if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
@@ -460,7 +464,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                       1
                                   ))
                                 .attr("opacity", TransactionScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, 1))
-                                .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 1)))
+                                .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 1)))
                             } else {
                                 // 更新矩形
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
@@ -496,7 +500,7 @@ export default class TransactionScrollBarChart extends SceneBase {
                                       0
                                   ))
                                 .attr("opacity", TransactionScrollBarChart.getValueByRate(this.thisYearOpacity, this.nextYearOpacity, 0))
-                                .text(Math.ceil(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 0)))
+                                .text(TransactionScrollBarChart.getLargeNumStr(TransactionScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, 0)))
                             }
                         }, 
                         
@@ -689,12 +693,16 @@ export default class TransactionScrollBarChart extends SceneBase {
                         wordName: wordName
                     })
 
-                    if (yearName != 2007) {
-                        this.__subObjects__[tmpEleId].addSubObject(enterAnimation)
-                    }
-
-                    if (yearName != 2021) {
-                        this.__subObjects__[tmpEleId].addSubObject(quitAnimation)
+                    if (yearName == '2013-08-01') {
+                        this.__subObjects__[tmpEleId].addSubObject(
+                            new SceneBase(quitAnimation).start(0)
+                        )
+                    } else if (yearName == '2021-05-01') {
+                        this.__subObjects__[tmpEleId].addSubObject(
+                            new SceneBase(enterAnimation).end(1)
+                        )
+                    } else {
+                        this.__subObjects__[tmpEleId].addSubObject([enterAnimation, quitAnimation])
                     }
                     
 
@@ -792,3 +800,16 @@ String.prototype.hashCode = function() {
     }
     return hash;
 };
+
+TransactionScrollBarChart.getLargeNumStr = function (n) {
+    
+    if (n > 100000000) {
+        n = n / 100000000
+        return n.toFixed(2) + '亿'
+    }
+    if (n > 10000) {
+        n = n / 10000
+        return n.toFixed(1) + '万'
+    }
+    return Math.round(n)
+}

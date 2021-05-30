@@ -117,6 +117,12 @@ export default class WorldMapLeft extends SceneBase {
                             this.maxEmit
                           ))
 
+                        console.log(WorldMapLeft.getColor(
+                            WorldMapLeft.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
+                            this.minEmit, 
+                            this.maxEmit
+                          ))
+
                         // tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
                         tmpEle.attr("opacity", 1)
 
@@ -206,13 +212,15 @@ WorldMapLeft.linearMap = function (now, startNum, endNum, startOutput, endOutput
 }
 
 WorldMapLeft.getColor = function (now, minn, maxx) {
-    return getRgb(
-        WorldMapLeft.linearMap(now, minn, maxx, 0x00, 0x66), 
-        WorldMapLeft.linearMap(now, minn, maxx, 0xcc, 0x66), 
-        WorldMapLeft.linearMap(now, minn, maxx, 0x00, 0x66)
+    let tmp = getRgb(
+        WorldMapLeft.linearMap(now, minn, maxx, 91, 0x66), 
+        WorldMapLeft.linearMap(now, minn, maxx, 210, 0x66), 
+        WorldMapLeft.linearMap(now, minn, maxx, 139, 0x66)
 
         // WorldMapLeft.linearMap(now, minn, maxx, 0x00, 0x0), 
         // WorldMapLeft.linearMap(now, minn, maxx, 0xff, 0xff), 
         // WorldMapLeft.linearMap(now, minn, maxx, 0x00, 0x0)
     )
+    console.log(tmp)
+    return tmp
 }

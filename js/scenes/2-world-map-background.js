@@ -226,7 +226,36 @@ export default class WorldMapBackground extends SceneBase {
                         Mdata: Mdata
                     })
                 }
-        })
+
+                this.addSubObject({
+                    onActivate: function (rate, abso, globalVars) {
+                        // 添加时间显示
+                        d3.select("#world-back-g") 
+                          .append("text")
+                          .attr("id", "world-time-year")
+                          .attr("class", "world-time-showing")
+                          .attr("x", globalVars.svgWidth * 0.65)
+                          .attr("y", globalVars.svgHeight * 0.95)
+                          .attr("style", "text-anchor:middle;dominant-baseline:middle;")
+                          .attr("fill", "black")
+                        //   .attr("stroke-out", "#E9FBF2")
+                          .attr("font-size", 40)
+                          .attr("opacity", 1)
+                          .text("adasd")
+                    }, 
+
+                    onInactive: function (rate, abso, globalVars) {
+                        // 添加时间显示
+                        d3.select("#world-time-year") 
+                          .remove()
+                    }, 
+
+                    onUpdate: function (rate, abso, globalVars) {
+                        d3.select("#world-time-year")
+                          .text(new Date(SceneBase.linearMap(rate, 0, 1, new Date('1960-01-01').getTime(), new Date('2016-12-31').getTime())).toJSON().substr(0, 10))
+                    }
+                })
+            })
 
         
         })
@@ -301,9 +330,9 @@ WorldMapBackground.linearMap = function (now, startNum, endNum, startOutput, end
 
 WorldMapBackground.getColor = function (now, minn, maxx) {
     return getRgb(
-        SceneBase.linearMap(now, minn, maxx, 0x00, 0x66), 
-        SceneBase.linearMap(now, minn, maxx, 0xcc, 0x66), 
-        SceneBase.linearMap(now, minn, maxx, 0x00, 0x66)
+        SceneBase.linearMap(now, minn, maxx, 186, 0x66), 
+        SceneBase.linearMap(now, minn, maxx, 239, 0x66), 
+        SceneBase.linearMap(now, minn, maxx, 210, 0x66)
 
         // WorldMapLeft.linearMap(now, minn, maxx, 0x00, 0x0), 
         // WorldMapLeft.linearMap(now, minn, maxx, 0xff, 0xff), 

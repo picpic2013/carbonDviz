@@ -26,7 +26,7 @@ d3.select("#policy-freq-svg")
   .attr("width", pageWidth * widthScale)
   .attr("height", pageHeight * heightScale);
 
-d3.select("#policy-river-svg")
+d3.select("#world-line-svg")
   .attr("width", pageWidth * widthScale)
   .attr("height", pageHeight * heightScale);
 
@@ -77,6 +77,11 @@ SceneBase.scroll.init([
     //     svgHeight: pageHeight * heightScale
     // })), 
 
+    new LineChart({svgHeight: pageHeight * heightScale})
+    .start("world-line-start-observer")
+    .end("world-line-end-observer")
+    .setRateMode('absolute'), 
+
     // 政策词频统计图
     new ScrollBarChart({
         svgHeight: pageHeight * heightScale, 
@@ -108,21 +113,21 @@ SceneBase.scroll.init([
     .setRateMode('absolute'), 
 
     // 碳排放交易河流图
-    new LineChart2({
-        svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale
-    })
-    .start("policy-river-start-observer")
-    .end("policy-river-end-observer")
-    .setRateMode('absolute')
-    .subObject(
-        new LinearOpacity({
-            mountOn: '#area-chart-g', 
-            startOpacity: 0, 
-            endOpacity: 1
-            })
-            .end(0.1),
-    ), 
+    // new LineChart2({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale
+    // })
+    // .start("policy-river-start-observer")
+    // .end("policy-river-end-observer")
+    // .setRateMode('absolute')
+    // .subObject(
+    //     new LinearOpacity({
+    //         mountOn: '#area-chart-g', 
+    //         startOpacity: 0, 
+    //         endOpacity: 1
+    //         })
+    //         .end(0.1),
+    // ), 
 
     new WorldMapBackground()
     .start("world-back-start-observer")

@@ -392,7 +392,7 @@ export default class LineChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
     */
      __onActivate__(rate, abso, gloalVars) {
-        d3.select("#main-camvas")
+        d3.select("#world-line-svg")
           .append("g")
           .attr("class", "line-chart")
           .attr("id", "line-chart-g")
@@ -419,7 +419,7 @@ export default class LineChart extends SceneBase {
     __onInactive__ (rate, abso, gloalVars) {
         super.__onInactive__(rate, abso, gloalVars)
         // 先 super 再自己的代码
-        d3.select("#main-camvas")
+        d3.select("#world-line-svg")
           .selectAll(".line-chart")
           .remove();
     }
