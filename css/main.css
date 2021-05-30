@@ -89,8 +89,9 @@ body {
 
 .scroll-hint {
     display: none;
-    position: relative;
-    top: 150px;
+    position: fixed;
+    bottom: 20px;
+    /* top: 150px; */
     text-align: center;
 }
 
@@ -100,6 +101,7 @@ body {
 }
 
 .content-section {
+    /* margin-top: 200px; */
     text-align: left;
     width: var(--content-width);
 }

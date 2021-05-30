@@ -73,7 +73,73 @@ export default class WorldMapBackground extends SceneBase {
                     if (index >= Mdata.features.length) {
                         break
                     }
+
+                    this.addSubObject({
+                        // __start__: 0, 
+                        // __end__: (startYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
+                        onActivate: function (rate, abso, gloalVars) {
+                            let pos = WorldMapBackground.getPosition(this.position[0], this.position[1], conf.svgWidth, conf.svgHeight)
+                            
+                            let self = this
     
+                              const projection = d3.geoMercator() //墨卡托投影
+                                .center([0, 0])  //链式写法，.center([longitude, latitude])设置地图中心
+                                .scale([gloalVars.svgWidth / 9])   //.scale([value])设置地图缩放
+                                .translate([gloalVars.svgWidth * 0.5, gloalVars.svgHeight * 0.5]) //.translate([x,y])设置偏移
+    
+                                const pathGenerator = d3.geoPath()
+                                    .projection(projection); //配置上投影
+    
+                                d3.select("#world-back-g")
+                                .selectAll("#ee-country-cir-" + this.index)
+                                .data([this.Mdata.features[this.index]])
+                                .join("path")
+                                // .enter()
+                                .attr("class", "world-map-path")
+                                .attr("id", "ee-country-cir-" + this.index)
+                                .attr("d", pathGenerator)
+                                .attr("stroke-width", 0.5)
+                                .attr("stroke", "#000000")
+                                .attr("fill", "#ffffff");
+                        }, 
+    
+                        onInactive: function (rate, abso, gloalVars) {
+                            d3.select("#ee-country-cir-" + this.index)
+                              .remove()
+                        }, 
+
+                    //     onUpdate: function (rate, abso, gloalVars) {
+                    //         let thisValue = this.carbonData[Math.min(nowIndex, this.carbonData.length - 1)].value
+
+                    //         let tmpEle = d3.select("#ee-country-cir-" + this.index)
+                    //           .attr("fill", WorldMapBackground.getColor(
+                    //             SceneBase.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
+                    //             this.minEmit, 
+                    //             this.maxEmit
+                    //           ))
+    
+                    //         // tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
+                    //         tmpEle.attr("opacity", 1)
+    
+                    //         // if (nowIndex == this.carbonData.length - 1) {
+                    //         //     tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, nowIndex / this.carbonData.length, 1, 1, 0))
+                    //         // }
+                    //     },
+
+                        countryName: countryName, 
+                        position: position, 
+                        carbonData: carbonData, 
+                        index: index, 
+    
+                        maxEmit: maxEmit, 
+                        minEmit: minEmit, 
+    
+                        firstYear: firstYear, 
+                        lastYear: lastYear, 
+
+                        Mdata: Mdata
+                    })
+
                     this.addSubObject({
                         __start__: (startYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
                         __end__: (endYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
@@ -96,7 +162,7 @@ export default class WorldMapBackground extends SceneBase {
     
                               const projection = d3.geoMercator() //墨卡托投影
                                 .center([0, 0])  //链式写法，.center([longitude, latitude])设置地图中心
-                                .scale([gloalVars.svgWidth / 10])   //.scale([value])设置地图缩放
+                                .scale([gloalVars.svgWidth / 9])   //.scale([value])设置地图缩放
                                 .translate([gloalVars.svgWidth * 0.5, gloalVars.svgHeight * 0.5]) //.translate([x,y])设置偏移
     
                                 const pathGenerator = d3.geoPath()
@@ -146,72 +212,6 @@ export default class WorldMapBackground extends SceneBase {
                             // }
                         },
                         
-                        countryName: countryName, 
-                        position: position, 
-                        carbonData: carbonData, 
-                        index: index, 
-    
-                        maxEmit: maxEmit, 
-                        minEmit: minEmit, 
-    
-                        firstYear: firstYear, 
-                        lastYear: lastYear, 
-
-                        Mdata: Mdata
-                    })
-
-                    this.addSubObject({
-                        __start__: 0, 
-                        __end__: (startYear - conf.__startYear__) / (conf.__endYear__ - conf.__startYear__), 
-                        onActivate: function (rate, abso, gloalVars) {
-                            let pos = WorldMapBackground.getPosition(this.position[0], this.position[1], conf.svgWidth, conf.svgHeight)
-                            
-                            let self = this
-    
-                              const projection = d3.geoMercator() //墨卡托投影
-                                .center([0, 0])  //链式写法，.center([longitude, latitude])设置地图中心
-                                .scale([gloalVars.svgWidth / 10])   //.scale([value])设置地图缩放
-                                .translate([gloalVars.svgWidth * 0.5, gloalVars.svgHeight * 0.5]) //.translate([x,y])设置偏移
-    
-                                const pathGenerator = d3.geoPath()
-                                    .projection(projection); //配置上投影
-    
-                                d3.select("#world-back-g")
-                                .selectAll("#ee-country-cir-" + this.index)
-                                .data([this.Mdata.features[this.index]])
-                                .join("path")
-                                // .enter()
-                                .attr("class", "world-map-path")
-                                .attr("id", "ee-country-cir-" + this.index)
-                                .attr("d", pathGenerator)
-                                .attr("stroke-width", 0.5)
-                                .attr("stroke", "#000000")
-                                .attr("fill", "#ffffff");
-                        }, 
-    
-                        onInactive: function (rate, abso, gloalVars) {
-                            d3.select("#ee-country-cir-" + this.index)
-                              .remove()
-                        }, 
-
-                    //     onUpdate: function (rate, abso, gloalVars) {
-                    //         let thisValue = this.carbonData[Math.min(nowIndex, this.carbonData.length - 1)].value
-
-                    //         let tmpEle = d3.select("#ee-country-cir-" + this.index)
-                    //           .attr("fill", WorldMapBackground.getColor(
-                    //             SceneBase.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
-                    //             this.minEmit, 
-                    //             this.maxEmit
-                    //           ))
-    
-                    //         // tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
-                    //         tmpEle.attr("opacity", 1)
-    
-                    //         // if (nowIndex == this.carbonData.length - 1) {
-                    //         //     tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, nowIndex / this.carbonData.length, 1, 1, 0))
-                    //         // }
-                    //     },
-
                         countryName: countryName, 
                         position: position, 
                         carbonData: carbonData, 

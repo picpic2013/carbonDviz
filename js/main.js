@@ -34,6 +34,11 @@ d3.select("#world-back-svg")
   .attr("width", pageWidth * widthScale)
   .attr("height", pageHeight * heightScale);
 
+d3.select("#tx-bar-svg")
+  .attr("width", pageWidth * widthScale)
+  .attr("height", pageHeight * heightScale);
+  
+
 import SceneBase from "./utils/SceneBase.js"
 import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
 import SimpleCurvePlugin from "./utils/plugins/SimpleCurvePlugin.js"
@@ -60,17 +65,17 @@ SceneBase.scroll.init([
 
     // 左侧的世界地图
     // 右侧的折线图
-    new SceneBase()
-    .start("world-map-start-observer")
-    .end("world-map-end-observer")
-    .setRateMode('absolute')
-    .subObject(new WorldMapLeft({
-        svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale, 
-    }))
-    .subObject(new LineChart({
-        svgHeight: pageHeight * heightScale
-    })), 
+    // new SceneBase()
+    // .start("world-map-start-observer")
+    // .end("world-map-end-observer")
+    // .setRateMode('absolute')
+    // .subObject(new WorldMapLeft({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale, 
+    // }))
+    // .subObject(new LineChart({
+    //     svgHeight: pageHeight * heightScale
+    // })), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -125,9 +130,12 @@ SceneBase.scroll.init([
     .setRateMode('absolute'), 
     
 
-    // new TransactionScrollBarChart()
-    // .start("world-back-start-observer")
-    // .end("world-back-end-observer")
-    // .setRateMode('absolute'), 
+    new TransactionScrollBarChart({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale
+    })
+    .start("tx-bar-start-observer")
+    .end("tx-bar-end-observer")
+    .setRateMode('absolute'), 
 ])
 console.log(SceneBase.scroll.__rootScene__)
