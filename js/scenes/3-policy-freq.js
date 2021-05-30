@@ -1,21 +1,6 @@
-import SceneBase from "../utils/SceneBase.js"
+import ScrollBarChart from "../utils/components/scroll-bar.js"
 
-function getPositionByRank(rank, dataLength, svgHeight) {
-    return (rank + 0.5) / (dataLength + 1) * svgHeight
-}
-
-function getWidthByCnt(cnt, minn, maxx, svgWidth) {
-    return (cnt - minn + 1) / (maxx - minn + 1) * svgWidth * 0.8
-}
-
-function getValueByRate(start, end, rate) {
-    return rate * (end - start) + start 
-}
-
-/**
- * 2.0 版场景定义
- */
-export default class SceneExtendedTemplate extends SceneBase {
+export default class SceneExtendedTemplate extends ScrollBarChart {
     /**
      * 构造函数，只执行一次，用于定义变量等
      * @param {conf}   兼容 1.0 的配置文件，或子元素 Array 

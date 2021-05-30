@@ -30,6 +30,10 @@ d3.select("#policy-river-svg")
   .attr("width", pageWidth * widthScale)
   .attr("height", pageHeight * heightScale);
 
+d3.select("#world-back-svg")
+  .attr("width", pageWidth * widthScale)
+  .attr("height", pageHeight * heightScale);
+
 import SceneBase from "./utils/SceneBase.js"
 import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
 import SimpleCurvePlugin from "./utils/plugins/SimpleCurvePlugin.js"
@@ -45,25 +49,28 @@ import LineChart from "./scenes/line-chart.js"
 
 import WorldMapLeft from "./scenes/2-world-map.js"
 import LineChart2 from "./scenes/4-area-chart.js"
+import WorldMapBackground from "./scenes/2-world-map-background.js"
 
 import LinearOpacity from "./utils/components/LinearOpacity.js"
+
+import TransactionScrollBarChart from "./scenes/4-transaction-scroll-bar.js"
 
 SceneBase.scroll.init([
     // new TitleScene().start(0).end(3 * gloalVars.svgHeight).setRateMode('absolute'), 
 
     // 左侧的世界地图
     // 右侧的折线图
-    // new SceneBase()
-    // .start("world-map-start-observer")
-    // .end("world-map-end-observer")
-    // .setRateMode('absolute')
-    // .subObject(new WorldMapLeft({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale, 
-    // }))
-    // .subObject(new LineChart({
-    //     svgHeight: pageHeight * heightScale
-    // })), 
+    new SceneBase()
+    .start("world-map-start-observer")
+    .end("world-map-end-observer")
+    .setRateMode('absolute')
+    .subObject(new WorldMapLeft({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale, 
+    }))
+    .subObject(new LineChart({
+        svgHeight: pageHeight * heightScale
+    })), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -96,21 +103,31 @@ SceneBase.scroll.init([
     .setRateMode('absolute'), 
 
     // 碳排放交易河流图
-    // new LineChart2({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale
-    // })
-    // .start("policy-river-start-observer")
-    // .end("policy-river-end-observer")
-    // .setRateMode('absolute')
-    // .subObject(
-    //     new LinearOpacity({
-    //         mountOn: '#area-chart-g', 
-    //         startOpacity: 0, 
-    //         endOpacity: 1
-    //         })
-    //         .end(0.1),
-    // )
+    new LineChart2({
+        svgHeight: pageHeight * heightScale, 
+        svgWidth: pageWidth * widthScale
+    })
+    .start("policy-river-start-observer")
+    .end("policy-river-end-observer")
+    .setRateMode('absolute')
+    .subObject(
+        new LinearOpacity({
+            mountOn: '#area-chart-g', 
+            startOpacity: 0, 
+            endOpacity: 1
+            })
+            .end(0.1),
+    ), 
+
+    new WorldMapBackground()
+    .start("world-back-start-observer")
+    .end("world-back-end-observer")
+    .setRateMode('absolute'), 
     
+
+    // new TransactionScrollBarChart()
+    // .start("world-back-start-observer")
+    // .end("world-back-end-observer")
+    // .setRateMode('absolute'), 
 ])
 console.log(SceneBase.scroll.__rootScene__)

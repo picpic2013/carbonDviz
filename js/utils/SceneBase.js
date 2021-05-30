@@ -83,7 +83,7 @@ SceneBase.prototype.isInActiveRangeRelative = function (rate, scrolled, gloalVar
 }
 
 SceneBase.prototype.isInActiveRangeAbsolute = function (rate, scrolled, gloalVars) {
-    if (scrolled < this.__start__ || scrolled > this.__end__) {
+    if (scrolled < this.__start__ - SceneBase.__gloalVars__.pageHeight || scrolled > this.__end__ + SceneBase.__gloalVars__.pageHeight) {
         return false
     }
     return true
@@ -96,7 +96,8 @@ SceneBase.prototype.calculatePercentageRelative = function (rate, scrolled, gloa
 }
 
 SceneBase.prototype.calculatePercentageAbsolute = function (rate, scrolled, gloalVars) {
-    return (scrolled - this.__start__) / (this.__end__ - this.__start__)
+    // return (scrolled - this.__start__) / (this.__end__ - this.__start__)
+    return SceneBase.linearMap(scrolled, this.__start__, this.__end__ - SceneBase.__gloalVars__.pageHeight, 0, 1)
 }
 
 SceneBase.prototype.calculatePercentage = SceneBase.prototype.calculatePercentageRelative
@@ -282,6 +283,16 @@ SceneBase.getOffsetTop = function (el) {
         : el.offsetTop
 }
 
-SceneBase.__gloalVars__ = {}
+SceneBase.__gloalVars__ = {
+    // 获取页面宽度
+    pageWidth: window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth, 
+
+    // 获取页面高度
+    pageHeight: window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight
+}
 
 export default SceneBase

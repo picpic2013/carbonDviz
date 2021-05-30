@@ -1,9 +1,9 @@
-import SceneBase from "../SceneBase.js"
+import SceneBase from "../utils/SceneBase.js"
 
 /**
  * 2.0 版场景定义
  */
-export default class ScrollBarChart extends SceneBase {
+export default class TransactionScrollBarChart extends SceneBase {
     /**
      * 构造函数，只执行一次，用于定义变量等
      * @param {conf}   兼容 1.0 的配置文件，或子元素 Array 
@@ -14,10 +14,30 @@ export default class ScrollBarChart extends SceneBase {
 
         conf = Object.assign({
             "__onload__": function (data) {
-                // console.log(data)
+                console.log(data)
+
+                var tmpList = data.data
+                var tmpRes = []
+                for (var i of tmpList) {
+                    tmpRes.push({
+                        time: i.year, 
+                        details: i.words
+                    })
+                }
+                tmpRes = tmpRes.sort(function (a, b) {
+                    if (a.time < b.time) {
+                        return -1
+                    }
+                    if (a.time > b.time) {
+                        return 1
+                    }
+                    return 0
+                })
+                return {data: tmpRes}
+
                 return data
             }, 
-            "__dataUrl__": "/data/COVID.json", 
+            "__dataUrl__": "/data/4-global-transaction-data.json", 
             "__colors__": [
                 // '#2d2d2d',
                 // '#393939',
@@ -723,23 +743,23 @@ export default class ScrollBarChart extends SceneBase {
     /** 以下为自定义数据，在函数中可以通过 this.名称 使用 **/
 }
 
-ScrollBarChart.getPositionByRank = function (rank, dataLength, svgHeight) {
+TransactionScrollBarChart.getPositionByRank = function (rank, dataLength, svgHeight) {
     return (rank + 0.5) / (dataLength + 1) * svgHeight * 0.9
 }
 
-ScrollBarChart.getWidthByCnt = function (cnt, minn, maxx, svgWidth) {
+TransactionScrollBarChart.getWidthByCnt = function (cnt, minn, maxx, svgWidth) {
     return (cnt - minn + 1) / (maxx - minn + 1) * svgWidth * 0.8
 }
 
-ScrollBarChart.getValueByRate = function (start, end, rate) {
+TransactionScrollBarChart.getValueByRate = function (start, end, rate) {
     return rate * (end - start) + start 
 }
 
-ScrollBarChart.getHeightByDataLength = function (leng, svgHeight) {
+TransactionScrollBarChart.getHeightByDataLength = function (leng, svgHeight) {
     return 1 / (leng + 1) * svgHeight * 0.9 * 0.9
 }
 
-ScrollBarChart.PrefixInteger = function (num, n) {
+TransactionScrollBarChart.PrefixInteger = function (num, n) {
     return (Array(n).join(0) + num).slice(-n);
 }
 

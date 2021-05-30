@@ -126,8 +126,7 @@ export default class LineChart extends SceneBase {
                                 .attr("height", y_w * 1.1)
                                 .attr("x", x_index * (x_w + padding.x_interval) + padding.left )
                                 .attr("y", y_index * (y_w + padding.y_interval) + padding.top - y_w*0.05)
-                                .attr("fill",getComputedStyle(document.documentElement)
-                                .getPropertyValue('--body-background'))
+                                .attr("fill",getComputedStyle(document.documentElement).getPropertyValue('--body-background'))
                                 .attr("opacity", 1)
                                 .style("z-index",2)
 

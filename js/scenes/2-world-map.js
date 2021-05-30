@@ -26,7 +26,7 @@ export default class WorldMapLeft extends SceneBase {
         d3.json(conf.__dataUrl__).then((data) => {
             data = conf.__onload__(data)
 
-            console.log(data)
+            // console.log(data)
             let nowIndex = 0
 
             let maxEmit = -1
@@ -65,9 +65,9 @@ export default class WorldMapLeft extends SceneBase {
                     maxEmit = Math.max(maxEmit, value)
                     minEmit = Math.min(minEmit, value)
 
-                    if (value < 0) {
-                        console.log(countryName, yearName)
-                    }
+                    // if (value < 0) {
+                    //     console.log(countryName, yearName)
+                    // }
                 }
 
                 let startYear = Math.max(firstYear, conf.__startYear__)
@@ -117,7 +117,8 @@ export default class WorldMapLeft extends SceneBase {
                             this.maxEmit
                           ))
 
-                        tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
+                        // tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, 0, 1 / this.carbonData.length, 0, 1))
+                        tmpEle.attr("opacity", 1)
 
                         // if (nowIndex == this.carbonData.length - 1) {
                         //     tmpEle.attr("opacity", WorldMapLeft.linearMap(rate, nowIndex / this.carbonData.length, 1, 1, 0))

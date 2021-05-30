@@ -6,7 +6,8 @@
 body {
     /* background-color: #050713; */
     background-color: var(--body-background);
-
+    font-family: 'Times New Roman', 'Simsun';
+    line-height: 1.5;
     /* height: 6000vh; */
 }
 
@@ -87,6 +88,7 @@ body {
 }
 
 .scroll-hint {
+    display: none;
     position: relative;
     top: 150px;
     text-align: center;
