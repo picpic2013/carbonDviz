@@ -124,12 +124,13 @@ SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
     if (typeof this.onUpdate === 'function') {
         this.onUpdate.call(this, rate, scrolled, gloalVars)
     }
+    // console.log(this.__subObjects__, rate, scrolled)
 
     // 再更新自己的所有子元素
     for (var subObj of Object.values(this.__subObjects__)) { 
         // 子场景自己判断，如果不在范围内
         if (subObj.isInActiveRange.call(subObj, rate, scrolled, gloalVars) === false) {
-            if (subObj.isActive() === true) {
+            if (subObj.__isActive__ === true) {
                 subObj.__onInactive__.call(subObj, rate, scrolled, gloalVars)
                 subObj.__isActive__ = false
             }
@@ -140,7 +141,7 @@ SceneBase.prototype.__onUpdate__ = function (rate, scrolled, gloalVars) {
         
         // 子场景在范围内，需要更新
         // 调用子场景的更新函数
-        if (subObj.isActive() === false) {
+        if (subObj.__isActive__ === false) {
             subObj.__onActivate__.call(subObj, rate, scrolled, gloalVars)
             subObj.__isActive__ = true
         }
@@ -162,7 +163,7 @@ SceneBase.prototype.__onInactive__ = function (rate, scrolled, gloalVars) {
     if (typeof this.onInactive === 'function') {
         // 计算当前场景的进度
         rate = this.calculatePercentage.call(this, rate, scrolled, gloalVars)
-
+        
         this.onInactive.call(this, rate, scrolled, gloalVars)
     }
 }

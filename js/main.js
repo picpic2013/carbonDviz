@@ -53,17 +53,17 @@ SceneBase.scroll.init([
 
     // 左侧的世界地图
     // 右侧的折线图
-    new SceneBase()
-    .start("world-map-start-observer")
-    .end("world-map-end-observer")
-    .setRateMode('absolute')
-    .subObject(new WorldMapLeft({
-        svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale, 
-    }))
-    .subObject(new LineChart({
-        svgHeight: pageHeight * heightScale
-    })), 
+    // new SceneBase()
+    // .start("world-map-start-observer")
+    // .end("world-map-end-observer")
+    // .setRateMode('absolute')
+    // .subObject(new WorldMapLeft({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale, 
+    // }))
+    // .subObject(new LineChart({
+    //     svgHeight: pageHeight * heightScale
+    // })), 
 
     // 政策词频统计图
     new ScrollBarChart({
@@ -96,21 +96,21 @@ SceneBase.scroll.init([
     .setRateMode('absolute'), 
 
     // 碳排放交易河流图
-    new LineChart2({
-        svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale
-    })
-    .start("policy-river-start-observer")
-    .end("policy-river-end-observer")
-    .setRateMode('absolute')
-    .subObject(
-        new LinearOpacity({
-            mountOn: '#area-chart-g', 
-            startOpacity: 0, 
-            endOpacity: 1
-            })
-            .end(0.1),
-    )
+    // new LineChart2({
+    //     svgHeight: pageHeight * heightScale, 
+    //     svgWidth: pageWidth * widthScale
+    // })
+    // .start("policy-river-start-observer")
+    // .end("policy-river-end-observer")
+    // .setRateMode('absolute')
+    // .subObject(
+    //     new LinearOpacity({
+    //         mountOn: '#area-chart-g', 
+    //         startOpacity: 0, 
+    //         endOpacity: 1
+    //         })
+    //         .end(0.1),
+    // )
     
 ])
 console.log(SceneBase.scroll.__rootScene__)

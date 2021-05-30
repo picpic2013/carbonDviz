@@ -43,6 +43,12 @@ ScrollSceneBasePlugin.install = function (SceneBase, conf) {
         return SceneBase.__rootScene__
     }
 
+    ScrollSceneBasePlugin.forceUpdate = function () {
+        var evt = window.document.createEvent('UIEvents'); 
+        evt.initUIEvent('scroll', true, false, window, 0); 
+        window.dispatchEvent(evt);
+    }
+
     SceneBase.scroll = ScrollSceneBasePlugin
 }
 

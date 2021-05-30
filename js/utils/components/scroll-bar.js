@@ -624,6 +624,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {gloalVars} 全局变量存放处
     */
     onActivate (rate, abso, gloalVars) {
+        // console.log(this.__subObjects__)
       d3.select("#" + this.__canvasId__)
         .append("g")
         .attr("class", "word-freq-bar")
@@ -637,7 +638,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {gloalVars}  全局变量存放处
      */
     onUpdate (rate, abso, gloalVars) {
-        
+
     }
 
     /**
@@ -646,7 +647,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onInactive__ (rate, abso, gloalVars) {
+    onInactive (rate, abso, gloalVars) {
         d3.select("#" + this.__canvasId__)
           .selectAll(".word-freq-bar")
           .remove();
@@ -658,7 +659,7 @@ export default class ScrollBarChart extends SceneBase {
      * @param {abso}      全局绝对量
      * @param {gloalVars} 全局变量存放处
      */
-    __onUpdateInactive__(rate, abso, gloalVars) {
+    onUpdateInactive (rate, abso, gloalVars) {
 
     }
 
