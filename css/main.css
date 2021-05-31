@@ -1,5 +1,5 @@
 :root {
-    --content-width: 600px;
+    --content-width: min(600px, 100%);
     --body-background: white;
 }
 
