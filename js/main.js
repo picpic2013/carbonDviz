@@ -34,7 +34,7 @@ d3.select("#world-line-svg")
 
 d3.select("#world-back-svg")
   .attr("width", pageWidth * widthScale)
-  .attr("height", pageHeight * heightScale);
+  .attr("height", Math.min(pageHeight * heightScale, pageWidth * widthScale * 6 / 8));
 
 d3.select("#tx-bar-svg")
   .attr("width", 800)
@@ -106,7 +106,7 @@ SceneBase.scroll.init([
     new WorldMapBackground({
         pageWidth, pageHeight, widthScale, heightScale, 
         svgWidth: pageWidth * widthScale, 
-        svgHeight: pageHeight * heightScale
+        svgHeight: Math.min(pageHeight * heightScale, pageWidth * widthScale * 6 / 8)
     })
     .start("world-back-start-observer")
     .end("world-back-end-observer")

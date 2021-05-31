@@ -31,7 +31,7 @@ export default class WorldMapBackground extends SceneBase {
                             const projection = d3.geoMercator() //墨卡托投影
                                 .center([0, 0])  //链式写法，.center([longitude, latitude])设置地图中心
                                 .scale([gloalVars.svgWidth / 9])   //.scale([value])设置地图缩放
-                                .translate([gloalVars.svgWidth * 0.5, gloalVars.svgHeight * 0.5]) //.translate([x,y])设置偏移
+                                .translate([conf.svgWidth * 0.5, conf.svgHeight * 0.5]) //.translate([x,y])设置偏移
             
                                 const pathGenerator = d3.geoPath()
                                     .projection(projection); //配置上投影
@@ -123,8 +123,8 @@ export default class WorldMapBackground extends SceneBase {
             
                                     const projection = d3.geoMercator() //墨卡托投影
                                         .center([0, 0])  //链式写法，.center([longitude, latitude])设置地图中心
-                                        .scale([gloalVars.svgWidth / 9])   //.scale([value])设置地图缩放
-                                        .translate([gloalVars.svgWidth * 0.5, gloalVars.svgHeight * 0.5]) //.translate([x,y])设置偏移
+                                        .scale([conf.svgWidth / 9])   //.scale([value])设置地图缩放
+                                        .translate([conf.svgWidth * 0.5, conf.svgHeight * 0.5]) //.translate([x,y])设置偏移
             
                                     const pathGenerator = d3.geoPath()
                                         .projection(projection); //配置上投影
@@ -255,8 +255,8 @@ export default class WorldMapBackground extends SceneBase {
                             .append("text")
                             .attr("id", "world-time-year")
                             .attr("class", "world-time-showing")
-                            .attr("x", globalVars.svgWidth * 0.65)
-                            .attr("y", globalVars.svgHeight * 0.95)
+                            .attr("x", conf.svgWidth * 0.65)
+                            .attr("y", conf.svgHeight * 0.95)
                             .attr("style", "text-anchor:middle;dominant-baseline:middle;")
                             .attr("fill", "black")
                             //   .attr("stroke-out", "#E9FBF2")
@@ -297,12 +297,12 @@ export default class WorldMapBackground extends SceneBase {
                             .enter()
                             .append("rect")
                             .attr("class", "map-example-showing")
-                            .attr("x", globalVars.svgWidth * 0.03)
+                            .attr("x", conf.svgWidth * 0.03)
                             .attr("y", function (d, i) {
-                                return (mapExampleNum - i + 1 * mapExampleNum) * globalVars.svgHeight / 2 / mapExampleNum
+                                return (mapExampleNum - i + 1 * mapExampleNum) * conf.svgHeight / 2 / mapExampleNum
                             })
                             .attr("width", 20)
-                            .attr("height", globalVars.svgHeight / 2 / mapExampleNum)
+                            .attr("height", conf.svgHeight / 2 / mapExampleNum)
                             .attr("fill", function (d, i) {
                                 return d.color
                             })
@@ -323,9 +323,9 @@ export default class WorldMapBackground extends SceneBase {
                             .enter()
                             .append("text")
                             .attr("class", "map-example-txt-showing")
-                            .attr("x", globalVars.svgWidth * 0.03 + 25)
+                            .attr("x", conf.svgWidth * 0.03 + 25)
                             .attr("y", function (d, i) {
-                                return (mapExampleNum - (i - 0.5) + 1 * mapExampleNum) * globalVars.svgHeight / 2 / mapExampleNum
+                                return (mapExampleNum - (i - 0.5) + 1 * mapExampleNum) * conf.svgHeight / 2 / mapExampleNum
                             })
                             .attr("fill", "black")
                             .attr("opacity", 1)
