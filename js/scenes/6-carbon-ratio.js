@@ -1,5 +1,5 @@
-import SceneBase from "../SceneBase.js"
-import { getRgb } from "../helpers.js"
+import SceneBase from "../utils/SceneBase.js"
+import { getRgb } from "../utils/helpers.js"
 
 /**
  * 2.0 版场景定义
@@ -18,8 +18,8 @@ export default class ScrollBarChart extends SceneBase {
                 // console.log(data)
                 return data
             }, 
-            "__dataUrl__": "/data/lowcarbon_number.json", 
-            "__dataUrl0__": "/data/lowcarbon_per.json",
+            "__dataUrl__": "/data/6-lowcarbon_number.json", 
+            "__dataUrl0__": "/data/6-lowcarbon_per.json",
             "__colors__": [ 
                 getRgb(155, 249, 208), 
                 "#B375F0", 
@@ -27,7 +27,7 @@ export default class ScrollBarChart extends SceneBase {
             ], 
             "minYear" : 2010,
             "maxYear" : 2018,
-            __canvasId__: "policy-freq-svg"
+            __canvasId__: "carbon-ratio-svg"
         }, conf)
 
         this.__onload__ = conf.__onload__
@@ -47,7 +47,7 @@ export default class ScrollBarChart extends SceneBase {
             var maxCnt = -Infinity
             var minCnt = Infinity
 
-            for (var yearData of data.data.data) {
+            for (var yearData of data.data) {
                 
                 for (var lowcarbon of yearData.data) {
                     maxCnt = Math.max(maxCnt, lowcarbon.per)
@@ -60,7 +60,7 @@ export default class ScrollBarChart extends SceneBase {
 
             var padding = {top: 50, right: 50, bottom: 80, left: 100}
             // 遍历年
-            for (var yearData of data.data.data) {
+            for (var yearData of data.data) {
                 var yearName = yearData.year
                 var lowcarbon = yearData.data
                 var index = 0
@@ -77,7 +77,7 @@ export default class ScrollBarChart extends SceneBase {
                         
                         onActivate: function (rate, absolute, globalVars) {
                             // 添加圆形
-                            d3.select("#word-freq-bar-g")
+                            d3.select("#carbon-ratio-g")
                                 .append("circle")
                                 .attr("id", "circle-" + this.yearName + "-" + this.countryName)
                                 .attr("class", "circle-bars")
@@ -87,7 +87,7 @@ export default class ScrollBarChart extends SceneBase {
                                 .attr("fill-opacity",0.8)
 
                             //国家名字
-                            d3.select("#word-freq-bar-g")
+                            d3.select("#carbon-ratio-g")
                                 .append("text")
                                 .attr("class","circle-bars")
                                 .attr("id", "circletext-" + this.yearName + "-" + this.countryName)
@@ -100,7 +100,7 @@ export default class ScrollBarChart extends SceneBase {
                                 .text(this.countryName)
 
                             // 添加遮罩
-                            d3.select("#word-freq-bar-g")
+                            d3.select("#carbon-ratio-g")
                                 .append("rect")
                                 .attr("class","circle-bars")
                                 .attr("id", "overlay")
@@ -145,7 +145,7 @@ export default class ScrollBarChart extends SceneBase {
                         },
 
                         maxCnt: maxCnt,
-                        all_data : data.data.data,
+                        all_data : data.data,
                         yearName: yearName,
                         lowcarbon: lowcarbon,
                         countryName: countryName,
@@ -165,7 +165,7 @@ export default class ScrollBarChart extends SceneBase {
                 __end__: 1, 
                 onActivate: function (rate, absolute, globalVars) {
                     //国家
-                    d3.select("#word-freq-bar-g")
+                    d3.select("#carbon-ratio-g")
                         .append("text")
                         .attr("class","circle-bars")
                         .attr("id", "country")
@@ -178,7 +178,7 @@ export default class ScrollBarChart extends SceneBase {
                         .attr("font-size","18px")
                         .text("国家")
                     //占比
-                    d3.select("#word-freq-bar-g")
+                    d3.select("#carbon-ratio-g")
                     .append("text")
                     .attr("class","circle-bars")
                     .attr("id", "per")
@@ -215,7 +215,7 @@ export default class ScrollBarChart extends SceneBase {
             var maxCnt = -Infinity
             var minCnt = Infinity
 
-            for (var yearData of data.data.data) {
+            for (var yearData of data.data) {
                 
                 for (var lowcarbon of yearData.data) {
                     maxCnt = Math.max(maxCnt, lowcarbon.value)
@@ -233,7 +233,7 @@ export default class ScrollBarChart extends SceneBase {
                                     .range([ 0 , (this.svgWidth - padding.left - padding.right) * 0.7 ])
                     var xAxis = d3.axisBottom(xScale)
                                 .tickFormat(d3.format("d"))
-                    d3.select("#word-freq-bar-g")
+                    d3.select("#carbon-ratio-g")
                         .append("g")
                         .attr("class", "axis")
                         .attr("id", "X_axis")
@@ -256,7 +256,7 @@ export default class ScrollBarChart extends SceneBase {
 
             var padding = {top: 50, right: 50, bottom: 80, left: 100}
             // 遍历年
-            for (var yearData of data.data.data) {
+            for (var yearData of data.data) {
                 var yearName = yearData.year
                 var lowcarbon = yearData.data
                 var index = 0
@@ -267,7 +267,7 @@ export default class ScrollBarChart extends SceneBase {
                     __end__: (yearName-2010)/9 + 1/9, 
                     // 添加时间显示
                     onActivate: function (rate, absolute, globalVars) {
-                        d3.select("#word-freq-bar-g") 
+                        d3.select("#carbon-ratio-g") 
                         .append("text")
                         .attr("id", "time-year-" + this.yearName)
                         .attr("class", "scroll-bar-time-showing")
@@ -316,7 +316,7 @@ export default class ScrollBarChart extends SceneBase {
                         
                         onActivate: function (rate, absolute, globalVars) {
                             // 添加矩形
-                            d3.select("#word-freq-bar-g")
+                            d3.select("#carbon-ratio-g")
                                 .append("rect")
                                 .attr("id", "rect-" + this.yearName + "-" + this.countryName)
                                 .attr("class", "rect-bars")
@@ -331,7 +331,7 @@ export default class ScrollBarChart extends SceneBase {
                                 .attr("width", 0)
                                 .attr("height", (this.svgHeight - padding.top - padding.bottom) / 15 * 0.7)
                             
-                            d3.select("#word-freq-bar-g")
+                            d3.select("#carbon-ratio-g")
                                 .append("text")
                                 .attr("class","rect-bars")
                                 .attr("id", "recttext-" + this.yearName + "-" + this.countryName)
@@ -374,7 +374,7 @@ export default class ScrollBarChart extends SceneBase {
                         },
 
                         maxCnt: maxCnt,
-                        all_data : data.data.data,
+                        all_data : data.data,
                         yearName: yearName,
                         lowcarbon: lowcarbon,
                         countryName: countryName,
@@ -401,8 +401,8 @@ export default class ScrollBarChart extends SceneBase {
         // console.log(this.__subObjects__)
       d3.select("#" + this.__canvasId__)
         .append("g")
-        .attr("class", "word-freq-bar")
-        .attr("id", "word-freq-bar-g")
+        .attr("class", "carbon-ratio-bar")
+        .attr("id", "carbon-ratio-g")
     }
 
     /**
@@ -423,7 +423,7 @@ export default class ScrollBarChart extends SceneBase {
      */
     onInactive (rate, abso, gloalVars) {
         d3.select("#" + this.__canvasId__)
-          .selectAll(".word-freq-bar")
+          .selectAll(".carbon-ratio-bar")
           .remove();
     }
 
