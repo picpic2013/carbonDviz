@@ -39,13 +39,29 @@ export default class ScrollBarChart extends SceneBase {
                 // '#f99157',
                 // '#ffcc66'
             ], 
-            __canvasId__: "policy-freq-svg"
+            __canvasId__: "policy-freq-svg", 
+
+            svgHeight: 600, 
+            svgWidth: 800, 
+
+            timeSize: 25, 
+            labelSize: 25, 
+            numSize: 20
+
         }, conf)
 
         this.__onload__ = conf.__onload__
         this.__dataUrl__ = conf.__dataUrl__
         this.colors = conf.__colors__
         this.__canvasId__ = conf.__canvasId__
+
+        this.svgHeight = conf.svgHeight
+        this.svgWidth = conf.svgWidth
+
+        this.timeSize = conf.timeSize
+        this.labelSize = conf.labelSize
+        this.numSize = conf.numSize
+
 
         // d3.json("/data/3-policy-word-freq.json").then((data) => {
         d3.json(this.__dataUrl__).then((data) => {
@@ -203,7 +219,7 @@ export default class ScrollBarChart extends SceneBase {
                                   ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, rate), 
                                   0, 
                                   ScrollBarChart.getValueByRate(this.lastYearMax, this.thisYearMax, rate), 
-                                  globalVars.svgWidth
+                                  conf.svgWidth
                               ))
                               .attr("height", ScrollBarChart.getValueByRate(this.lastYearHeight, this.thisYearHeight, rate))
 
@@ -218,7 +234,7 @@ export default class ScrollBarChart extends SceneBase {
 
                             // 更新数量标记
                             d3.select("#value-"+ this.yearName + "-" + this.rank)
-                              .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                              .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                   ScrollBarChart.getValueByRate(
                                       this.lastYearLength, 
                                       this.thisYearLength, 
@@ -230,7 +246,7 @@ export default class ScrollBarChart extends SceneBase {
                                       this.thisYearMax, 
                                       rate
                                   ), 
-                                  globalVars.svgWidth
+                                  conf.svgWidth
                               ))
                               .attr("y", ScrollBarChart.getValueByRate(
                                   this.lastYearPosition + this.lastYearHeight * 0.5, 
@@ -246,8 +262,8 @@ export default class ScrollBarChart extends SceneBase {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
-                                  .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
-                                  .attr("height", this.thisYearHeight, globalVars.svgHeight)
+                                  .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, conf.svgWidth))
+                                  .attr("height", this.thisYearHeight, this.svgHeight)
 
                                 // 更新标签
                                 d3.select("#text-" + this.yearName + "-" + this.rank)
@@ -256,7 +272,7 @@ export default class ScrollBarChart extends SceneBase {
 
                                 // 更新数量标记
                                 d3.select("#value-"+ this.yearName + "-" + this.rank)
-                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                       ScrollBarChart.getValueByRate(
                                           this.lastYearLength, 
                                           this.thisYearLength, 
@@ -268,7 +284,7 @@ export default class ScrollBarChart extends SceneBase {
                                           this.thisYearMax, 
                                           1
                                       ), 
-                                      globalVars.svgWidth
+                                      conf.svgWidth
                                   ))
                                   .attr("y", ScrollBarChart.getValueByRate(
                                       this.lastYearPosition + this.lastYearHeight * 0.5, 
@@ -282,7 +298,7 @@ export default class ScrollBarChart extends SceneBase {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.lastYearPosition)
                                   .attr("opacity", this.lastYearOpacity)
-                                  .attr("width", ScrollBarChart.getWidthByCnt(this.lastYearLength, 0, this.lastYearMax, globalVars.svgWidth))
+                                  .attr("width", ScrollBarChart.getWidthByCnt(this.lastYearLength, 0, this.lastYearMax, conf.svgWidth))
                                   .attr("height", this.lastYearHeight)
 
                                 // 更新标签
@@ -292,7 +308,7 @@ export default class ScrollBarChart extends SceneBase {
 
                                 // 更新数量标记
                                 d3.select("#value-"+ this.yearName + "-" + this.rank)
-                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                       ScrollBarChart.getValueByRate(
                                           this.lastYearLength, 
                                           this.thisYearLength, 
@@ -304,7 +320,7 @@ export default class ScrollBarChart extends SceneBase {
                                           this.thisYearMax, 
                                           0
                                       ), 
-                                      globalVars.svgWidth
+                                      conf.svgWidth
                                   ))
                                   .attr("y", ScrollBarChart.getValueByRate(
                                       this.lastYearPosition + this.lastYearHeight * 0.5, 
@@ -354,7 +370,7 @@ export default class ScrollBarChart extends SceneBase {
                                   ScrollBarChart.getValueByRate(this.thisYearLength, this.nextYearLength, rate), 
                                   0, 
                                   ScrollBarChart.getValueByRate(this.thisYearMax, this.nextYearMax, rate), 
-                                  globalVars.svgWidth
+                                  conf.svgWidth
                             ))
                             .attr("height", ScrollBarChart.getValueByRate(this.thisYearHeight, this.nextYearHeight, rate))
 
@@ -369,7 +385,7 @@ export default class ScrollBarChart extends SceneBase {
 
                             // 更新数量标记
                             d3.select("#value-"+ this.yearName + "-" + this.rank)
-                              .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                              .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                   ScrollBarChart.getValueByRate(
                                       this.thisYearLength, 
                                       this.nextYearLength, 
@@ -381,7 +397,7 @@ export default class ScrollBarChart extends SceneBase {
                                       this.nextYearMax, 
                                       rate
                                   ), 
-                                  globalVars.svgWidth
+                                  conf.svgWidth
                               ))
                               .attr("y", ScrollBarChart.getValueByRate(
                                   this.thisYearPosition + this.thisYearHeight * 0.5, 
@@ -397,7 +413,7 @@ export default class ScrollBarChart extends SceneBase {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.nextYearPosition)
                                   .attr("opacity", this.nextYearOpacity)
-                                  .attr("width", ScrollBarChart.getWidthByCnt(this.nextYearLength, 0, this.nextYearMax, globalVars.svgWidth))
+                                  .attr("width", ScrollBarChart.getWidthByCnt(this.nextYearLength, 0, this.nextYearMax, conf.svgWidth))
                                   .attr("height", this.nextYearHeight)
 
                                 // 更新标签
@@ -407,7 +423,7 @@ export default class ScrollBarChart extends SceneBase {
 
                                 // 更新数量标记
                                 d3.select("#value-"+ this.yearName + "-" + this.rank)
-                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                       ScrollBarChart.getValueByRate(
                                           this.thisYearLength, 
                                           this.nextYearLength, 
@@ -419,7 +435,7 @@ export default class ScrollBarChart extends SceneBase {
                                           this.nextYearMax, 
                                           1
                                       ), 
-                                      globalVars.svgWidth
+                                      conf.svgWidth
                                   ))
                                   .attr("y", ScrollBarChart.getValueByRate(
                                       this.thisYearPosition + this.thisYearHeight * 0.5, 
@@ -433,7 +449,7 @@ export default class ScrollBarChart extends SceneBase {
                                 d3.select("#rect-" + this.yearName + "-" + this.rank)
                                   .attr("y", this.thisYearPosition)
                                   .attr("opacity", this.thisYearOpacity)
-                                  .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, globalVars.svgWidth))
+                                  .attr("width", ScrollBarChart.getWidthByCnt(this.thisYearLength, 0, this.thisYearMax, conf.svgWidth))
                                   .attr("height", this.thisYearHeight)
 
                                 // 更新标签
@@ -443,7 +459,7 @@ export default class ScrollBarChart extends SceneBase {
 
                                 // 更新数量标记
                                 d3.select("#value-"+ this.yearName + "-" + this.rank)
-                                  .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                                  .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                       ScrollBarChart.getValueByRate(
                                           this.thisYearLength, 
                                           this.nextYearLength, 
@@ -455,7 +471,7 @@ export default class ScrollBarChart extends SceneBase {
                                           this.nextYearMax, 
                                           0
                                       ), 
-                                      globalVars.svgWidth
+                                      conf.svgWidth
                                   ))
                                   .attr("y", ScrollBarChart.getValueByRate(
                                       this.thisYearPosition + this.thisYearHeight * 0.5, 
@@ -502,19 +518,19 @@ export default class ScrollBarChart extends SceneBase {
                               .append("rect")
                               .attr("id", "rect-" + this.yearName + "-" + this.rank)
                               .attr("class", "rect-bars")
-                              .attr("x", globalVars.svgWidth * 0.1)
+                              .attr("x", conf.svgWidth * 0.1)
                               .attr("fill", this.color)
                               .attr("stroke-width", 2)
                               .attr("stroke", getComputedStyle(document.documentElement).getPropertyValue('--body-background'))
-                              .attr("rx", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.02)
-                              .attr("ry", Math.min(globalVars.svgWidth, globalVars.svgHeight) * 0.02)
+                              .attr("rx", Math.min(conf.svgWidth, conf.svgHeight) * 0.02)
+                              .attr("ry", Math.min(conf.svgWidth, conf.svgHeight) * 0.02)
 
                               .attr("y", ScrollBarChart.getValueByRate(this.lastYearPosition, this.thisYearPosition, 1))
                               .attr("width", ScrollBarChart.getWidthByCnt(
                                   ScrollBarChart.getValueByRate(this.lastYearLength, this.thisYearLength, 1), 
                                   0, 
                                   ScrollBarChart.getValueByRate(this.lastYearMax, this.thisYearMax, 1), 
-                                  globalVars.svgWidth
+                                  conf.svgWidth
                               ))
                               .attr("height", ScrollBarChart.getValueByRate(this.lastYearHeight, this.thisYearHeight, rate))
 
@@ -522,9 +538,9 @@ export default class ScrollBarChart extends SceneBase {
                             d3.select("#word-freq-bar-g")
                               .append("text")
                               .attr("id","text-"+ this.yearName + "-" + this.rank)
-                              .attr("x", globalVars.svgWidth * 0.09)
+                              .attr("x", conf.svgWidth * 0.09)
                               .attr("style", "text-anchor:end;dominant-baseline:middle;")
-                              .attr("font-size", 30)
+                              .attr("font-size", this.labelSize)
                               .text(this.wordName)
 
                               .attr("y", ScrollBarChart.getValueByRate(
@@ -540,10 +556,10 @@ export default class ScrollBarChart extends SceneBase {
                               .attr("id","value-"+ this.yearName + "-" + this.rank)
                               .attr("style", "text-anchor:start;dominant-baseline:middle;")
                               .attr("dx", "10px")
-                              .attr("font-size", 30)
+                              .attr("font-size", this.numSize)
                               .text(this.wordCnt)
 
-                              .attr("x", globalVars.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
+                              .attr("x", conf.svgWidth * 0.1 + ScrollBarChart.getWidthByCnt(
                                 ScrollBarChart.getValueByRate(
                                     this.lastYearLength, 
                                     this.thisYearLength, 
@@ -555,7 +571,7 @@ export default class ScrollBarChart extends SceneBase {
                                     this.thisYearMax, 
                                     1
                                 ), 
-                                globalVars.svgWidth
+                                conf.svgWidth
                             ))
                             .attr("y", ScrollBarChart.getValueByRate(
                                 this.lastYearPosition + this.lastYearHeight * 0.5, 
@@ -570,10 +586,10 @@ export default class ScrollBarChart extends SceneBase {
                               .append("text")
                               .attr("id", "time-year-" + this.yearName)
                               .attr("class", "scroll-bar-time-showing")
-                              .attr("x", globalVars.svgWidth * 0.85)
-                              .attr("y", globalVars.svgHeight * 0.95)
+                              .attr("x", conf.svgWidth * 0.85)
+                              .attr("y", conf.svgHeight * 0.95)
                               .attr("style", "text-anchor:middle;dominant-baseline:middle;")
-                              .attr("font-size", 40)
+                              .attr("font-size", this.timeSize)
                               .attr("opacity", 0)
                         }, 
 

@@ -40,14 +40,14 @@ body {
 }
 
 #mypath {
-    stroke-dasharray: 2200;
+    position:absolute;
+    stroke-dasharray: 130%;
     stroke-dashoffset: 0;
-    animation: dash 10s;
-    /*-webkit-animation: dash 10s;*/
-
+    animation: dash 15s ;
+/* 15s后开始动画 10s完成线性动画  */
 }
 @keyframes dash{
-    from{stroke-dashoffset: 100%;}
+    from{stroke-dashoffset: 130%;}
     to{stroke-dashoffset: 0;}
 }
 
@@ -111,6 +111,45 @@ body {
     font-size: 20px;
 }
 
+#cite-section p {
+    text-indent: 0;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#cite-section h2 {
+    text-align: center;
+    text-indent: 0;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* #cite-section ol li:before {
+    content: "[" counter(sectioncounter) "]"; 
+    counter-increment: sectioncounter;
+ } */
+
+#author-section {
+    /* border-style: bold;
+    border-radius: 2px;
+    border-color: brown; */
+    border: 1px, solid, red
+
+    /* background: brown; */
+}
+
+#author-section p {
+    text-align: center;
+    font-size: 15px;
+}
+
+#author-section h2 {
+    text-align: center;
+    text-indent: 0;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .canvas-container {
     width: 100%;
     position: relative;
@@ -126,8 +165,12 @@ body {
 .canvas {
     position: sticky;
     /* display: block; */
-    top: 5vh;
+    top: 0;
     z-index: 99;
     /* left: 50%;
     transform: translate(-50%, 0); */
+}
+
+.canvas p {
+    font-size: 1.5vh;
 }

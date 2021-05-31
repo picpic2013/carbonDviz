@@ -23,20 +23,26 @@ var svg = d3.select("#world-map-svg")
             .attr("height", pageHeight * heightScale);
 
 d3.select("#policy-freq-svg")
-  .attr("width", pageWidth * widthScale)
-  .attr("height", pageHeight * heightScale);
+  .attr("width", 800)
+  .attr("height", 600);
 
 d3.select("#world-line-svg")
-  .attr("width", pageWidth * widthScale)
-  .attr("height", pageHeight * heightScale);
+//   .attr("width", pageWidth * widthScale)
+//   .attr("height", pageHeight * heightScale)
+  .attr("width", 750)
+  .attr("height", 600);
 
 d3.select("#world-back-svg")
   .attr("width", pageWidth * widthScale)
   .attr("height", pageHeight * heightScale);
 
 d3.select("#tx-bar-svg")
-  .attr("width", pageWidth * widthScale)
-  .attr("height", pageHeight * heightScale);
+  .attr("width", 800)
+  .attr("height", 600);
+
+d3.select("#carbon-density-svg")
+  .attr("width", 800)
+  .attr("height", 600);
   
 
 import SceneBase from "./utils/SceneBase.js"
@@ -48,45 +54,28 @@ SceneBase.use(SimpleCurvePlugin)
 
 SceneBase.setGloalVars(gloalVars)
 
-import TitleScene from "./scenes/titleScene.js"
 import ScrollBarChart from "./utils/components/scroll-bar.js"
 import LineChart from "./scenes/line-chart.js"
-
-import WorldMapLeft from "./scenes/2-world-map.js"
-import LineChart2 from "./scenes/4-area-chart.js"
 import WorldMapBackground from "./scenes/2-world-map-background.js"
-
-import LinearOpacity from "./utils/components/LinearOpacity.js"
-
 import TransactionScrollBarChart from "./scenes/4-transaction-scroll-bar.js"
+import LowCarbonDensity from "./scenes/5-low-carbon-density.js"
 
 SceneBase.scroll.init([
-    // new TitleScene().start(0).end(3 * gloalVars.svgHeight).setRateMode('absolute'), 
-
-    // 左侧的世界地图
-    // 右侧的折线图
-    // new SceneBase()
-    // .start("world-map-start-observer")
-    // .end("world-map-end-observer")
-    // .setRateMode('absolute')
-    // .subObject(new WorldMapLeft({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale, 
-    // }))
-    // .subObject(new LineChart({
-    //     svgHeight: pageHeight * heightScale
-    // })), 
-
-    new LineChart({svgHeight: pageHeight * heightScale})
+    new LineChart({
+        svgHeight: 600, 
+        svgWidth: 800, 
+    })
     .start("world-line-start-observer")
     .end("world-line-end-observer")
     .setRateMode('absolute'), 
 
     // 政策词频统计图
     new ScrollBarChart({
-        svgHeight: pageHeight * heightScale, 
+        svgHeight: 600, 
+        svgWidth: 800, 
         __dataUrl__: "/data/3-policy-word-freq-real.json", 
         __onload__: function (data) {
+            // console.log(data)
             var tmpList = data.data
             var tmpRes = []
             for (var i of tmpList) {
@@ -95,6 +84,7 @@ SceneBase.scroll.init([
                     details: i.words
                 })
             }
+
             tmpRes = tmpRes.sort(function (a, b) {
                 if (a.time < b.time) {
                     return -1
@@ -104,6 +94,7 @@ SceneBase.scroll.init([
                 }
                 return 0
             })
+            // console.log(tmpRes)
             return {data: tmpRes}
         }, 
         __canvasId__: "policy-freq-svg"
@@ -111,23 +102,6 @@ SceneBase.scroll.init([
     .start("policy-freq-start-observer")
     .end("policy-freq-end-observer")
     .setRateMode('absolute'), 
-
-    // 碳排放交易河流图
-    // new LineChart2({
-    //     svgHeight: pageHeight * heightScale, 
-    //     svgWidth: pageWidth * widthScale
-    // })
-    // .start("policy-river-start-observer")
-    // .end("policy-river-end-observer")
-    // .setRateMode('absolute')
-    // .subObject(
-    //     new LinearOpacity({
-    //         mountOn: '#area-chart-g', 
-    //         startOpacity: 0, 
-    //         endOpacity: 1
-    //         })
-    //         .end(0.1),
-    // ), 
 
     new WorldMapBackground({
         pageWidth, pageHeight, widthScale, heightScale, 
@@ -137,11 +111,15 @@ SceneBase.scroll.init([
     .start("world-back-start-observer")
     .end("world-back-end-observer")
     .setRateMode('absolute'), 
-    
+
+    new LowCarbonDensity({
+        svgHeight: 600, 
+        svgWidth: 800, 
+    }), 
 
     new TransactionScrollBarChart({
-        svgHeight: pageHeight * heightScale, 
-        svgWidth: pageWidth * widthScale
+        svgHeight: 600, 
+        svgWidth: 800
     })
     .start("tx-bar-start-observer")
     .end("tx-bar-end-observer")

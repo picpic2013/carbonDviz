@@ -67,7 +67,7 @@ export default class LineChart extends SceneBase {
                     //添加坐标轴
                     var xScale = d3.scaleLinear()
                                     .domain([ minYear, maxYear ])
-                                    .range([ 0, globalVars.svgWidth - padding.left - padding.right ])
+                                    .range([ 0, conf.svgWidth - padding.left - padding.right ])
                     var xAxis = d3.axisBottom(xScale)
                                     .tickFormat(d3.format("d"))
                     d3.select("#line-chart-g")
@@ -143,12 +143,34 @@ export default class LineChart extends SceneBase {
                         .attr("transform", function(d){
                             return "translate("+ (xScale(d.year) + padding.left) + "," + (yScale(d.value) + padding.top) +")"
                         })
-                        .attr("r", 10)
+                        .attr("r", 5)
+
+                    d3.select("#line-chart-g")
+                        .append("circle")
+                        .attr("class","critical")
+                        .attr("id", "critical_des_c")
+                        .style("stroke", "gray")
+                        .style("fill", "black")
+                        .attr("transform","translate("+ (conf.svgWidth*0.5 - padding.right) + "," + padding.top +")")
+                        .attr("r", 3)
+
+                    d3.select("#line-chart-g")
+                        .append("text")
+                        .attr("class","critical")
+                        .attr("id", "critical_des")
+                        .attr("x",conf.svgWidth*0.5 - padding.right)
+                        .attr("y",padding.top*1.05)
+                        .attr("style", "text-anchor:left;dominant-baseline:middle;")
+                        .style("fill", "black")
+                        .attr("dx","12px")
+                        .attr("font-size","14px")
+                        .text("鼠标悬停可显示关键事件信息")
 
                     //实现鼠标交互
                     d3.select("#line-chart-g")
                         .append("g")
                         .attr("class","mouse_interaction")
+                    
                     var focusCircle = d3.select(".mouse_interaction")
                                         .append("g")
                                         .attr("class", "focusCircle")
@@ -184,7 +206,7 @@ export default class LineChart extends SceneBase {
                         .attr("class","overlay")
                         .attr("x", padding.left)
                         .attr("y", padding.top)
-                        .attr("width", globalVars.svgWidth - padding.left - padding.right)
+                        .attr("width", conf.svgWidth - padding.left - padding.right)
                         .attr("height", conf.svgHeight - padding.top - padding.bottom)
                         .attr("fill", "none")
                         .attr("pointer-events","all")
@@ -197,7 +219,7 @@ export default class LineChart extends SceneBase {
 
                     var xScale = d3.scaleLinear()
                                     .domain([ minYear, maxYear ])
-                                    .range([ 0, globalVars.svgWidth - padding.left - padding.right ])
+                                    .range([ 0, conf.svgWidth - padding.left - padding.right ])
                     var yScale = d3.scaleLinear()
                                     .domain([ minValue * 0.9 , maxValue * 1.1 ])
                                     .range([ conf.svgHeight - padding.top - padding.bottom, 0 ])
@@ -375,6 +397,8 @@ export default class LineChart extends SceneBase {
                     d3.select(".critical").remove()
                     d3.select(".mouse_interaction").remove()
                     d3.select("#Y_axis_unit").remove()
+                    d3.select("#critical_des_c").remove()
+                    d3.select("#critical_des").remove()
 
                 }, 
 
