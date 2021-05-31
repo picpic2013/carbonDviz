@@ -1,0 +1,589 @@
+{
+    "data": [
+        {
+            "year": "2010",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "11897.67"
+                },
+                {
+                    "country": "韩国",
+                    "value": "11866.78"
+                },
+                {
+                    "country": "日本",
+                    "value": "10946.22"
+                },
+                {
+                    "country": "德国",
+                    "value": "6472.79"
+                },
+                {
+                    "country": "中国",
+                    "value": "2077.58"
+                },
+                {
+                    "country": "法国",
+                    "value": "1988.23"
+                },
+                {
+                    "country": "英国",
+                    "value": "1332.43"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "954.74"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "598.23"
+                },
+                {
+                    "country": "意大利",
+                    "value": "681.20"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "447.06"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "376.63"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "405.73"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "301.02"
+                },
+                {
+                    "country": "以色列",
+                    "value": "267.95"
+                }
+            ]
+        },
+        {
+            "year": "2011",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "12734.27"
+                },
+                {
+                    "country": "韩国",
+                    "value": "12711.83"
+                },
+                {
+                    "country": "日本",
+                    "value": "12403.52"
+                },
+                {
+                    "country": "德国",
+                    "value": "6795.64"
+                },
+                {
+                    "country": "中国",
+                    "value": "2327.10"
+                },
+                {
+                    "country": "法国",
+                    "value": "2129.87"
+                },
+                {
+                    "country": "英国",
+                    "value": "1431.57"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "949.37"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "610.37"
+                },
+                {
+                    "country": "意大利",
+                    "value": "620.65"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "485.77"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "393.35"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "399.52"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "340.02"
+                },
+                {
+                    "country": "以色列",
+                    "value": "335.86"
+                }
+            ]
+        },
+        {
+            "year": "2012",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "13696.16"
+                },
+                {
+                    "country": "韩国",
+                    "value": "13957.47"
+                },
+                {
+                    "country": "日本",
+                    "value": "11277.81"
+                },
+                {
+                    "country": "德国",
+                    "value": "6609.48"
+                },
+                {
+                    "country": "中国",
+                    "value": "2554.45"
+                },
+                {
+                    "country": "法国",
+                    "value": "2216.78"
+                },
+                {
+                    "country": "英国",
+                    "value": "1328.20"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "889.30"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "657.20"
+                },
+                {
+                    "country": "意大利",
+                    "value": "679.87"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "430.00"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "439.44"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "430.05"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "372.05"
+                },
+                {
+                    "country": "以色列",
+                    "value": "340.22"
+                }
+            ]
+        },
+        {
+            "year": "2013",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "14337.42"
+                },
+                {
+                    "country": "韩国",
+                    "value": "12368.05"
+                },
+                {
+                    "country": "日本",
+                    "value": "10061.30"
+                },
+                {
+                    "country": "德国",
+                    "value": "6118.61"
+                },
+                {
+                    "country": "中国",
+                    "value": "2698.12"
+                },
+                {
+                    "country": "法国",
+                    "value": "2067.41"
+                },
+                {
+                    "country": "英国",
+                    "value": "1314.17"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "871.51"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "736.47"
+                },
+                {
+                    "country": "意大利",
+                    "value": "575.69"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "464.25"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "347.83"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "342.73"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "309.25"
+                },
+                {
+                    "country": "以色列",
+                    "value": "272.56"
+                }
+            ]
+        },
+        {
+            "year": "2014",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "12986.77"
+                },
+                {
+                    "country": "韩国",
+                    "value": "14133.05"
+                },
+                {
+                    "country": "日本",
+                    "value": "9508.87"
+                },
+                {
+                    "country": "德国",
+                    "value": "5963.91"
+                },
+                {
+                    "country": "中国",
+                    "value": "2900.58"
+                },
+                {
+                    "country": "法国",
+                    "value": "1973.70"
+                },
+                {
+                    "country": "英国",
+                    "value": "1300.75"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "806.68"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "665.75"
+                },
+                {
+                    "country": "意大利",
+                    "value": "543.20"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "427.42"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "364.64"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "338.03"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "326.17"
+                },
+                {
+                    "country": "以色列",
+                    "value": "278.50"
+                }
+            ]
+        },
+        {
+            "year": "2015",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "13120.21"
+                },
+                {
+                    "country": "韩国",
+                    "value": "12209.52"
+                },
+                {
+                    "country": "日本",
+                    "value": "9465.20"
+                },
+                {
+                    "country": "德国",
+                    "value": "5770.15"
+                },
+                {
+                    "country": "中国",
+                    "value": "3165.75"
+                },
+                {
+                    "country": "法国",
+                    "value": "1927.94"
+                },
+                {
+                    "country": "英国",
+                    "value": "1306.31"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "801.23"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "610.33"
+                },
+                {
+                    "country": "意大利",
+                    "value": "543.13"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "428.12"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "352.17"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "309.08"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "256.50"
+                },
+                {
+                    "country": "以色列",
+                    "value": "255.92"
+                }
+            ]
+        },
+        {
+            "year": "2016",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "13127.24"
+                },
+                {
+                    "country": "韩国",
+                    "value": "13093.54"
+                },
+                {
+                    "country": "日本",
+                    "value": "9326.07"
+                },
+                {
+                    "country": "德国",
+                    "value": "6083.11"
+                },
+                {
+                    "country": "中国",
+                    "value": "4529.92"
+                },
+                {
+                    "country": "法国",
+                    "value": "1755.83"
+                },
+                {
+                    "country": "英国",
+                    "value": "1154.30"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "775.49"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "615.42"
+                },
+                {
+                    "country": "意大利",
+                    "value": "596.81"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "426.47"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "341.67"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "323.90"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "295.05"
+                },
+                {
+                    "country": "以色列",
+                    "value": "312.52"
+                }
+            ]
+        },
+        {
+            "year": "2017",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "12790.85"
+                },
+                {
+                    "country": "韩国",
+                    "value": "9932.64"
+                },
+                {
+                    "country": "日本",
+                    "value": "8967.62"
+                },
+                {
+                    "country": "德国",
+                    "value": "6527.44"
+                },
+                {
+                    "country": "中国",
+                    "value": "5048.43"
+                },
+                {
+                    "country": "法国",
+                    "value": "1907.03"
+                },
+                {
+                    "country": "英国",
+                    "value": "1073.51"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "820.03"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "537.42"
+                },
+                {
+                    "country": "意大利",
+                    "value": "556.60"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "435.13"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "374.78"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "327.79"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "242.95"
+                },
+                {
+                    "country": "以色列",
+                    "value": "312.01"
+                }
+            ]
+        },
+        {
+            "year": "2018",
+            "data": [
+                {
+                    "country": "美国",
+                    "value": "11140.73"
+                },
+                {
+                    "country": "韩国",
+                    "value": "6598.49"
+                },
+                {
+                    "country": "日本",
+                    "value": "7286.38"
+                },
+                {
+                    "country": "德国",
+                    "value": "6434.59"
+                },
+                {
+                    "country": "中国",
+                    "value": "4974.75"
+                },
+                {
+                    "country": "法国",
+                    "value": "1897.65"
+                },
+                {
+                    "country": "英国",
+                    "value": "1116.27"
+                },
+                {
+                    "country": "加拿大",
+                    "value": "747.60"
+                },
+                {
+                    "country": "瑞典",
+                    "value": "454.93"
+                },
+                {
+                    "country": "意大利",
+                    "value": "503.00"
+                },
+                {
+                    "country": "荷兰",
+                    "value": "449.40"
+                },
+                {
+                    "country": "奥地利",
+                    "value": "385.17"
+                },
+                {
+                    "country": "瑞士",
+                    "value": "336.76"
+                },
+                {
+                    "country": "芬兰",
+                    "value": "217.98"
+                },
+                {
+                    "country": "以色列",
+                    "value": "236.25"
+                }
+            ]
+        }
+    ]
+}

@@ -44,6 +44,10 @@ d3.select("#carbon-density-svg")
   .attr("width", 800)
   .attr("height", 600);
   
+d3.select("#carbon-ratio-svg")
+  .attr("width", 800)
+  .attr("height", 600);
+  
 
 import SceneBase from "./utils/SceneBase.js"
 import ScrollSceneBasePlugin from "./utils/plugins/ScrollSceneBasePlugin.js"
@@ -59,6 +63,7 @@ import LineChart from "./scenes/line-chart.js"
 import WorldMapBackground from "./scenes/2-world-map-background.js"
 import TransactionScrollBarChart from "./scenes/4-transaction-scroll-bar.js"
 import LowCarbonDensity from "./scenes/5-low-carbon-density.js"
+import CarbonRatio from "./scenes/6-carbon-ratio.js"
 
 SceneBase.scroll.init([
     new LineChart({
@@ -123,6 +128,14 @@ SceneBase.scroll.init([
     })
     .start("tx-bar-start-observer")
     .end("tx-bar-end-observer")
+    .setRateMode('absolute'), 
+
+    new CarbonRatio({
+        svgHeight: 600, 
+        svgWidth: 800
+    })
+    .start("carbon-ratio-start-observer")
+    .end("carbon-ratio-end-observer")
     .setRateMode('absolute'), 
 ])
 console.log(SceneBase.scroll.__rootScene__)

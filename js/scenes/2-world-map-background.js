@@ -153,7 +153,7 @@ export default class WorldMapBackground extends SceneBase {
                                           .attr("width", 100)
                                           .attr("height", 60)
                                           .attr("opacity", 1)
-                                          .style("z-index", "105")
+                                          .style("z-index", "9999")
                                           .attr("fill", "white")
                                           .attr("stroke", "black")
                                           .attr("rx", 5)
@@ -220,16 +220,30 @@ export default class WorldMapBackground extends SceneBase {
                                     // lastValue = Math.log10(lastValue)
                                     // thisValue = Math.log10(thisValue)
             
-                                    let tmpEle = d3.select("#country-cir-" + this.index)
-                                    .attr("fill", WorldMapBackground.getColor(
-                                        SceneBase.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
-                                        this.minEmit, 
-                                        this.maxEmit
-                                    ))
+                                    // d3.select("#country-cir-" + this.index)
+                                    // .attr("fill", WorldMapBackground.getColor(
+                                    //     SceneBase.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
+                                    //     this.minEmit, 
+                                    //     this.maxEmit
+                                    // ))
+                                    // .attr("opacity", 1)
+
+                                    // let tmpInfoText = d3.selectAll("info-text-value-" + self.index)
+                                    let tmpInfoText = document.getElementsByClassName("info-text-value-" + this.index)
+                                    if (tmpInfoText.length !== 0) {
+                                        d3.selectAll(".info-text-value-" + this.index)
+                                        .text(WorldMapBackground.getLargeNumStr(thisValue) + '吨')
+                                    } else {
+                                        d3.select("#country-cir-" + this.index)
+                                        .attr("fill", WorldMapBackground.getColor(
+                                            SceneBase.linearMap(rate, nowIndex / this.carbonData.length, (nowIndex + 1) / this.carbonData.length, lastValue, thisValue), 
+                                            this.minEmit, 
+                                            this.maxEmit
+                                        ))
+                                        .attr("opacity", 1)
+                                    }
 
                                     this.nowValue = WorldMapBackground.getLargeNumStr(thisValue)
-                                    
-                                    tmpEle.attr("opacity", 1)
                                 },
                                 
                                 countryName: countryName, 
@@ -299,10 +313,10 @@ export default class WorldMapBackground extends SceneBase {
                             .attr("class", "map-example-showing")
                             .attr("x", conf.svgWidth * 0.03)
                             .attr("y", function (d, i) {
-                                return (mapExampleNum - i + 1 * mapExampleNum) * conf.svgHeight / 2 / mapExampleNum
+                                return (mapExampleNum - i + 1 * mapExampleNum) * conf.svgHeight / 3 / mapExampleNum
                             })
                             .attr("width", 20)
-                            .attr("height", conf.svgHeight / 2 / mapExampleNum)
+                            .attr("height", conf.svgHeight / 3 / mapExampleNum)
                             .attr("fill", function (d, i) {
                                 return d.color
                             })
@@ -325,7 +339,7 @@ export default class WorldMapBackground extends SceneBase {
                             .attr("class", "map-example-txt-showing")
                             .attr("x", conf.svgWidth * 0.03 + 25)
                             .attr("y", function (d, i) {
-                                return (mapExampleNum - (i - 0.5) + 1 * mapExampleNum) * conf.svgHeight / 2 / mapExampleNum
+                                return (mapExampleNum - (i - 0.5) + 1 * mapExampleNum) * conf.svgHeight / 3 / mapExampleNum
                             })
                             .attr("fill", "black")
                             .attr("opacity", 1)

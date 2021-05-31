@@ -106,21 +106,21 @@ body {
     width: var(--content-width);
 }
 
-.content-section p {
+.content-section>p {
     text-indent: 2em;
-    font-size: 20px;
+    font-size: large;
 }
 
 #cite-section p {
     text-indent: 0;
-    font-size: 12px;
+    font-size: small;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 #cite-section h2 {
     text-align: center;
     text-indent: 0;
-    font-size: 20px;
+    font-size: large;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -133,21 +133,27 @@ body {
     /* border-style: bold;
     border-radius: 2px;
     border-color: brown; */
-    border: 1px, solid, red
+    /* width: 100%;
+    border: 1px, solid, rgb(233, 151, 151) */
 
     /* background: brown; */
 }
 
 #author-section p {
     text-align: center;
-    font-size: 15px;
+    font-size: large;
 }
 
 #author-section h2 {
+    margin-top: 150px;
     text-align: center;
     text-indent: 0;
-    font-size: 20px;
+    font-size: large;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+#cite-section h2 {
+    margin-top: 150px;
 }
 
 .canvas-container {
@@ -171,6 +177,13 @@ body {
     transform: translate(-50%, 0); */
 }
 
-.canvas p {
-    font-size: 1.5vh;
+.canvas>p {
+    font-size: 2vh;
+    font-weight: bolder;
+}
+
+.canvas>span {
+    display: block;
+    /* font-size: 2vh; */
+    font-weight: bolder;
 }

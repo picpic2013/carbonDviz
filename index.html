@@ -29,8 +29,8 @@
         <div class="canvas-container">
             <div id="world-back-start-observer"></div>
             <div class="canvas">
+                <p>世界碳排放量地图</p>
                 <svg id="world-back-svg"></svg>
-                <p>图1 世界碳排放量地图</p>
 
 
                 <div class="outer-box">
@@ -54,8 +54,9 @@
         <div class="canvas-container">
             <div id="world-line-start-observer"></div>
             <div class="canvas">
+                <p>全球碳排放量折线图</p>
                 <svg id="world-line-svg"></svg>
-                <p>图2 全球碳排放量折线图</p>
+                <span>鼠标悬停可显示关键事件信息</span>
             </div>
             <!-- <div style="height: 2vh;position: relative;"></div> -->
             <div id="world-line-end-observer"></div>
@@ -84,20 +85,18 @@
         <div class="canvas-container">
             <div id="policy-freq-start-observer"></div>
             <div class="canvas">
+                <p>中国政策词频统计条形图</p>
                 <svg id="policy-freq-svg"></svg>
-                <p>图3 中国政策词频统计条形图</p>
+                
+                
+                
                 <div class="outer-box">
                     <div class="content-section" id="low-carbon-patent">
                         <p>在2013-2015年间，国内政策的十大高频词出现的绝对次数明显高于其他年份的高频词数。其中在2015年颁布的政策文件中，“排放”出现次数多达1252次，“企业”则被提及855次，“温室气体”排列高频词第三位，提及次数共计655次。</p>
                         <p>不论是十余年间的纵向归纳、还是单年内的横向分析，可以看到关于碳减排的国家政策具备明确的指导意见和主体指向性。在碳减排的行动中，企业作为行为和利益主体承担了重要角色；而从生产资源和经济活动角度出发，节能和减排是实现碳达峰目标的根本举措。</p>
                         <p>要实现节能和减排，关键之一在于低碳技术的构建。低碳技术是指涉及电力、交通、建筑、冶金、化工、石化等部门以及在可再生能源及新能源、煤的干净高效应用、油气资源和煤层气的勘察开发、二氧化碳捕获与埋存等范畴开发的有效掌握温室气体排放的新技术。世界各国的低碳发展离不开对低碳技术的研发与掌控。</p>
                     </div>
-                
-                
-                
-                    <!-- 2010—2018年各国累计低碳技术专利量、专利占比 -->
-                    
-                
+
                 
                 
                 </div>
@@ -109,24 +108,41 @@
         
 
         <!-- 2010—2018年各国累计低碳技术专利量、专利占比 -->
-        
-        
-        <div class="outer-box">
-            <div class="content-section" id="low-carbon-density">
-                <p>基于经合组织（OECD）专利数据库，从“累计低碳技术专利量、占比、低碳技术创新密度”三方面对技术专利申请量前15名（2010-2017年累计技术专利申请量）国家的低碳技术创新水平进行国际比较。根据 2010—2018年各国累计低碳技术专利量（申请量）统计，美国、韩国、日本、德国、中国 5 国的累计低碳技术专利量排在前五名，9年累计低碳技术专利量分别达到世界累计低碳技术专利量的 22.2%、20.5%、17.1%、10.9% 和5.8%，5国累计低碳技术专利量占世界累计低碳技术专利量的 76.5%，中国累计低碳技术专利量排世界第五位。</p>
-            </div>
-        </div>
-
-        <!-- 2010-2018年各国低碳技术创新密度 -->
         <div class="canvas-container">
-            <div id="carbon-density-start-observer"></div>
+            <div id="carbon-ratio-start-observer"></div>
             <div class="canvas">
-                <svg id="carbon-density-svg"></svg>
-                <p>图5 2010-2018年各国低碳技术创新密度</p>
+                <p>2010—2018年各国累计低碳技术专利量、专利占比图</p>
+                <svg id="carbon-ratio-svg"></svg>
+                
+                
+                
+                <div class="outer-box">
+                    <div class="content-section" id="low-carbon-density">
+                        <p>基于经合组织（OECD）专利数据库，从“累计低碳技术专利量、占比、低碳技术创新密度”三方面对技术专利申请量前15名（2010-2017年累计技术专利申请量）国家的低碳技术创新水平进行国际比较。根据 2010—2018年各国累计低碳技术专利量（申请量）统计，美国、韩国、日本、德国、中国 5 国的累计低碳技术专利量排在前五名，9年累计低碳技术专利量分别达到世界累计低碳技术专利量的 22.2%、20.5%、17.1%、10.9% 和5.8%，5国累计低碳技术专利量占世界累计低碳技术专利量的 76.5%，中国累计低碳技术专利量排世界第五位。</p>
+                    </div>
+                </div>
+
+                <!-- 2010-2018年各国低碳技术创新密度 -->
+                <div class="canvas-container">
+                    <div id="carbon-density-start-observer"></div>
+                    <div class="canvas">
+                        <p>2010-2018年各国低碳技术创新密度</p>
+                        <svg id="carbon-density-svg"></svg>
+                    </div>
+                    <!-- <div style="height: 2vh;position: relative;"></div> -->
+                    <div id="carbon-density-end-observer"></div>
+                </div>
+
+                
+                
             </div>
-            <!-- <div style="height: 2vh;position: relative;"></div> -->
-            <div id="carbon-density-end-observer"></div>
+            <div style="height: 1000vh;position: relative;"></div>
+            <div id="carbon-ratio-end-observer"></div>
         </div>
+        
+        
+
+        
 
         <div class="outer-box">
             <div class="content-section" id="carbon-transaction-section">
@@ -142,9 +158,8 @@
         <div class="canvas-container">
             <div id="tx-bar-start-observer"></div>
             <div class="canvas">
+                <p>中国碳排放交易所交易总额条形图</p>
                 <svg id="tx-bar-svg"></svg>
-                <p>图6 中国碳排放交易所交易总额条形图</p>
-
 
 
                 <div class="outer-box">
