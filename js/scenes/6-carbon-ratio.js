@@ -15,7 +15,7 @@ export default class ScrollBarChart extends SceneBase {
 
         conf = Object.assign({
             "__onload__": function (data) {
-                // console.log(data)
+                console.log(data)
                 return data
             }, 
             "__dataUrl__": "/data/6-lowcarbon_number.json", 
@@ -86,6 +86,26 @@ export default class ScrollBarChart extends SceneBase {
                                 .attr("fill", "#B375F0")
                                 .attr("fill-opacity",0.8)
 
+                            var xScale = d3.scaleLinear()
+                                            .domain([ 0 , this.maxCnt ])
+                                            .range([ 0 , 30 ])
+                            var circle_r = xScale(this.lc_value)
+                            var last_circle_r = 0
+                            if( this.yearName > 2010){
+                                last_circle_r = xScale(this.all_data[Number(this.yearName)-1-2010].data[this.lowcarbon.index].per)
+                            }
+                            var next_circle_r = 0
+                            if( this.yearName < 2018){
+                                next_circle_r = xScale(this.all_data[Number(this.yearName)+1-2010].data[this.lowcarbon.index].per)
+                            }
+                            if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                d3.select("#circle-" + this.yearName + "-" + this.countryName)
+                                    .attr("r",last_circle_r)
+                            }else{
+                                d3.select("#circle-" + this.yearName + "-" + this.countryName)
+                                .attr("r",next_circle_r)
+                            }
+
                             //国家名字
                             d3.select("#carbon-ratio-g")
                                 .append("text")
@@ -129,16 +149,30 @@ export default class ScrollBarChart extends SceneBase {
                                 next_circle_r = xScale(this.all_data[Number(this.yearName)+1-2010].data[this.lowcarbon.index].per)
                             }
 
-                            if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
-                                d3.select("#circle-" + this.yearName + "-" + this.countryName)
-                                    .attr("r",ScrollBarChart.getValueByRate(last_circle_r, circle_r ,rate))
+                            if(rate==1 || rate==0){
+                                if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                    d3.select("#circle-" + this.yearName + "-" + this.countryName)
+                                        .attr("r",ScrollBarChart.getValueByRate(last_circle_r, circle_r ,rate))
+                                }else{
+                                    d3.select("#circle-" + this.yearName + "-" + this.countryName)
+                                        .attr("r",ScrollBarChart.getValueByRate(next_circle_r, circle_r ,1-rate))
+                                }
                             }else{
+                                var now_circle_r = ScrollBarChart.getValueByRate(last_circle_r, circle_r ,rate)
                                 d3.select("#circle-" + this.yearName + "-" + this.countryName)
-                                    .attr("r",ScrollBarChart.getValueByRate(next_circle_r, circle_r ,1-rate))
+                                        .attr("width",ScrollBarChart.getValueByRate(now_circle_r, circle_r ,rate))
                             }
+                            
                             
                         },
                         onInactive: function (rate, absolute, globalVars) {
+                            var xScale = d3.scaleLinear()
+                                            .domain([ 0 , this.maxCnt ])
+                                            .range([ 0 , 30 ])
+                            var circle_r = xScale(this.lc_value)
+                            d3.select("#circle-" + this.yearName + "-" + this.countryName)
+                                .attr("r",circle_r)
+
                             d3.select("#circle-" + this.yearName + "-" + this.countryName).remove()
                             d3.select("#circletext-" + this.yearName + "-" + this.countryName).remove()
                             d3.select("#overlay").remove()
@@ -276,7 +310,7 @@ export default class ScrollBarChart extends SceneBase {
                         .attr("dx","-50px")
                         .attr("dy","70px")
                         .attr("style", "text-anchor:right;dominant-baseline:middle;")
-                        .attr("font-size", 30)
+                        .attr("font-size", 25)
                         .attr("opacity", 0)
                     },
                     onUpdate: function (rate, absolute, globalVars) {
@@ -331,6 +365,27 @@ export default class ScrollBarChart extends SceneBase {
                                 .attr("width", 0)
                                 .attr("height", (this.svgHeight - padding.top - padding.bottom) / 15 * 0.7)
                             
+                            var xScale = d3.scaleLinear()
+                                            .domain([ 0 , this.maxCnt ])
+                                            .range([ 0 , (this.svgWidth - padding.left - padding.right) * 0.7 ])
+                            var rect_width = xScale(this.lc_value)
+                            var last_rect_width = 0
+                            if( this.yearName > 2010){
+                                last_rect_width = xScale(this.all_data[Number(this.yearName)-1-2010].data[this.lowcarbon.index].value)
+                            }
+                            var next_rect_width = 0
+                            if( this.yearName < 2018){
+                                next_rect_width = xScale(this.all_data[Number(this.yearName)+1-2010].data[this.lowcarbon.index].value)
+                            }
+
+                            if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                d3.select("#rect-" + this.yearName + "-" + this.countryName)
+                                    .attr("width",last_rect_width)
+                            }else{
+                                d3.select("#rect-" + this.yearName + "-" + this.countryName)
+                                    .attr("width",next_rect_width)
+                            }
+
                             d3.select("#carbon-ratio-g")
                                 .append("text")
                                 .attr("class","rect-bars")
@@ -358,17 +413,29 @@ export default class ScrollBarChart extends SceneBase {
                             if( this.yearName < 2018){
                                 next_rect_width = xScale(this.all_data[Number(this.yearName)+1-2010].data[this.lowcarbon.index].value)
                             }
-
-                            if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
-                                d3.select("#rect-" + this.yearName + "-" + this.countryName)
-                                    .attr("width",ScrollBarChart.getValueByRate(last_rect_width, rect_width ,rate))
+                            if(rate==1 || rate==0){
+                                if (SceneBase.scroll.lastScrolled < SceneBase.scroll.nowScrolled) {
+                                    d3.select("#rect-" + this.yearName + "-" + this.countryName)
+                                        .attr("width",ScrollBarChart.getValueByRate(last_rect_width, rect_width ,rate))
+                                }else{
+                                    d3.select("#rect-" + this.yearName + "-" + this.countryName)
+                                        .attr("width",ScrollBarChart.getValueByRate(next_rect_width, rect_width ,1-rate))
+                                }
                             }else{
+                                var now_rect_width = ScrollBarChart.getValueByRate(last_rect_width, rect_width ,rate)
                                 d3.select("#rect-" + this.yearName + "-" + this.countryName)
-                                    .attr("width",ScrollBarChart.getValueByRate(next_rect_width, rect_width ,1-rate))
+                                        .attr("width",ScrollBarChart.getValueByRate(now_rect_width, rect_width ,rate))
                             }
-                            
+
                         },
                         onInactive: function (rate, absolute, globalVars) {
+                            var xScale = d3.scaleLinear()
+                                            .domain([ 0 , this.maxCnt ])
+                                            .range([ 0 , (this.svgWidth - padding.left - padding.right) * 0.7 ])
+                            var rect_width = xScale(this.lc_value)
+                            d3.select("#rect-" + this.yearName + "-" + this.countryName)
+                                    .attr("width",rect_width)
+            
                             d3.select("#rect-" + this.yearName + "-" + this.countryName).remove()
                             d3.select("#recttext-" + this.yearName + "-" + this.countryName).remove()
                         },

@@ -246,8 +246,8 @@ export default class LineChart extends SceneBase {
                         
                             title.html("<strong>"+d.year+"年</strong>")
                             desText.html("<strong>"+d.s+"</strong>")
-                            tooltip.style("left", xScale(d.year) + padding.left)
-                                    .style("top", yScale(d.value) + padding.top)
+                            tooltip.style("left", xScale(d.year) + padding.left + conf.svgWidth*0.5)
+                                    .style("top", yScale(d.value) + padding.top + conf.svgHeight*0.1)
                                     .style("opacity", 1)
                         })
                         .on("mouseout", function(){
@@ -268,8 +268,8 @@ export default class LineChart extends SceneBase {
                         
                             title.html("<strong>"+d.year+"年</strong>")
                             desText.html("<strong>"+d.s+"</strong>")
-                            tooltip.style("left", xScale(d.year) + padding.left)
-                                    .style("top", yScale(d.value) + padding.top)
+                            tooltip.style("left", xScale(d.year) + padding.left + conf.svgWidth*0.5)
+                                    .style("top", yScale(d.value) + padding.top + conf.svgHeight*0.1)
                                     .style("opacity", 1)
                         })
                         .on("mouseout", function(){
@@ -290,8 +290,8 @@ export default class LineChart extends SceneBase {
                         
                             title.html("<strong>"+d.year+"年</strong>")
                             desText.html("<strong>"+d.s+"</strong>")
-                            tooltip.style("left", xScale(d.year) + padding.left)
-                                    .style("top", yScale(d.value) + padding.top)
+                            tooltip.style("left", xScale(d.year) + padding.left+ conf.svgWidth*0.5)
+                                    .style("top", yScale(d.value) + padding.top + conf.svgHeight*0.1)
                                     .style("opacity", 1)
                         })
                         .on("mouseout", function(){
@@ -312,8 +312,8 @@ export default class LineChart extends SceneBase {
                         
                             title.html("<strong>"+d.year+"年</strong>")
                             desText.html("<strong>"+d.s+"</strong>")
-                            tooltip.style("left", xScale(d.year) + padding.left)
-                                    .style("top", yScale(d.value) + padding.top)
+                            tooltip.style("left", xScale(d.year) + padding.left + conf.svgWidth*0.5)
+                                    .style("top", yScale(d.value) + padding.top + conf.svgHeight*0.1)
                                     .style("opacity", 1)
                         })
                         .on("mouseout", function(){
